@@ -1,9 +1,9 @@
-<?
+<?php
 
-include 'admin/settings.php';
-// include 'head.php';
+
 
 ?>
+
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -39,7 +39,7 @@ include 'admin/settings.php';
 					<td width="100%" colspan="4">
 						<div>
 							<form action="/" method="GET" class="OEsearch-form">
-							  <input type="search" class="OEsearch-field" />
+							  <input type="search" class="OEsearch-field" size=30 >
 							  <button type="submit" class="OEsearch-button">
 								<img src="images/search.png">
 							  </button>
@@ -82,34 +82,29 @@ include 'admin/settings.php';
 	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->
 	<tr><td width="10px"></td>
 		<td>
-			<div class="OEcard">
-			<div class="OEcard-container">
-					<img src="publishers/trend.png" class="OEcard-container-image">
-					<h4><b>COVID Hospitalizations</b></h4>
-				</div>
-			</div>
-			<div class="OEcard">
-				<div class="OEcard-container">
-					<img src="publishers/census.png" class="OEcard-container-image">
-					<h4><b>2020 Census 1yr Estimates</b></h4>
-				</div>
-			</div>
-			<div class="OEcard">
-				<div class="OEcard-container">
-					<img src="publishers/federalreserve.png" class="OEcard-container-image">
-					<h4><b>Consumer Price Indexes</b></h4>
-				</div>
-			</div>
-			<div class="OEcard">
-				<div class="OEcard-container">
-					<img src="publishers/census.png" class="OEcard-container-image">
-					<h4><b>Postal Geography</b></h4>
-				</div>
-			</div>
+			<?php
+			$DB_Host        = "yogi";
+			$DB_Port        = "5432";
+			$DB_Name        = "openenvironments";
+			$DB_User        = "michael";
+			$DB_Pass        = "b3arclaw";
+			$connstr = "host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass;
+			$conn = pg_connect($connstr);
+			$cursor = pg_query("select * from core.publisher");
+			while ($row = pg_fetch_assoc($cursor) ){
+			echo "<div class=\"OEcard\">
+			          <div class=\"OEcard-container\">
+			              <img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-container-image\">
+			              <h4><b>".$row['publisher_description']."
+			          </div>
+			     </div>";
+			};
+			?>
 		</td><td></td>
 	</tr>
 	<tr height="10px"><td colspan="3"><td></tr>   <!--- bottom row spacing --->
 </td></tr></table>
+
 
 <!------- Footer Area ------------->
 <table width="100%" class="OEfooter"> 
