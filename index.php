@@ -1,5 +1,6 @@
 <?php
 
+$GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
 include "head.php";
 
 ?>

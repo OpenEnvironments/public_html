@@ -1,9 +1,9 @@
 <?php
 
 include "admin/settings.php";
+$page_id = $GLOBALS["page_id"];
 
-$page_ID = basename($_SERVER['PHP_SELF']);
-$query = "SELECT * FROM core.page WHERE page_id = '".$page_ID."';";
+$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."';";
 $conn = pg_connect("host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass);
 if (!$conn) {
   echo "Database connection error!";
@@ -44,14 +44,41 @@ if ( $num_rows > 1 ) {
 				<tr>
 					<td>
 						<!---  image is 746 x 232px tall -->
-						<img src="images/oesmall.png" style="height: 65px;"></img>
+						<a href="https://openenvironments.com/index.php">
+							<img src="images/oesmall.png" style="height: 65px;"></img>
+						</a>
 					</td>
 				</tr>
 			</table>
 		</td>
 		<td width="65%">
 			<table width="100%">
-				<tr><td></td></tr>
+				<tr align="top">
+				</tr>
+				<tr>
+					<td width="100%" style="font-size: large;  text-decoration: none;">
+						<div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+						<div class="OEquickfilter" style="border-top: 2px solid black;">
+							<a href="register.php" style="text-decoration: none;">Publishers</a>
+						</div>
+						<div class="OEquickfilter" style="border-top: 2px solid black;">
+							<a href="register.php" style="text-decoration: none;">Publications</a>
+						</div>
+						<div class="OEquickfilter" style="border-top: 2px solid black;">
+							<a href="register.php" style="text-decoration: none;">Subjects</a>
+						</div>
+						<div class="OEquickfilter" style="border-top: 2px solid black;">
+							<a href="register.php" style="text-decoration: none;">Models</a>
+						</div>
+						<div>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</div>
+					</td>
+				</tr>
 			</table>
 		</td>
 		<td width="15%"> 
@@ -94,10 +121,9 @@ if ( $num_rows > 1 ) {
 							<img align="center" src="images/menu.png" class="OEicon">
 							<div class="OEmenu-content">
 								<a href="about.php">About</a>
-								<a href="privacy.php">Privacy</a>
-								<a href="contributors.php">Contributors</a>
-								<a href="careers.php">Careers</a>
-								<a href="contact">Contact</a>
+								<a href="privacy-policy.php">Privacy Policy</a>
+								<a href="cookies-policy.php">Cookies Policy</a>
+								<a href="contact.php">Contact</a>
 							</div>
 							</button>
 						</div>
