@@ -4,7 +4,6 @@ $GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
 include "head.php";
 
 ?>
-
 <!--------- Content Area (a 3x3 table using outer cells for spacing) ----------->
 <table width="100%" class="OEcontent">
 	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->

@@ -30,11 +30,58 @@ if ( $num_rows > 1 ) {
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="oe.css" />
+		<link rel="stylesheet" href="css/oe.css" />
 		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
 		<title><?= $title ?></title>
+		<script src="js/cookies.js"></script>
 	</head>
 <body>
+
+<!------------   cookie policy consent needs to be established at page opening   -------->
+
+<div class="OEcookienotice-cover"> 
+<div id="OEcookienotice" class="OEcookienotice" style="display: none;">
+    <div id="closeIcon" style="display: none;">HELLOOOOOOO
+    </div>
+    <div class="OEcookienotice-title">
+        Cookie Consent
+    </div>
+    <div class="OEcookienotice-content">
+        <div class="OEcookienotice-msg">
+            <p>This website uses cookies or similar technologies, to enhance your browsing experience and provide personalized recommendations. By continuing to use our website, you agree to our  <a style="color:#115cfa;" href="/privacy-policy.php">Privacy Policy</a></p>
+            <button class="OEcookienotice-button" onclick="acceptCookieConsent();">Accept</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+let cookie_consent = getCookie("OE_cookie_consent");
+if(cookie_consent != ""){
+    document.getElementById("debug").innerHTML = cookie_consent;
+    document.getElementById("OEcookienotice").style.display = "none";
+}else{
+    document.getElementById("OEcookienotice").style.display = "block";
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--------- Header Area ----------->
 <table width="100%" class="OEheader"> 
