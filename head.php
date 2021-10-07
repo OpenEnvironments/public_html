@@ -52,32 +52,25 @@ if ( $num_rows > 1 ) {
 			</table>
 		</td>
 		<td width="65%">
-			<table width="100%">
+			<table style="width: 100%; border-spacing: 0px 0px;">
 				<tr align="top">
+					<td colspan="6" class="OEquickfilter">Quick Filter</td>
 				</tr>
 				<tr>
-					<td width="100%" style="font-size: large;  text-decoration: none;">
-						<div>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
-						<div class="OEquickfilter" style="border-top: 2px solid black;">
-							<a href="register.php" style="text-decoration: none;">Publishers</a>
-						</div>
-						<div class="OEquickfilter" style="border-top: 2px solid black;">
-							<a href="register.php" style="text-decoration: none;">Publications</a>
-						</div>
-						<div class="OEquickfilter" style="border-top: 2px solid black;">
-							<a href="register.php" style="text-decoration: none;">Subjects</a>
-						</div>
-						<div class="OEquickfilter" style="border-top: 2px solid black;">
-							<a href="register.php" style="text-decoration: none;">Models</a>
-						</div>
-						<div>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						</div>
+					<td style="width: 20%;">&nbsp;</td>
+					<td width="15%" class="OEquickfilter-item">
+						<a href="publishers.php">Publishers</a>
 					</td>
+					<td width="15%" class="OEquickfilter-item">
+						<a href="publications.php">Publications</a>
+					</td>
+					<td width="15%" class="OEquickfilter-item">
+						<a href="subjects.php">Subjects</a>
+					</td>
+					<td width="15%" class="OEquickfilter-item">
+						<a href="models.php">Models</a>
+					</td>
+					<td style="width: 20%;">&nbsp;</td>
 				</tr>
 			</table>
 		</td>
@@ -98,8 +91,8 @@ if ( $num_rows > 1 ) {
 				</tr>
 				<tr>
 					<td> 
-						<div  class="register">
-						<p><a href="register.php" style="text-decoration: none; color: white;">
+						<div  class="OEregister">
+						<p><a href="register.php">
 							&nbsp;<b>Register!</b>&nbsp;
 						</a></p></div>
 					</td>
@@ -110,7 +103,7 @@ if ( $num_rows > 1 ) {
 						<a href="profile.php"><img src="images/profile.png" class="OEicon"></a>
 					</td>
 					<td width="15%" align="center">
-						<a href="bell.php"><img src="images/bell.png" class="OEicon"></a>
+						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
 					</td>
 					<td width="15%" align="center">
 						<a href="cart.php"><img src="images/cart.png" class="OEicon"></a>
