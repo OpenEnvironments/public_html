@@ -1,5 +1,7 @@
 <?php
 
+set_include_path(get_include_path() . PATH_SEPARATOR . '/php/');
+
 include "admin/settings.php";
 $page_id = $GLOBALS["page_id"];
 
@@ -37,50 +39,38 @@ if ( $num_rows > 1 ) {
 	</head>
 <body>
 
-<!------------   cookie policy consent needs to be established at page opening   -------->
+<!------------   Cookies Policy consent needs to be established at page opening   -------->
+<p id="debug"></p>
 
-<div class="OEcookienotice-cover"> 
-<div id="OEcookienotice" class="OEcookienotice" style="display: none;">
-    <div id="closeIcon" style="display: none;">HELLOOOOOOO
-    </div>
-    <div class="OEcookienotice-title">
-        Cookie Consent
-    </div>
-    <div class="OEcookienotice-content">
-        <div class="OEcookienotice-msg">
-            <p>This website uses cookies or similar technologies, to enhance your browsing experience and provide personalized recommendations. By continuing to use our website, you agree to our  <a style="color:#115cfa;" href="/privacy-policy.php">Privacy Policy</a></p>
-            <button class="OEcookienotice-button" onclick="acceptCookieConsent();">Accept</button>
-        </div>
-    </div>
+<div id="cookieNotice" class="OEcookienotice"> 
+	<div class='OEcookienotice_close'>
+		<button type="button" class="OEcookienotice_close" 
+			onclick='document.getElementById("debug").innerHTML = "Cookies CLOSED";'>
+		&times;</button>
+	</div>
+	<div class="OEcookienotice_title">Cookie Consent<br></div>
+	<div class="OEcookienotice_msg">
+		This website uses cookies for site analytics and to personalize your experience. 
+		By continuing to use our website, you agree to our 
+			<a href="privacy-policy.php">Privacy Policy</a> and 
+			<a href="cookies-policy.php">Cookies Policy</a>.
+	</div>
+	<div class="OEcookienotice_accept">
+		<button type="button" class="OEcookienotice_accept" onclick='document.getElementById("debug").innerHTML = "Cookies ACCEPTED"'>Accept</button>
+	</div>
 </div>
-</div>
+
 
 <script>
-let cookie_consent = getCookie("OE_cookie_consent");
-if(cookie_consent != ""){
-    document.getElementById("debug").innerHTML = cookie_consent;
-    document.getElementById("OEcookienotice").style.display = "none";
-}else{
-    document.getElementById("OEcookienotice").style.display = "block";
+	let cookie_consent = getCookie("OEcookiepolicy1");
+	if(cookie_consent != ""){
+document.getElementById("debug").innerHTML = "cookie found!";
+		document.getElementById("cookieNotice").style.display = "none";
+	}else{
+document.getElementById("debug").innerHTML = "cookie not found!";
+	document.getElementById("cookieNotice").style.display = "block";
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!--------- Header Area ----------->
@@ -163,6 +153,7 @@ if(cookie_consent != ""){
 								<a href="about.php">About</a>
 								<a href="privacy-policy.php">Privacy Policy</a>
 								<a href="cookies-policy.php">Cookies Policy</a>
+								<a href="terms.php">Terms of Service</a>
 								<a href="contact.php">Contact</a>
 							</div>
 							</button>

@@ -15,7 +15,6 @@ include "head.php";
 			$cursor = pg_query("select * from core.publisher");
 			while ($row = pg_fetch_assoc($cursor) ){
 			echo "<div class=\"OEcard\">
-				<img src=\"images/at.png\" class=\"OEcard-icon\">
 				<div class=\"OEcard-container\">
 					<div class=\"OEcard-container-image\">
 						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-container-image\"></div>

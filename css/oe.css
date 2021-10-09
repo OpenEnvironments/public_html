@@ -7,7 +7,6 @@ body {
   font-size: 8pt;
   margin: 0px;
   height: 100%;
-
 }
 div {
   float: left;
@@ -75,69 +74,90 @@ div {
   text-decoration: none !important;
   color: white;
 }
-.OEregister a:visited {  text-decoration: none !important;  color: yellow; } 
-.OEregister a:hover   {  text-decoration: none !important;  color: white; } 
-.OEregister a:focus   {  text-decoration: none !important;  color: white; } 
-.OEregister a:focus   {  text-decoration: none !important;  color: white; } 
+
+.OEregister a,
+  a:link,
+  a:visited,
+  a:hover,
+  a:active{
+    text-decoration: none!important;
+}
 
 /**/
 /*  Cookies Policy Consent  */
 /**/
-.OEcookienotice-cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(125,125,125,0.5);
-}
+
 .OEcookienotice {
-  position: absolute;
-  top: 20%;
-  left: 20%;
-  margin-top: -50px;
-  margin-left: -50px;
-  width: 50%;
-  height: 160px;
-  background: rgba(198,217,241,1);
-  box-shadow: 4px 4px 4px #BFBFBF;
-  margin-right: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  padding: 8px 12px 8px 12px;
-  font-family: Helvetica, Arial, sans-serif;
+  positon: relative;
+  width: 99%;
+  text-decoration: none;
+  text-align: left;
+  color: black;
+  background: #BFBFBF;
   font-size: 14px;
-  color: white;
+  padding: 4px 4px 4px 4px;
+  display: inline;
 }
-.OEcookienotice-title{
-  width: 100%;
-  background-color: #2F598C;
-  text-align: center;
-  line-height: 200%;
-  font-size: 14px;
-  color: white;
+.OEcookienotice_title {
+  float: left;
   font-weight: bold;
+  height: 20px;
 }
-.OEcookienotice-content {
+.OEcookienotice_msg {
+  text-align: left;
+  width: 90%;
+  padding: 2px 0px 0px 8px;
+  text-decoration: none!important;
 }
-.OEcookienotice-msg {
-  font-size: 14px;
-  color: #2F598C;
-  font-weight: bold;
-}
-.OEcookienotice-btndiv {
-}
-OEcookienotice-button {
-  border-radius: 12px;
+.OEcookienotice_msg a:visited {  text-decoration: none !important;  color: white; font-weight:bold;} 
+.OEcookienotice_msg a:hover {  text-decoration: none !important;  color: white; } 
+.OEcookienotice_accept {
+  float: right;
   background-color: #2F598C;
   border: none;
+  border-radius: 0px;
   color: white;
-  padding: 5px 5px;
+  padding: 2px 8px 2px 8px;
   text-align: center;
   text-decoration: none;
+  font-size: 14px;
   display: inline-block;
-  font-size: 20px;
+}
+.OEcookienotice_accept:hover {
+  float: right;
+  background-color: white;
+  border: none;
+  border-radius: 0px;
+  color: #2F598C;
+  padding: 2px 8px 2px 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.OEcookienotice_close {
+  float: right;
+  border: none;
+  padding: 0px 2px 4px 2px;
+  background: black;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+.OEcookienotice_close:hover {
+  float: right;
+  padding: 0px 2px 4px 2px;
+  background: white;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 /**/
 /*  Search field  */
@@ -219,7 +239,7 @@ OEcookienotice-button {
   text-align: right;
 }
 .OEmenu-content {
-  min-width: 100px;
+  min-width: 120px;
   border: none;
   position: absolute;
   right: 0px;
@@ -228,7 +248,7 @@ OEcookienotice-button {
 .OEmenu-content a {
   text-decoration: none;
   text-align: left;
-  color: black;
+  color: white;
   background: #2F598C;
   font-size: 14px;
   padding: 4px 4px 4px 4px;

@@ -8,6 +8,7 @@
 
 // Create cookie
 function setCookie(cname, cvalue, exdays) {
+document.getElementById("debug").innerHTML = "setting cookie";
     const d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     let expires = "expires="+ d.toUTCString();
@@ -24,6 +25,7 @@ function deleteCookie(cname) {
 
 // Read cookie
 function getCookie(cname) {
+document.getElementById("debug").innerHTML = "getting cookie";
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -41,7 +43,8 @@ function getCookie(cname) {
 
 // Set cookie consent
 function acceptCookieConsent(){
-    deleteCookie('OE_cookie_consent');
+document.getElementById("debug").innerHTML = "accepting cookie policy";
+    deleteCookie('OE_cookie_consent1');
     setCookie('OE_cookie_consent', 1, 365);
     document.getElementById("OEcookienotice").style.display = "none";
 }
