@@ -19,7 +19,7 @@ include "head.php";
 					<div class=\"OEcard-container-image\">
 						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-container-image\"></div>
 					<div class=\"OEcard-publisher\"><h4><b>".$row['publisher_description']."</b></h4></div>
-					<div class=\"OEcard-publication\">publication may have multiple lines with the definition of vintage added optionally</div>
+					<div class=\"OEcard-publication\"></div>
 				</div>
 			     </div>";
 			};

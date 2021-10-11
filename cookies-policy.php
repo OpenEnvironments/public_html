@@ -10,7 +10,7 @@ include "head.php";
 	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->
 	<tr><td width="10px"><!--- right side spacing ---></td>
 		<td style="padding: 20px 20px 20px 80px;">
-<h1>Cookies Policy</h1></p>
+<p class=OEnarrative><h1>Cookies Policy</h1></p>
 <p class=OEnarrative>Last updated: October 5, 2021</p>
 <p class=OEnarrative>Open Environments (&quot;us&quot;,
 &quot;we&quot;, or &quot;our&quot;) uses cookies on <b><i>https://openenvironments.com</i></b>

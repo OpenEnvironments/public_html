@@ -72,7 +72,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 			</table>
 		</td>
-		<td width="65%">
+		<td width="60%">
 			<table style="width: 100%; border-spacing: 0px 0px;">
 				<tr align="top">
 					<td colspan="6" class="OEquickfilter">Quick Filter</td>
@@ -95,11 +95,11 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 			</table>
 		</td>
-		<td width="15%"> 
+		<td width="20%"> 
 			<table width="100%">
 				<tr>
 					<td></td>
-					<td width="100%" colspan="5">
+					<td width="100%" colspan="6">
 						<div>
 							<form action="/" method="GET" class="OEsearch-form">
 							  <input type="search" class="OEsearch-field" size=30 >
@@ -111,25 +111,28 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 					</td>
 				</tr>
 				<tr>
-					<td> 
+					<td width="28%"> 
 						<div  class="OEregister">
 						<p><a href="register.php">
-							&nbsp;<b>Register!</b>&nbsp;
+							&nbsp;&nbsp;&nbsp;<b>Register!</b>&nbsp;&nbsp;&nbsp;
 						</a></p></div>
 					</td>
-					<td width="15%" align="center">
+					<td width="12%" align="center">
+						<a href="help.php"><img src="images/question.png" class="OEicon"></a>
+					</td>
+					<td width="12%" align="center">
 						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
 					</td>
-					<td width="15%" align="center">
+					<td width="12%" align="center">
 						<a href="profile.php"><img src="images/profile.png" class="OEicon"></a>
 					</td>
-					<td width="15%" align="center">
+					<td width="12%" align="center">
 						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
 					</td>
-					<td width="15%" align="center">
+					<td width="12%" align="center">
 						<a href="cart.php"><img src="images/cart.png" class="OEicon"></a>
 					</td>
-					<td width="15%" align="center">
+					<td width="12%" align="center">
 						<div class="OEmenu">
 							<button class="OEmenu-dropbtn">
 							<img align="center" src="images/menu.png" class="OEicon">

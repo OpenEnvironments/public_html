@@ -9,29 +9,25 @@ include "head.php";
 <table width="100%" class="OEcontent">
 	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->
 	<tr><td width="10px"></td> <!--- left side spacing --->
-		<td style="padding: 20px 20pc 20px 80px;">
-<p class=OEnarrative>
-<b><i>Open Environments</i></b> provides its members:<br></p>
+		<td style="padding: 20px 20pc 20px 80px;" class="OEnarrative">
+<!-------------------------------------------------------------->
+<b><i>Open Environments</i></b> provides its members:<br>
 	<ul>
-		<li><p class=OEnarrative>simplified access to Open Sourced and Public Datasets</li></p>
-		<li><p class=OEnarrative>authoritative reference data with codes and descriptions</li></p>
-		<li><p class=OEnarrative>analytic services to support modelling against these data resources</li></p>
+		<li>simplified access to Open Sourced and Public Datasets</li>
+		<li>authoritative reference data with codes and descriptions</li>
+		<li>analytic services to support modelling against these data resources</li>
 	</ul>
-<hr>
 <br>
-<p class=OEnarrative>We welcome all:<br></p>
+We welcome all:<br>
 	<ul>
-		<li><p class=OEnarrative>Subscribers with their subjects of interest.</p>
-		<li><p class=OEnarrative>Addition or modification requests for our curators.</p>
-		<li><p class=OEnarrative>Alerts to data quality issues or concerns</p>
+		<li>Subscribers with their subjects of interest.
+		<li>Addition or modification requests for our curators.
+		<li>Alerts to data quality issues or concerns
 	</ul>
-<p class=OEnarrative>If you have interest in speaking to a curator, feel free to contact us by email to 
-<a href="mailto:support@openenvironments.com?subject=Curator Request">support@openenvironments.com</a></p>
-	</td>
-    </tr>
-<br>
-<hr>
-<br>
+If you have interest in speaking to a curator, feel free to contact us by email to 
+<a href="mailto:support@openenvironments.com?subject=Curator Request">support@openenvironments.com</a>
+
+<!-------------------------------------------------------------->
 		</td>
 	<td></td><!--- right side spacing --->
 	</tr>
