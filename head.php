@@ -1,30 +1,20 @@
 <?php
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '/php/');
-
 include "admin/settings.php";
-$page_id = $GLOBALS["page_id"];
 
+/* get the metadata for the current page */
+
+$page_id = $GLOBALS["page_id"];
 $query = "SELECT * FROM core.page WHERE page_id = '".$page_id."';";
 $conn = pg_connect("host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass);
-if (!$conn) {
-  echo "Database connection error!";
-  exit;
-}
+if (!$conn) {  echo "Database connection error!";  exit;}
 $cursor = pg_query($conn,$query);
-if (!$cursor) {
-  echo "An error occurred.\n";
-  exit;
-}
+if (!$cursor) {  echo "An error occurred.\n";  exit;}
 $num_rows = pg_num_rows($cursor);
-if ( $num_rows > 1 ) {
-    $title = "Open Environments - MULTIPLE PAGES FOUND";
-} elseif ( $num_rows < 1 ) {
-    $title = "Open Environments - NO PAGES FOUND";
-} else {
-    $row = pg_fetch_array($cursor);
-    $title = $row[1];
-};
+if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
+} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
+} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
+
 ?>
 
 <!DOCTYPE HTML>
@@ -40,12 +30,10 @@ if ( $num_rows > 1 ) {
 <body>
 
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
-<p id="debug"></p>
 
 <div id="cookieNotice" class="OEcookienotice"> 
 	<div class='OEcookienotice_close'>
-		<button type="button" class="OEcookienotice_close" 
-			onclick='document.getElementById("debug").innerHTML = "Cookies CLOSED";'>
+		<button type="button" class="OEcookienotice_close" onclick='closeCookieConsent();'>
 		&times;</button>
 	</div>
 	<div class="OEcookienotice_title">Cookie Consent<br></div>
@@ -56,22 +44,18 @@ if ( $num_rows > 1 ) {
 			<a href="cookies-policy.php">Cookies Policy</a>.
 	</div>
 	<div class="OEcookienotice_accept">
-		<button type="button" class="OEcookienotice_accept" onclick='document.getElementById("debug").innerHTML = "Cookies ACCEPTED"'>Accept</button>
+		<button type="button" class="OEcookienotice_accept" onclick='acceptCookieConsent();'>Accept</button>
 	</div>
 </div>
 
-
 <script>
-	let cookie_consent = getCookie("OEcookiepolicy1");
+	let cookie_consent = getCookie("OE_cookie_consent");
 	if(cookie_consent != ""){
-document.getElementById("debug").innerHTML = "cookie found!";
 		document.getElementById("cookieNotice").style.display = "none";
 	}else{
-document.getElementById("debug").innerHTML = "cookie not found!";
-	document.getElementById("cookieNotice").style.display = "block";
-}
+		document.getElementById("cookieNotice").style.display = "block";
+        }
 </script>
-
 
 <!--------- Header Area ----------->
 <table width="100%" class="OEheader"> 
