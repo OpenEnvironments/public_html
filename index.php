@@ -5,29 +5,23 @@ include "head.php";
 
 ?>
 <!--------- Content Area (a 3x3 table using outer cells for spacing) ----------->
-<table width="100%" class="OEcontent">
-	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->
-	<tr><td width="10px"></td>
-		<td>
-			<?php
-			$connstr = "host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass;
-			$conn = pg_connect($connstr);
-			$cursor = pg_query("select * from core.publisher");
-			while ($row = pg_fetch_assoc($cursor) ){
-			echo "<div class=\"OEcard\">
-				<div class=\"OEcard-container\">
-					<div class=\"OEcard-container-image\">
-						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-container-image\"></div>
-					<div class=\"OEcard-publisher\"><h4><b>".$row['publisher_description']."</b></h4></div>
-					<div class=\"OEcard-publication\"></div>
-				</div>
-			     </div>";
-			};
-			?>
-		</td><td></td>
-	</tr>
-	<tr height="10px"><td colspan="3"><td></tr>   <!--- bottom row spacing --->
-</td></tr></table>
+<div class="OEsplash">
+	<div style="position: absolute; top: 25px; left: 15px; font-family: Monospace; font-weight: bold; font-size: 18px;">
+		<br><br><br><br>
+		"AI is fuelling a Fourth Industrial Revolution."<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>United Nations, UNESCO, March 2018</i></b><br><br>
+		"The AI Revolution is happening now."<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>Forbes, August 2021</i></b><br><br>
+	</div>
+	<div>
+		<br><br>
+		<img src="images/flames.png" style="width: 1000px; height: 480px;"></img>
+	</div>
+	<div style="position: absolute; bottom: 20px; right: 20px; font-size: 24px;">
+		Without data,<br style="margin: 10px 0px;">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is it leaving you behind?<br><br><br><br>
+	</div>
+</div>
 <?php
 
 include "foot.php"

@@ -113,7 +113,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				<tr>
 					<td width="28%"> 
 						<div  class="OEregister">
-						<p><a href="register.php">
+						<p><a href="register.php" style="text-decoration: none; color: white;">
 							&nbsp;&nbsp;&nbsp;<b>Register!</b>&nbsp;&nbsp;&nbsp;
 						</a></p></div>
 					</td>
