@@ -26,6 +26,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
 		<title><?= $title ?></title>
 		<script src="js/cookies.js"></script>
+		<script src="js/registration.js"></script>
 	</head>
 <body>
 
@@ -58,6 +59,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 </script>
 
 <!--------- Header Area ----------->
+<div class="OEmodal" id="OEmodal"></div>
 <table width="100%" class="OEheader"> 
 	<tr>
 		<td width="20%" rowspan="2" vertical-align="center">
@@ -112,10 +114,92 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 				<tr>
 					<td width="28%"> 
-						<div  class="OEregister">
-						<p><a href="register.php" style="text-decoration: none; color: white;">
-							&nbsp;&nbsp;&nbsp;<b>Register!</b>&nbsp;&nbsp;&nbsp;
-						</a></p></div>
+						<script>function OEregister_show() {
+							document.getElementById('OEmodal').style.display = "block";		
+							document.getElementById('OEregister-form').style.display = "block";
+							}
+						</script>
+						<button id="OEregister-button" onclick="OEregister_show()">Register!</button>
+						<div id="OEregister-form" class="OEregister-form">
+<?php
+$OEnameErr = $OEemailErr = $OEpwdnewErr = $OEpwdconErr = "";
+$OEname = $OEemail = $OEpwdnew = $OEpwdcon = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (empty($_POST["OEname"])) {
+    $nameErr = "Name is required";
+  } else {
+    $name = test_input($_POST["name"]);
+  }
+  
+  if (empty($_POST["OEemail"])) {
+    $emailErr = "Email is required";
+  } else {
+    $email = test_input($_POST["email"]);
+  }
+    
+  if (empty($_POST["website"])) {
+    $website = "";
+  } else {
+    $website = test_input($_POST["website"]);
+  }
+
+  if (empty($_POST["comment"])) {
+    $comment = "";
+  } else {
+    $comment = test_input($_POST["comment"]);
+  }
+
+  if (empty($_POST["gender"])) {
+    $genderErr = "Gender is required";
+  } else {
+    $gender = test_input($_POST["gender"]);
+  }
+}
+							<form name="OEregister-form" onsubmit="return validateForm()" 
+								action="confirmation.php" method="post">
+								<table>
+									<tr>
+										<td style="border: 2px solid yellow;" colspan="2"><b>Registration:</b><br></td>
+										<td style="text-align: right;border: 2px solid yellow;">&times;</td>
+									</tr>
+									<tr>
+										<td style="width: 140px; text-align: right; border: 2px solid yellow;">
+											<label>Your Name:&nbsp;</label></td>
+										<td><input type="text" name="OEname" 
+											value="<?php echo $OEname; ?>"></td>
+										<td><div class="error" id="OEnameErr"><?php echo $OEnameErr;?></div></td>
+									</tr>
+									<tr>
+										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
+											<label>Email Address:&nbsp;</label></td>
+										<td><input type="text" name="OEemail" 
+											value="<?php echo $OEemail; ?>"></td>
+										<td><div class="error" id="OEemailErr"><?php echo $OEemailErr;?></div></td>
+									</tr>
+									<tr>
+										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
+											<label>New Password:&nbsp;</label></td>
+										<td><input type="password" name="OEpwdnew"
+											value="<?php echo $OEpwdnew; ?>"></td>
+										<td><div class="error" id="OEpwdnewErr"><?php echo $OEpwdnewErr;?></div></td>
+									</tr>
+									<tr>
+										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
+											<label>Confirm Password:&nbsp;</label></td>
+										<td><input type="password" name="OEpwdcon"
+											value="<?php echo $OEpwdcon; ?>"></td>
+										<td><div class="error" id="OEpwdconErr"><?php echo $OEpwdconErr;?></div></td>
+									</tr>
+									<tr>
+										<td colspan="3">
+											<input style="font-size:large; align: right;border: 2px solid yellow;" type="submit" value="Register">
+										</td>
+									</tr>
+								</table>
+							</form>
+
+						</div>  <!------ registration form close ------->
 					</td>
 					<td width="12%" align="center">
 						<a href="help.php"><img src="images/question.png" class="OEicon"></a>

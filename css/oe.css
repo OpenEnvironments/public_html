@@ -1,7 +1,6 @@
 /* */
 /* CSS for openenvironments.com/
 /* */
-
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 8pt;
@@ -11,6 +10,8 @@ body {
 div {
   float: left;
 }
+
+
 /* */
 /* Headers, Content & Footers/
 /* */
@@ -60,6 +61,20 @@ div {
   padding: 0px 0px 0px 0px;
   margin: 0px 0px 0px 0px;
 }
+.OEmodal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
 /* */	
 /* Icons & Buttons */
 /* */
@@ -71,19 +86,41 @@ div {
   width: 25px;
   height: 25px;
 }
-.OEregister {
+#OEregister-button {
   height: 20px;
+  width: 80px;
   line-height: 1px;
   font-size: small;
   border-radius: 8px;
   background: #004EFF;
   padding: 1px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border: 0px;
 }
+#OEregister-button:hover{
+  background: #2F598C;
+}
+.OEregister-form {
+  display: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 160px;
+  width: 400px;
+  position: absolute;
+  z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
+  background: #2F598C;
+  font-size: large;
+  color: white;
+  border: 2px solid #BFBFBF;
+}
+
 
 /**/
 /*  Cookies Policy Consent  */
 /**/
-
 .OEcookienotice {
   positon: relative;
   width: 99%;
@@ -293,16 +330,10 @@ div {
   padding-bottom: 5px;
   border-bottom: 1px solid black;
 }
-.OEcard-publisher-notice {
-  display: flex;
-  justify-content: left;
-  align-items: center;
-  padding-top: 0px;
-  padding-right: 0px;
-  padding-bottom: 5px;
-  padding-left: 10px;
+.OEcard-publisher-description {
+  font-weight: normal;
   height: 60px;
-  width: 200px;
+  width: 290px;
 }
 .OEcard-publisher-name {
   height: 60px;

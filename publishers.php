@@ -20,7 +20,7 @@ include "head.php";
 					<div class=\"OEcard-publisher-image\">
 						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-publisher-image\"></div>
 					<div class=\"OEcard-publisher-name\"><h4><b>".$row['publisher_name']."</b></h4></div>
-					<div class=\"OEcard-publisher-notice\"><b>".$row['publisher_notice']."</b></div>
+					<div class=\"OEcard-publisher-description\">".$row['publisher_description']."</div>
 				  </div>
 				</div>
 			     </div>";
