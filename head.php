@@ -26,7 +26,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
 		<title><?= $title ?></title>
 		<script src="js/cookies.js"></script>
-		<script src="js/registration.js"></script>
+		<script src="js/tools.js"></script>
 	</head>
 <body>
 
@@ -121,80 +121,87 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 						</script>
 						<button id="OEregister-button" onclick="OEregister_show()">Register!</button>
 						<div id="OEregister-form" class="OEregister-form">
-<?php
-$OEnameErr = $OEemailErr = $OEpwdnewErr = $OEpwdconErr = "";
-$OEname = $OEemail = $OEpwdnew = $OEpwdcon = "";
+							<?php
+							$OEnameErr = $OEemailErr = $OEpwdnewErr = $OEpwdconErr = "";
+							$OEname = $OEemail = $OEpwdnew = $OEpwdcon = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["OEname"])) {
     $nameErr = "Name is required";
   } else {
-    $name = test_input($_POST["name"]);
+    $name = clean_input($_POST["OEname"]);
   }
   
   if (empty($_POST["OEemail"])) {
     $emailErr = "Email is required";
   } else {
-    $email = test_input($_POST["email"]);
-  }
-    
-  if (empty($_POST["website"])) {
-    $website = "";
-  } else {
-    $website = test_input($_POST["website"]);
+    $email = clean_input($_POST["OEemail"]);
   }
 
-  if (empty($_POST["comment"])) {
-    $comment = "";
+  if (empty($_POST["OEpwdnew"])) {
+    $nameErr = "Password is required";
   } else {
-    $comment = test_input($_POST["comment"]);
+    $name = clean_input($_POST["OEpwdnew"]);
   }
 
-  if (empty($_POST["gender"])) {
-    $genderErr = "Gender is required";
+  if (empty($_POST["OEpwdcon"])) {
+    $nameErr = "Confirmation is required";
   } else {
-    $gender = test_input($_POST["gender"]);
+    $name = clean_input($_POST["OEpwdcon"]);
   }
-}
+}  
+								?>
 							<form name="OEregister-form" onsubmit="return validateForm()" 
 								action="confirmation.php" method="post">
-								<table>
+								<table style="width: 100%;">
 									<tr>
-										<td style="border: 2px solid yellow;" colspan="2"><b>Registration:</b><br></td>
-										<td style="text-align: right;border: 2px solid yellow;">&times;</td>
-									</tr>
-									<tr>
-										<td style="width: 140px; text-align: right; border: 2px solid yellow;">
-											<label>Your Name:&nbsp;</label></td>
-										<td><input type="text" name="OEname" 
-											value="<?php echo $OEname; ?>"></td>
-										<td><div class="error" id="OEnameErr"><?php echo $OEnameErr;?></div></td>
-									</tr>
-									<tr>
-										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
-											<label>Email Address:&nbsp;</label></td>
-										<td><input type="text" name="OEemail" 
-											value="<?php echo $OEemail; ?>"></td>
-										<td><div class="error" id="OEemailErr"><?php echo $OEemailErr;?></div></td>
-									</tr>
-									<tr>
-										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
-											<label>New Password:&nbsp;</label></td>
-										<td><input type="password" name="OEpwdnew"
-											value="<?php echo $OEpwdnew; ?>"></td>
-										<td><div class="error" id="OEpwdnewErr"><?php echo $OEpwdnewErr;?></div></td>
-									</tr>
-									<tr>
-										<td style="width: 140px;text-align: right;border: 2px solid yellow;">
-											<label>Confirm Password:&nbsp;</label></td>
-										<td><input type="password" name="OEpwdcon"
-											value="<?php echo $OEpwdcon; ?>"></td>
-										<td><div class="error" id="OEpwdconErr"><?php echo $OEpwdconErr;?></div></td>
-									</tr>
-									<tr>
-										<td colspan="3">
-											<input style="font-size:large; align: right;border: 2px solid yellow;" type="submit" value="Register">
+										<td colspan="2"><b>&nbsp;Registration:</b><br></td>
+										<td align="right" >
+											<div style="border: 1px solid yellow" class="OEclosebutton">&times;</div>
 										</td>
+									</tr>
+									<tr>
+										<td width="30%" class="OEregister-form-labels">
+											<label>Your Name:&nbsp;</label></td>
+										<td width="30%" class="OEregister-form-inputs">
+											<input type="text" name="OEname" 
+											value="<?php echo $OEname; ?>"></td>
+										<td width="40%" class="OEregister-form-errors">
+											<div id="OEnameErr"><?php echo $OEnameErr;?></div></td>
+									</tr>
+									<tr>
+										<td class="OEregister-form-labels">
+											<label>Email Address:&nbsp;</label></td>
+										<td class="OEregister-form-inputs">
+											<input type="text" name="OEemail" 
+											value="<?php echo $OEemail; ?>"></td>
+										<td class="OEregister-form-errors">
+											<div id="OEemailErr"><?php echo $OEemailErr;?></div></td>
+									</tr>
+									<tr>
+										<td class="OEregister-form-labels">
+											<label>New Password:&nbsp;</label></td>
+										<td class="OEregister-form-inputs">
+											<input type="password" name="OEpwdnew"
+											value="<?php echo $OEpwdnew; ?>"></td>
+										<td class="OEregister-form-errors">
+											<div id="OEpwdnewErr"><?php echo $OEpwdnewErr;?></div></td>
+									</tr>
+									<tr>
+										<td class="OEregister-form-labels">
+											<label>Confirm Password:&nbsp;</label></td>
+										<td class="OEregister-form-inputs">
+											<input type="password" name="OEpwdcon"
+											value="<?php echo $OEpwdcon; ?>"></td>
+										<td class="OEregister-form-errors">
+											<div id="OEpwdconErr"><?php echo $OEpwdconErr;?></div></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td align="right">
+											<input style="font-size:large;border: 1px solid yellow" 
+							`				type="submit" value="&nbsp;&nbsp;Register&nbsp;&nbsp;">&nbsp;&nbsp;</td>
 									</tr>
 								</table>
 							</form>
