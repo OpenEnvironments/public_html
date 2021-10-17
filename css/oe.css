@@ -84,8 +84,11 @@ h1 {  /*  should reflect the OEnarrative style below */
   background: none;
   float:none!important;
   display: inline;
-  font-weight: bold;
+  font-weight: normal;
   vertical-align: middle;
+}
+.OEclosebutton:hover {
+  font-weight: bold;
 }
 
 
@@ -122,7 +125,7 @@ h1 {  /*  should reflect the OEnarrative style below */
   top: 50%;
   transform: translate(-50%, -50%);
   height: 160px;
-  width: 480px;
+  width: 400px;
   position: absolute;
   z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
   background: #2F598C;
@@ -140,6 +143,7 @@ h1 {  /*  should reflect the OEnarrative style below */
 }
 .OEregister-form-errors {
   width: 160px;
+  color: orange;
 }
 
 

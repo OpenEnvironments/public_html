@@ -26,6 +26,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
 		<title><?= $title ?></title>
 		<script src="js/cookies.js"></script>
+		<script src="js/registration.js"></script>
 		<script src="js/tools.js"></script>
 	</head>
 <body>
@@ -114,50 +115,102 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 				<tr>
 					<td width="28%"> 
-						<script>function OEregister_show() {
-							document.getElementById('OEmodal').style.display = "block";		
-							document.getElementById('OEregister-form').style.display = "block";
-							}
-						</script>
+<script>
+function OEregister_show() {
+	document.getElementById('OEmodal').style.display = "block";		
+	document.getElementById('OEregister-form').style.display = "block";
+	}
+function OEregister_close() {
+	document.getElementById('OEmodal').style.display = "none";		
+	document.getElementById('OEregister-form').style.display = "none";
+	}
+// Defining a function to display error message
+function printError(elemId, hintMsg) {
+    document.getElementById(elemId).innerHTML = hintMsg;
+}
+
+// Defining a function to validate form 
+function validateForm() {
+        var OEname   = document.forms["OEregister-form"]["OEname"].value;
+        var OEemail  = document.forms["OEregister-form"]["OEemail"].value;
+        var OEpwdnew = document.forms["OEregister-form"]["OEpwdnew"].value;
+        var OEpwdcon = document.forms["OEregister-form"]["OEpwdcon"].value;
+    
+	// Defining error variables with a default value
+    var nameErr = emailErr = pwdnewErr = pwdconErr = true;
+    
+    // Validate name
+    if(OEname == "") {
+        printError("OEnameErr", "Missing name");
+    } else {
+        var regex = /^[a-z ,.'-]+$/i;
+        if(regex.test(OEname) === false) {
+            printError("OEnameErr", "Invalid name");
+        } else {
+            printError("OEnameErr", "");
+            nameErr = false;
+        }
+    }
+    
+    // Validate email address
+    if(OEemail == "") {
+        printError("OEemailErr", "Missing email address");
+    } else {
+        // Regular expression for basic email validation
+        if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(OEemail) == false) {
+            printError("OEemailErr", "Invalid email address");
+        } else {
+            printError("OEemailErr", "");
+            emailErr = false;
+        }
+    }
+        
+    // Validate password
+    if(OEpwdnew == "") {
+        printError("OEpwdnewErr", "Empty password");
+    } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        if(regex.test(OEpwdnew) === false) {
+            printError("OEpwdnewErr", "Invalid password");
+        } else {
+            printError("OEpwdnewErr", "");
+            pwdnewErr = false;
+        }
+    }
+        
+    // Confirm password
+    if(!(OEpwdnew == OEpwdcon)) {
+        printError("OEpwdconErr", "Passwords don't match");
+    } else {
+        printError("OEpwdconErr", "");
+        pwdconErr = false;
+    }
+        
+    // Prevent the form from being submitted if there are any errors
+    if((nameErr || emailErr || pwdnewErr || pwdconErr) == true) {
+       return false;
+    } else {
+        // Creating a string from input data for preview
+        var dataPreview = "You've entered the following details: \n" +
+                          "Name: " + OEname + "\n" +
+                          "Email: " + OEemail + "\n" +
+                          "New password: " + OEpwdnew + "\n" +
+                          "Confirmation: " + OEpwdcon;
+        // Display input data in a dialog box before submitting the form
+        alert(dataPreview);
+    }
+};
+</script>
 						<button id="OEregister-button" onclick="OEregister_show()">Register!</button>
 						<div id="OEregister-form" class="OEregister-form">
-							<?php
-							$OEnameErr = $OEemailErr = $OEpwdnewErr = $OEpwdconErr = "";
-							$OEname = $OEemail = $OEpwdnew = $OEpwdcon = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["OEname"])) {
-    $nameErr = "Name is required";
-  } else {
-    $name = clean_input($_POST["OEname"]);
-  }
-  
-  if (empty($_POST["OEemail"])) {
-    $emailErr = "Email is required";
-  } else {
-    $email = clean_input($_POST["OEemail"]);
-  }
-
-  if (empty($_POST["OEpwdnew"])) {
-    $nameErr = "Password is required";
-  } else {
-    $name = clean_input($_POST["OEpwdnew"]);
-  }
-
-  if (empty($_POST["OEpwdcon"])) {
-    $nameErr = "Confirmation is required";
-  } else {
-    $name = clean_input($_POST["OEpwdcon"]);
-  }
-}  
-								?>
 							<form name="OEregister-form" onsubmit="return validateForm()" 
-								action="confirmation.php" method="post">
+								action="register.php" method="post">
 								<table style="width: 100%;">
 									<tr>
 										<td colspan="2"><b>&nbsp;Registration:</b><br></td>
-										<td align="right" >
-											<div style="border: 1px solid yellow" class="OEclosebutton">&times;</div>
+										<td align="right">
+											<button class="OEclosebutton"
+												onclick="OEregister_close()">&times;</button>
 										</td>
 									</tr>
 									<tr>
@@ -200,8 +253,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										<td></td>
 										<td></td>
 										<td align="right">
-											<input style="font-size:large;border: 1px solid yellow" 
-							`				type="submit" value="&nbsp;&nbsp;Register&nbsp;&nbsp;">&nbsp;&nbsp;</td>
+											<input type="submit" style="font-size: 12px" 
+											value="&nbsp;&nbsp;Register&nbsp;&nbsp;">
+											&nbsp;&nbsp;
+										</td>
 									</tr>
 								</table>
 							</form>
