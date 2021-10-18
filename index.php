@@ -17,13 +17,12 @@ include "head.php";
 	</div>
 	<div>
 		<br><br>
-		<img src="images/flames.png" style="width: 920px; height: 480px;"></img>
+		<img src="images/flames.png" style="width: 880px; height: 480px;"></img>
 	</div>
-	<div style="position: absolute; top: 6px; right: 40px; font-size: 28px; color: darkred">
-		<br><br><br>With little data,<br><br><br>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<b>is AI leaving you behind?</b><br><br><br><br>
+	<div style="position: absolute; top: 80px; right: 380px; font-size: 28px; color: darkred">
+		<p style="font-size: 24px;">With little data,</p></div>
+	<div style="position: absolute; top: 180px; right: 60px; font-size: 28px; color: darkred">
+		<p style="font-size: 28px;font-weight: bold;">is AI leaving you behind?</p></div>
 	</div>
 </div>
 <?php
