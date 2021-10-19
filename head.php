@@ -115,78 +115,9 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 				<tr>
 					<td width="28%"> 
-<script>
-function OEregister_show() {
-	document.getElementById('OEmodal').style.display = "block";		
-	document.getElementById('OEregister-form').style.display = "block";
-	}
-function OEregister_close() {
-	document.getElementById('OEmodal').style.display = "none";		
-	document.getElementById('OEregister-form').style.display = "none";
-	}
-</script>
-
-<?php
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
-
-$OEregister_form_name       = "hello";
-$OEregister_form_email      = "";
-$OEregister_form_pwdnew     = "";
-$OEregister_form_pwdcon     = "";
-$OEregister_form_name_err   = "";
-$OEregister_form_email_err  = "";
-$OEregister_form_pwdnew_err = "";
-$OEregister_form_pwdcon_err = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-	/* name processing */
-	$OEregister_form_name       = test_input($_POST["OEregister_form_name"]);
-	if(empty($OEregister_form_name))   {$OEregister_form_name_err   = "Name is missing";}
-
-	/* email processing */
-	$OEregister_form_email      = test_input($_POST["OEregister_form_email"]);
-	$reg="/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
-	if((preg_match($reg, $OEregister_form_email)) ? FALSE : TRUE) {$OEregister_form_email_err = "Invalid email address.";}
-	/* note - an empty emaill addr is ALSO invalid, so the empty test must follow the invalid test */
-	if(empty($OEregister_form_email))  {$OEregister_form_email_err  = "Email is missing";}
-
-	/* New password processing */
-	$OEregister_form_pwdnew     = test_input($_POST["OEregister_form_pwdnew"]);
-	if(empty($OEregister_form_pwdnew)) {$OEregister_form_pwdnew_err = "Password is missing";}
-
-	/* Password confirmation processing */
-	$OEregister_form_pwdcon     = test_input($_POST["OEregister_form_pwdcon"]);
-	if(empty($OEregister_form_pwdcon)) {$OEregister_form_pwdcon_err = "Confirmation is missing";}
-
-
-/**/ 
-
-
-/* $query = "SELECT * FROM core.page WHERE page_id = '".$page_id."';";  */
-/* $conn = pg_connect("host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass);  */
-/* if (!$conn) {  echo "Database connection error!";  exit;}  */
-/* $cursor = pg_query($conn,$query);  */
-/* if (!$cursor) {  echo "An error occurred.\n";  exit;}  */
-/* $num_rows = pg_num_rows($cursor);  */
-/* if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";  */
-/* } elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";  */
-/* } else {    $row = pg_fetch_array($cursor);    $title = $row[1];};  */
-
-
-}  /* if method = POST */
-
-?>
 						<button id="OEregister-button" onclick="OEregister_show()">Register!</button>
 						<div id="OEregister-form" class="OEregister-form">
-							<form name="OEregister-form" method="post"
-							  	action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" >
+							<form name="OEregister-form" method="post">
 								<table style="width: 100%;">
 									<tr>
 										<td colspan="2"><b>&nbsp;Registration:</b><br></td>
@@ -196,57 +127,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 										</td>
 									</tr>
 									<tr>
-										<td width="30%" class="OEregister-form-labels">
-											<label>Your Name:&nbsp;</label></td>
-										<td width="30%" class="OEregister-form-inputs">
-											<input type="text" name="OEregister_form_name" 
-											value="<?php echo $OEregister_form_name; ?>"></td>
-										<td width="40%" class="OEregister-form-errors">
-											<div id="OEregister_form_name_err">
-											<?php echo $OEregister_form_name_err;?></div></td>
+										<td colspan="3">We're not accepting new members at this time.</td>
 									</tr>
 									<tr>
-										<td width="30%" class="OEregister-form-labels">
-											<label>Email:&nbsp;</label></td>
-										<td width="30%" class="OEregister-form-inputs">
-											<input type="text" name="OEregister_form_email" 
-											value="<?php echo $OEregister_form_email; ?>"></td>
-										<td width="40%" class="OEregister-form-errors">
-											<div id="OEregister_form_email_err">
-											<?php echo $OEregister_form_email_err;?></div></td>
-									</tr>
-									<tr>
-										<td width="30%" class="OEregister-form-labels">
-											<label>Password:&nbsp;</label></td>
-										<td width="30%" class="OEregister-form-inputs">
-											<input type="password" name="OEregister_form_pwdnew" 
-											value="<?php echo $OEregister_form_pwdnew; ?>"></td>
-										<td width="40%" class="OEregister-form-errors">
-											<div id="OEregister_form_pwdnew_err">
-											<?php echo $OEregister_form_pwdnew_err;?></div></td>
-									</tr>
-									<tr>
-										<td width="30%" class="OEregister-form-labels">
-											<label>Confirm:&nbsp;</label></td>
-										<td width="30%" class="OEregister-form-inputs">
-											<input type="password" name="OEregister_form_pwdcon" 
-											value="<?php echo $OEregister_form_pwdcon; ?>"></td>
-										<td width="40%" class="OEregister-form-errors">
-											<div id="OEregister_form_pwdcon_err">
-											<?php echo $OEregister_form_pwdcon_err;?></div></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td align="right">
-											<input type="submit" style="font_size: 20px" 
-											value="&nbsp;&nbsp;Register&nbsp;&nbsp;">
-											&nbsp;&nbsp;
+										<td colspan="3" align="center">
+											<input type="submit" value="OK" onclick="OEregister_close()" 
+												style="font-size: 12px; width: 40px; height: 22px;" />&nbsp;&nbsp;
 										</td>
 									</tr>
 								</table>
 							</form>
 						</div>  <!______ registration form close _______>
+						<div id="OEregister-form" class="OEregister-form">
+							<form name="OEregister-result" method="post"
+							  	action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" >
+							Hello World
+								<button type="submit" style="font_size: 20px" 
+								value="&nbsp;&nbsp;OK&nbsp;&nbsp;"></button>&nbsp;&nbsp;
+							</form>
+						</div>
 					</td>
 					<td width="12%" align="center">
 						<a href="help.php"><img src="images/question.png" class="OEicon"></a>

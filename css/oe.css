@@ -145,6 +145,19 @@ h1 {  /*  should reflect the OEnarrative style below */
   width: 160px;
   color: orange;
 }
+.OEregister-result {
+  display: block;
+  left: 5;
+  top: 5;
+  height: 260px;
+  width: 200px;
+  position: absolute;
+  z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
+  background: green;
+  font-size: medium;
+  color: white;
+  border: 2px solid #BFBFBF;
+}
 
 
 /**/
@@ -347,17 +360,14 @@ h1 {  /*  should reflect the OEnarrative style below */
 .OEcard:hover {
   box-shadow: 6px 6px 6px #BFBFBF;
 }
-.OEcard-container {
+.OEcard-publisher {
   height: 150px;
   width: 300px;
 }
-.OEcard-publisher {
-}
 .OEcard-publisher-image {
-  height: 60px;
-  width: 80px;
+/*  height: 60px;  */
+  width: 60px;
   padding-bottom: 5px;
-  border-bottom: 1px solid black;
 }
 .OEcard-publisher-description {
   font-weight: normal;
@@ -369,15 +379,29 @@ h1 {  /*  should reflect the OEnarrative style below */
   width: 160px;
   padding-left: 10px;
   padding-bottom: 5px;
-  border-bottom: 1px solid black;
 }
 .OEcard-publication {
-  padding-top: 5px;
-  display: flex;
-  justify-content: left;
-  align-items: left;
-  height: 60px;
-  width: 300px;
+  height: 32px;
+  width: 500px;
+}
+.OEcard-publication-name {
+  height: 18px;
+  width: 500px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+}
+.OEcard-publication-id {
+  height: 18px;
+  width: 120px;
+  padding-left: 10px;
+  padding-bottom: 2px;
+}
+.OEcard-publication-url {
+  font-size: 14px;
+  height: 18px;
+  width: 500px;
+  padding-left: 10px;
+  padding-bottom: 2px;
 }
 .OEcard-icon {      
   /* origin is top right corner of card */

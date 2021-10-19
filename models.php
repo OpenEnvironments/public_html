@@ -10,7 +10,7 @@ include "head.php";
 	<tr height="10px"><td colspan="3"><td></tr>  <!--- top row spacing --->
 	<tr>
 		<td width="10px"></td> <!--- left side spacing --->
-		<td style="padding: 80px 20px 20px 80px;">
+		<td style="padding: 20px 20px 20px 80px;">
 		<table><tr>
 			<td width="5%"><img src="images/model.png" style="width=180px; height: 180px;"><br><br><br><br></td>
 			<td style="font-size: 18px; text-align: center;">

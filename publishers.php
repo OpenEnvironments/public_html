@@ -14,22 +14,22 @@ include "head.php";
 			$conn = pg_connect($connstr);
 			$cursor = pg_query("select * from core.publisher");
 			while ($row = pg_fetch_assoc($cursor) ){
-			echo "<div class=\"OEcard\">
-				<div class=\"OEcard-container\">
-			 	  <div class=\"OEcard-publisher\"
-					<div class=\"OEcard-publisher-image\">
-						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-publisher-image\"></div>
-					<div class=\"OEcard-publisher-name\"><h4><b>".$row['publisher_name']."</b></h4></div>
-					<div class=\"OEcard-publisher-description\">".$row['publisher_description']."</div>
-				  </div>
-				</div>
-			     </div>";
+			echo  "<div class=\"OEcard\">
+				 	<div class=\"OEcard-publisher\">
+						<div class=\"OEcard-publisher-image\">
+							<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-publisher-image\"></div>
+						<div class=\"OEcard-publisher-name\"><h4><b>".$row['publisher_name']."</b></h4></div>
+						<div style=\"width:100%;border-bottom:1px solid black;\">&nbsp;</div>
+						<div class=\"OEcard-publisher-description\">".$row['publisher_description']."</div>
+					</div>
+			     	</div>";
 			};
 			?>
-		</td><td></td>
+		</td>
+		<td></td>
 	</tr>
-	<tr height="10px"><td colspan="3"><td></tr>   <!--- bottom row spacing --->
-</td></tr></table>
+	<tr height="10px"><td colspan="3"><td></td></tr>   <!--- bottom row spacing --->
+</table>
 <?php
 
 include "foot.php"
