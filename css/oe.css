@@ -86,7 +86,7 @@ h1 {  /*  should reflect the OEnarrative style below */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 80px;
+  height: 120px;
   width: 200px;
   position: absolute;
   z-index: 3;  
@@ -98,9 +98,9 @@ h1 {  /*  should reflect the OEnarrative style below */
 .OEmessage_content {
   color: white;
   width: 100%;
-  height: 60px;
+  height: 80px;
   text-align: center;
-  line-height: 60px;
+  line-height: 80px;   /* line-height = height to center text and wrap */
   justify-content: center;
 }
 .OElogin {
@@ -117,7 +117,17 @@ h1 {  /*  should reflect the OEnarrative style below */
   color: white;
   border: 2px solid #BFBFBF;
 }
-
+.OEOKbutton {
+  width: 42px; height: 20px;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 12px; 
+}
 .OEclosebutton {
   color: white;
   font-size: 28px;
@@ -165,8 +175,8 @@ h1 {  /*  should reflect the OEnarrative style below */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 160px;
-  width: 400px;
+  height: 154px;
+  width: 420px;
   position: absolute;
   z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
   background: #2F598C;
@@ -300,7 +310,7 @@ h1 {  /*  should reflect the OEnarrative style below */
   width: 100%;
   line-height: 140%;
   text-align: center;
-  vertical-align:bottom;
+  vertical-align: bottom;
   font-size: large;
   color: #808080;
 }
@@ -314,6 +324,11 @@ h1 {  /*  should reflect the OEnarrative style below */
 .OEquickfilter-item a {
   text-decoration: none;
   color: #2F598C;
+}
+.OEquickfilter-item a:hover {
+  text-decoration: none;
+  color: black;
+  border-bottom: 2px solid #BFBFBF;
 }
 
 

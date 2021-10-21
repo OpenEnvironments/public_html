@@ -21,12 +21,12 @@ include "head.php";
 	</div>
 	<div style="position: absolute; top: 80px; right: 440px; font-size: 24px; color: darkred">
 		<p style="font-size: 24px;">With little data,</p></div>
-	<div style="position: absolute; top: 180px; right: 140px; font-size: 26px; color: darkred">
+	<div style="position: absolute; top: 180px; right: 100px; font-size: 26px; color: darkred">
 		<p style="font-size: 28px;font-weight: bold;">is AI leaving you behind?</p></div>
-	<div style="position: absolute; bottom: 120px; right: 0px; width: 400px; font-size: 32px; color: #2F598C;">
+	<div style="position: absolute; bottom: 120px; right: 0px; width: 400px; font-size: 26px; color: #2F598C;">
 		<a href="about.php" style="text-decoration: none !important;">
 			<img src="images/oeicon64.png" style="width: 40px; height: 40px;"></img>
-			<b>we're here to help  >></b>
+			<b>we're here to help   >></b>
 		</a>
 	</div>
 </div>

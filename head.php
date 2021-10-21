@@ -15,7 +15,42 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 } elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
 } else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
 
+
+<!-------- form processing upfront --------->
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	<!------ was the register form submitted ------>
+	if(isset($_POST['OEregister_submit'])){
+
+		/* name processing */
+		$OEregister_form_name       = test_input($_POST["OEregister_form_name"]);
+		if(empty($OEregister_form_name))   {$OEregister_form_name_err   = "Name is missing";}
+
+		/* email processing */
+		$OEregister_form_email      = test_input($_POST["OEregister_form_email"]);
+		$reg="/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
+		if((preg_match($reg, $OEregister_form_email)) ? FALSE : TRUE) {$OEregister_form_email_err = "Invalid email address.";}
+		/* note - an empty emaill addr is ALSO invalid, so the empty test must follow the invalid test */
+		if(empty($OEregister_form_email))  {$OEregister_form_email_err  = "Email is missing";}
+
+		/* New password processing */
+		$OEregister_form_pwdnew     = test_input($_POST["OEregister_form_pwdnew"]);
+		if(empty($OEregister_form_pwdnew)) {$OEregister_form_pwdnew_err = "Password is missing";}
+
+		/* Password confirmation processing */
+		$OEregister_form_pwdcon     = test_input($_POST["OEregister_form_pwdcon"]);
+		if(empty($OEregister_form_pwdcon)) {$OEregister_form_pwdcon_err = "Confirmation is missing";}
+		if($OEregister_form_pwdcon != $OEregister_form_pwdnew) {$OEregister_form_pwdcon_err = "Confirmation does not match";}
+	}
+}
 ?>
+
 
 <!DOCTYPE HTML>
 <html>
@@ -78,13 +113,16 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 
 <!--------- DIVs for managing popups ----------->
 
+
 <div id="OEmodal" class="OEmodal">
 </div> <!______ modal close _______>
 
 <div id="OEmessage" class="OEmessage">
 	<div id="OEmessage_content" class="OEmessage_content"></div>
-	<button style="color: black; font_size: 20px; width: 60px; height: 30px;" 
-	value="&nbsp;&nbsp;OK&nbsp;&nbsp;" onclick=""OEclose()"></button>
+	<div style="position: relative; width: 100%; height: 32px;">
+<input type="button" class="OEOKbutton" onClick="return OEclose();" value="OK"></input>  
+	</div>
+
 </div> <!______ message form close _______>
 
 <div id="OElogin" class="OElogin">
@@ -97,7 +135,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 </div><!______ login form close _______>
 
 <div id="OEregister" class="OEregister">
-	<form name="OEregister" method="post">
+	<form name="OEregister" method="post" action="<?PHP echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
 		<table style="width: 100%;">
 			<tr>
 				<td colspan="2"><b>&nbsp;Registration:</b><br></td>
@@ -106,12 +144,52 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</td>
 			</tr>
 			<tr>
-				<td colspan="3">Registration form goes here</td>
+				<td width="30%" class="OEregister-form-labels">
+					<label>Your Name:&nbsp;</label></td>
+				<td width="30%" class="OEregister-form-inputs">
+					<input type="text" name="OEregister_form_name" 
+					value="<?php echo $OEregister_form_name; ?>"></td>
+				<td width="40%" class="OEregister-form-errors">
+					<div id="OEregister_form_name_err">
+					<?php echo $OEregister_form_name_err;?></div></td>
 			</tr>
 			<tr>
-				<td colspan="3" align="center">
-					<input type="submit" value="OK" onclick="" 
-						style="font-size: 12px; width: 40px; height: 22px;" />&nbsp;&nbsp;
+				<td width="30%" class="OEregister-form-labels">
+					<label>Email:&nbsp;</label></td>
+				<td width="30%" class="OEregister-form-inputs">
+					<input type="text" name="OEregister_form_email" 
+					value="<?php echo $OEregister_form_email; ?>"></td>
+				<td width="40%" class="OEregister-form-errors">
+					<div id="OEregister_form_email_err">
+					<?php echo $OEregister_form_email_err;?></div></td>
+			</tr>
+			<tr>
+				<td width="30%" class="OEregister-form-labels">
+					<label>Password:&nbsp;</label></td>
+				<td width="30%" class="OEregister-form-inputs">
+					<input type="password" name="OEregister_form_pwdnew" 
+					value="<?php echo $OEregister_form_pwdnew; ?>"></td>
+				<td width="40%" class="OEregister-form-errors">
+					<div id="OEregister_form_pwdnew_err">
+					<?php echo $OEregister_form_pwdnew_err;?></div></td>
+			</tr>
+			<tr>
+				<td width="30%" class="OEregister-form-labels">
+					<label>Confirm:&nbsp;</label></td>
+				<td width="30%" class="OEregister-form-inputs">
+					<input type="password" name="OEregister_form_pwdcon" 
+					value="<?php echo $OEregister_form_pwdcon; ?>"></td>
+				<td width="40%" class="OEregister-form-errors">
+					<div id="OEregister_form_pwdcon_err">
+					<?php echo $OEregister_form_pwdcon_err;?></div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td align="right">
+					<input type="submit" name="OEregister_submit" 
+						style="width: 80px; height: 20px;  margin: 0;  color: black;  font-size: 12px;" 
+						value="&nbsp;&nbsp;Register&nbsp;&nbsp;">&nbsp;&nbsp;
 				</td>
 			</tr>
 		</table>
@@ -175,7 +253,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 				</tr>
 				<tr>
 					<td width="28%"> 
-						<button id="OEregister-button" onclick="OEmessage('wuzzup!?')">Register!</button>
+						<button id="OEregister-button" onclick="OEregister_open()">Register!</button>
 					</td>
 					<td width="12%" align="center">
 						<a href="help.php"><img src="images/question.png" class="OEicon"></a>
