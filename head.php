@@ -6,8 +6,8 @@ include "admin/settings.php";
 
 $page_id = $GLOBALS["page_id"];
 $query = "SELECT * FROM core.page WHERE page_id = '".$page_id."';";
-$conn = pg_connect("host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass);
-if (!$conn) {  echo "Database connection error!";  exit;}
+$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+if (!$conn) {  echo "Database connection error!\n";  exit;}
 $cursor = pg_query($conn,$query);
 if (!$cursor) {  echo "An error occurred.\n";  exit;}
 $num_rows = pg_num_rows($cursor);
@@ -16,42 +16,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 } else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
 
 
-/*-------- form processing upfront --------- */
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	/*------ was the register form submitted ------*/
-	if(isset($_POST['OEregister_submit'])){
-
-		/* name processing */
-		$OEregister_form_name       = test_input($_POST["OEregister_form_name"]);
-		if(empty($OEregister_form_name))   {$OEregister_form_name_err   = "Name is missing";}
-
-		/* email processing */
-		$OEregister_form_email      = test_input($_POST["OEregister_form_email"]);
-		$reg="/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
-		if((preg_match($reg, $OEregister_form_email)) ? FALSE : TRUE) {$OEregister_form_email_err = "Invalid email address.";}
-		/* note - an empty emaill addr is ALSO invalid, so the empty test must follow the invalid test */
-		if(empty($OEregister_form_email))  {$OEregister_form_email_err  = "Email is missing";}
-
-		/* New password processing */
-		$OEregister_form_pwdnew     = test_input($_POST["OEregister_form_pwdnew"]);
-		if(empty($OEregister_form_pwdnew)) {$OEregister_form_pwdnew_err = "Password is missing";}
-
-		/* Password confirmation processing */
-		$OEregister_form_pwdcon     = test_input($_POST["OEregister_form_pwdcon"]);
-		if(empty($OEregister_form_pwdcon)) {$OEregister_form_pwdcon_err = "Confirmation is missing";}
-		if($OEregister_form_pwdcon != $OEregister_form_pwdnew) {$OEregister_form_pwdcon_err = "Confirmation does not match";}
-	}
-}
 ?>
-
-
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -61,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
 		<title><?= $title ?></title>
 		<script src="js/cookies.js"></script>
+		<script src="js/googleanalytics.js"></script>
 		<script src="js/modals.js"></script>
 		<script src="js/tools.js"></script>
 		<!--Insert OG Markup for Social Media site previews -->
@@ -72,47 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</head>
 <body>
 
-<!------------   Google Analytics takes a javascript function    -------->
-
-        <script>
-                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-                ga('create', 'UA-33782815-1', 'openenvironments.com');
-                ga('send', 'pageview');
-        </script>
-
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
-
-<div id="cookieNotice" class="OEcookienotice"> 
-	<div class='OEcookienotice_close'>
-		<button type="button" class="OEcookienotice_close" onclick='closeCookieConsent();'>
-		&times;</button>
-	</div>
-	<div class="OEcookienotice_title">Cookie Consent<br></div>
-	<div class="OEcookienotice_msg">
-		This website uses cookies for site analytics and to personalize your experience. 
-		By continuing to use our website, you agree to our 
-			<a href="privacy-policy.php">Privacy Policy</a> and 
-			<a href="cookies-policy.php">Cookies Policy</a>.
-	</div>
-	<div class="OEcookienotice_accept">
-		<button type="button" class="OEcookienotice_accept" onclick='acceptCookieConsent();'>Accept</button>
-	</div>
-</div>
-
+<div w3-include-html="html/cookienotice.html"></div> 
 <script>
 	let cookie_consent = getCookie("OE_cookie_consent");
-	if(cookie_consent != ""){
-		document.getElementById("cookieNotice").style.display = "none";
-	}else{
-		document.getElementById("cookieNotice").style.display = "block";
-        }
+	if(cookie_consent != ""){document.getElementById("cookieNotice").style.display = "none";}
+	else{document.getElementById("cookieNotice").style.display = "block";}
 </script>
 
 <!--------- DIVs for managing popups ----------->
-
 
 <div id="OEmodal" class="OEmodal">
 </div> <!______ modal close _______>
@@ -148,10 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					<label>Your Name:&nbsp;</label></td>
 				<td width="30%" class="OEregister-form-inputs">
 					<input type="text" name="OEregister_form_name" 
-					value="<?php echo $OEregister_form_name; ?>"></td>
+					value="<?php echo $_POST['OEregister_form_name']; ?>"></td>
 				<td width="40%" class="OEregister-form-errors">
 					<div id="OEregister_form_name_err">
-					<?php echo $OEregister_form_name_err;?></div></td>
+					<?php echo $_POST['OEregister_form_name']?></div></td>
 			</tr>
 			<tr>
 				<td width="30%" class="OEregister-form-labels">
@@ -289,3 +223,99 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		</td>
 	</tr>
 </table>
+
+<?php
+/*-------- form processing upfront --------- */
+
+function test_input($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  $data = htmlspecialchars($data);
+  return $data;}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+	/*------ was the register form submitted ------*/
+	if(isset($_POST['OEregister_submit'])){
+		/* VALIDATE */
+		/* name processing */
+		$OEregister_form_name       = test_input($_POST["OEregister_form_name"]);
+		if(empty($OEregister_form_name))   {$OEregister_form_name_err   = "Name is missing";}
+
+		/* email processing */
+		$OEregister_form_email      = test_input($_POST["OEregister_form_email"]);
+		$reg="/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix";
+		if((preg_match($reg, $OEregister_form_email)) ? FALSE : TRUE) {$OEregister_form_email_err = "Invalid email address.";}
+		/* note - an empty emaill addr is ALSO invalid, so the empty test must follow the invalid test */
+		if(empty($OEregister_form_email))  {$OEregister_form_email_err  = "Email is missing";}
+		if(empty($OEregister_form_email_err))  /* email is not missing and email is valid format, lets see if it already exists */
+			{
+			$query = "SELECT * FROM core.member WHERE member_email = '".$OEregister_form_email."';";
+			$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+			if (!$conn) {  echo "Registration Form: database connection error!\n";  exit;}
+			$cursor = pg_query($conn,$query);
+			if (!$cursor) {  echo "Registration Form: query error occurred.\n";  exit;}
+			$num_rows = pg_num_rows($cursor);
+			if ( $num_rows > 0 ) {$OEregister_form_email_err  = "Email is already registered!";}
+			}
+
+		/* New password processing */
+		$OEregister_form_pwdnew     = test_input($_POST["OEregister_form_pwdnew"]);
+		if(empty($OEregister_form_pwdnew)) {$OEregister_form_pwdnew_err = "Password is missing";}
+
+		/* Password confirmation processing */
+		$OEregister_form_pwdcon     = test_input($_POST["OEregister_form_pwdcon"]);
+		if(empty($OEregister_form_pwdcon)) {$OEregister_form_pwdcon_err = "Confirmation is missing";}
+		if($OEregister_form_pwdcon != $OEregister_form_pwdnew) {$OEregister_form_pwdcon_err = "Confirmation does not match";}
+
+		/* IF ALL ERRS ARE BLANK WE CAN PROCEED, ELSE RE-RENDER THE REGISTER MODAL */
+		if(
+			empty($OEregister_form_name_err)    &&
+			empty($OEregister_form_email_err)   &&
+			empty($OEregister_form_pwdnew_err)  &&
+			empty($OEregister_form_pwdcon_err)  )   
+		{
+			$validCharacters = "ABCDEFGHIJKLMNOPQRSTUXYVWZ1234567890";
+			$validCharNumber = strlen($validCharacters);
+			for ($i = 0; $i < $OE_validation_length; $i++) {
+			    $index = mt_rand(0, $validCharNumber-1);
+			    $validation .= $validCharacters[$index];
+			}
+
+			$query = "
+				INSERT INTO core.member
+				(
+				    member_id,
+				    member_email,
+				    member_name,
+				    member_password,
+				    member_validation, 							    member_validated,
+				    member_enabled,
+				    member_created,
+				    member_notes
+				)
+				VALUES
+				(
+				(SELECT MAX(member_id)+1 FROM core.member),
+				'".$OEregister_form_email."',
+				'".$OEregister_form_name."',
+				'".$OEregister_form_pwdnew."',
+				'".$validation."',
+				'N',
+				'N',
+				current_date,
+				'');
+			";
+			$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+				if (!$conn) {  echo "Registration Form: database connection error!\n";  exit;}
+			$cursor = pg_query($conn,$query);
+				if (!$cursor) {  echo "Registration Form: insert error occurred.\n";  exit;} 
+			echo '<script type="text/javascript">OEmessage("<br><b>Welcome to Open Environments!</b><br><br>You will receive an email shortly.<br>Please use its link to validate your account.<br><br>")</script>'; 
+		} else {
+			$OEregister_form_name_err = $_POST['OEregister_form_name_err'];
+			$OEregister_form_email_err = $_POST['OEregister_form_email_err'];
+			$OEregister_form_pwdnew_err = $_POST['OEregister_form_pwdnew_err'];
+			$OEregister_form_pwdcon_err = $_POST['OEregister_form_pwdcon_err']; 
+			echo '<script type="text/javascript">OEregister_open()</script>'; 
+		}
+	}
+}
