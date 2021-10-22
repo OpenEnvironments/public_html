@@ -16,7 +16,7 @@ if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 } else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
 
 
-<!-------- form processing upfront --------->
+/*-------- form processing upfront --------- */
 
 function test_input($data) {
   $data = trim($data);
@@ -25,7 +25,7 @@ function test_input($data) {
   return $data;}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	<!------ was the register form submitted ------>
+	/*------ was the register form submitted ------*/
 	if(isset($_POST['OEregister_submit'])){
 
 		/* name processing */
