@@ -107,15 +107,26 @@ h1 {  /*  should reflect the OEnarrative style below */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 500px;
+  height: 200px;
   width: 500px;
   position: absolute;
   z-index: 3;  
   background: #2F598C;
-  font-size: medium;
-  color: white;
   border: 2px solid #BFBFBF;
 }
+.OElogin_form_labels {
+  width: 120px;
+  text-align: right;
+  color: white;
+}
+.OElogin-form-inputs {
+  width: 120px;
+}
+.OElogin-form-errors {
+  width: 160px;
+  color: orange;
+}
+
 .OEOKbutton {
   width: 42px; height: 20px;
   margin: 0;
@@ -170,6 +181,7 @@ h1 {  /*  should reflect the OEnarrative style below */
   background: #2F598C;
 }
 .OEregister {
+  z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
   display: none;
   left: 50%;
   top: 50%;
@@ -177,10 +189,8 @@ h1 {  /*  should reflect the OEnarrative style below */
   height: 154px;
   width: 420px;
   position: absolute;
-  z-index: 3;  /*  the backdrop div, gray hiding the page, is index 1  */
+  z-index: 3; 
   background: #2F598C;
-  font-size: medium;
-  color: white;
   border: 2px solid #BFBFBF;
 }
 .OEregister-form-labels {
