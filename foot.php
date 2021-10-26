@@ -33,5 +33,13 @@
 		</td>
 	</tr>
 </table>
+
+<!------  Javascript includes should be last before closing the body tag  ------------------>
+
+	<script type="text/javascript" src="js/cookies.js"></script>
+	<script type="text/javascript" src="js/googleanalytics.js"></script>
+	<script type="text/javascript" src="js/modals.js"></script>
+	<script type="text/javascript" src="js/tools.js"></script>
+
 </body>
 </html>
