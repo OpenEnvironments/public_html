@@ -27,12 +27,75 @@
 .OEregister-form-labels {
   width: 120px;
   text-align: right;
+  font-size: 14px;
   color: white;
 }
 .OEregister-form-inputs {
   width: 120px;
+  font-size: 14px;
 }
 .OEregister-form-errors {
+  font-size: 14px;
   width: 160px;
   color: orange;
+}
+.OElogin-button {
+  border: none;
+  display: block;
+}
+.OElogin-button:hover {
+  cursor: pointer;
+}
+.OEprofile-button {
+  border: none;
+  display: none;
+}
+.OEprofile-button:hover {
+  cursor: pointer;
+}
+.OElogin-form {
+  z-index: 3;  /*  OEmenu is 1,  modal is 2 */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 140px;
+  width: 420px;
+  position: absolute;
+  background: #2F598C;
+  border: 2px solid #BFBFBF;
+  display: block;
+}
+.OElogin-form-labels {
+  width: 120px;
+  font-size: 14px;
+  text-align: right;
+  color: white;
+}
+.OElogin-form-inputs {
+  width: 120px;
+  font-size: 14px;
+}
+.OElogin-form-errors {
+  width: 160px;
+  font-size: 14px;
+  color: orange;
+}
+.OEmessage-form {
+  z-index: 3;  /*  OEmenu is 1,  modal is 2 */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 280px;
+  position: absolute;
+  background: #2F598C;
+  border: 2px solid #BFBFBF;
+  display: block;
+}
+.OEmessage-content {
+  height: 120px; /* needs to be a share within the OEmessage form above */
+  text-align: center;
+  vertical-align: middle;
+  color: white;
+  font-size: 14px;
 }

@@ -36,10 +36,86 @@
 
 <!------  Javascript includes should be last before closing the body tag  ------------------>
 
-	<script type="text/javascript" src="js/cookies.js"></script>
-	<script type="text/javascript" src="js/googleanalytics.js"></script>
 	<script type="text/javascript" src="js/modals.js"></script>
-	<script type="text/javascript" src="js/tools.js"></script>
 
+<!------  PHP processing to field submit events that preceded this page  ------------------>
+
+<?php
+	if(isset($_POST['submit'])) 
+		{
+		 	switch ($_POST['submit']) {
+				case "OK":
+					/* A message popup was closed, so close any all modals */
+					echo "<script>OEmessage_close()</script>";
+					break;
+				case "Register":
+					/* does the email already exist */
+					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
+					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+					if (!$conn) {  echo "Database connection error!\n";  exit;}
+					$cursor = pg_query($conn,$query);
+					if (!$cursor) {  echo "An error occurred.\n";  exit;}
+					$num_rows = pg_num_rows($cursor);
+					if ( $num_rows > 0 ) {
+						echo "<script>OEmessage_open('The member email <b>".$_POST['OEregister_form_email']."</b> is already registered.')</script>";
+					} else {
+						$query = "INSERT INTO core.member (
+									member_id,
+									member_email,
+									member_name,
+									member_password,
+									member_validation,
+									member_validated,
+									member_enabled,
+									member_created,
+									member_notes
+								) VALUES (
+									(SELECT MAX(member_id) + 1 FROM core.member),
+									'".$_POST['OEregister_form_email']."',
+									'".$_POST['OEregister_form_name']."',
+									'".$_POST['OEregister_form_pwdnew']."',
+									'".strtoupper(base64_encode(openssl_random_pseudo_bytes(3*(16>>2))))."',
+									'N',
+									'N',
+									current_date,
+									'');
+									";
+						$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+						if (!$conn) {  echo "Database connection error!\n";  exit;}
+						$cursor = pg_query($conn,$query);
+						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
+						$num_rows = pg_num_rows($cursor);
+						echo "what happens next";
+						echo "<script>OEmessage_open('Welcome to Open Environments!<br>You will receive an email shortly with a link to validate this registration.');</script>";
+						}
+						break;
+				case "Login":
+					echo "PROCESSING LOGIN REQUEST";
+				        /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
+					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OElogin_form_email']."';";
+					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+					if (!$conn) {  echo "Database connection error!\n";  exit;}
+					$cursor = pg_query($conn,$query);
+					if (!$cursor) {  echo "An error occurred.\n";  exit;}
+					$num_rows = pg_num_rows($cursor);
+					echo $num_rows; 
+					if ( $num_rows < 1 ) {
+						echo "<script>OEmessage_open('That email is not registered with Open Environments.')</script>";
+					} else { 
+						$member = pg_fetch_assoc($cursor);
+						if($member['member_password'] != $_POST['OElogin_form_pass']) 
+						{
+						echo "<script>OEmessage_open('Wrong password.');</script>";
+						} else {
+						echo "<script>OElogin_success();</script>";
+						}
+					}
+					break;
+				default:
+		  			echo "<script>OEmessage_open('An error occurred. A form was submitted with an unknown value of: ".$_POST['submit'].")</script>";
+					break;
+				}
+		}
+?>  <!--- post processing submit events that may have preceeded the page --->
 </body>
 </html>

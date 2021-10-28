@@ -1,6 +1,16 @@
 // These are utilities reused across the website,
 //     rather than being dedicated to a single feature.
 
+// Message popups
+function OEmessage_close() {
+	document.getElementById('OEmessage').style.display = "none";
+	}
+function OEmessage_open(msg) {
+	document.getElementById('OEmessage').style.display = "block";
+	document.getElementById("OEmessage-content").innerHTML = msg;
+	}
+
+// handle input data characters
 function clean_input($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -8,14 +18,10 @@ function clean_input($data) {
   return $data;
 }
 
-function validate_registration() {
-
-		if (	document.getElementById("OEregister").elements["OEregister_form_name"].value == "") {
-			document.getElementById("OEregister").elements["OEregister_form_name_err"].value = "Name is required.";
-		    	document.OEregister.OEregister_form_name.focus();
-			return false;
-		}
-	
-		return true;
-	}
-
+// make a form submit when a return key is pressed
+// <div onKeyPress="return checkSubmit(event)"/>
+function checkSubmit(e) {
+   if(e && e.keyCode == 13) {
+      document.forms[0].submit();
+   }
+}

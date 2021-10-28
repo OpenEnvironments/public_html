@@ -1,8 +1,14 @@
 <?php
+	/* echo "<pre>"; print_r($_POST); echo "</pre>"; */
 
 	/* includes */
 
 		include "admin/settings.php";
+
+	/* */
+
+		echo "
+		";
 
 	/* setup security status - is the person logged in already */
 
@@ -18,6 +24,7 @@
 		if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
 		} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
 		} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
+
 ?>
 
 <!DOCTYPE HTML>
@@ -37,6 +44,11 @@
 			<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
 	</head>
 <body>
+
+<!------------   Load the javascript functions that precede HTML objects   -------->
+<script type='text/javascript' src='js/cookies.js'></script>
+<script type='text/javascript' src='js/googleanalytics.js'></script>
+<script type='text/javascript' src='js/tools.js'></script>
 
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
 <div w3-include-html="html/cookienotice.html"></div> 
@@ -111,7 +123,14 @@
 						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
 					</td>
 					<td width="12%" align="center">
-						<a href="" onClick="OElogin_open()"><img src="images/profile.png" class="OEicon"></a>
+						<div id="OElogin-button" class="OElogin-button">
+							<button class="OElogin-button">
+							<img src="images/login.png" class="OEicon"></button>
+						</div>
+						<div id="OEprofile-button" class="OEprofile-button">
+							<button class="OEprofile-button">
+							<img src="images/profile.png" class="OEicon"></button>
+						</div>
 					</td>
 					<td width="12%" align="center">
 						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
@@ -139,68 +158,141 @@
 	</tr>
 </table>
 
+<!---- registration form ---->
 <div id="OEregister-modal" class="OEmodal">
-<div id="OEregister-form" class="OEregister-form">
-	<form name="OEregister" method="post" action="<?PHP echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
-		<table style="width: 100%;">
-			<tr>
-				<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Registration:</b><br></td>
-				<td align="right">
-					<button id="OEregister-close" class="OEclosebutton">&times;</button>
-				</td>
-			</tr>
-			<tr>
-				<td width="30%" class="OEregister-form-labels">
-					<label>Your Name:&nbsp;</label></td>
-				<td width="30%" class="OEregister-form-inputs">
-					<input type="text" name="OEregister_form_name" 
-					value="<?php echo $_POST['OEregister_form_name']; ?>"></td>
-				<td width="40%" class="OEregister-form-errors">
-					<div id="OEregister_form_name_err">
-					<?php echo $_POST['OEregister_form_name_err']; ?></div></td>
-			</tr>
-			<tr>
-				<td width="30%" class="OEregister-form-labels">
-					<label>Email:&nbsp;</label></td>
-				<td width="30%" class="OEregister-form-inputs">
-					<input type="text" name="OEregister_form_email" 
-					value="<?php echo $_POST['OEregister_form_email']; ?>"></td>
-				<td width="40%" class="OEregister-form-errors">
-					<div id="OEregister_form_email_err">
-					<?php echo $_POST['OEregister_form_email_err']; ?></div></td>
-			</tr>
-			<tr>
-				<td width="30%" class="OEregister-form-labels">
-					<label>Password:&nbsp;</label></td>
-				<td width="30%" class="OEregister-form-inputs">
-					<input type="password" name="OEregister_form_pwdnew" 
-					value="<?php echo $_POST['OEregister_form_pwdnew']; ?>"></td>
-				<td width="40%" class="OEregister-form-errors">
-					<div id="OEregister_form_pwdnew_err">
-					<?php echo $_POST['OEregister_form_pwdnew_err']; ?></div></td>
-			</tr>
-			<tr>
-				<td width="30%" class="OEregister-form-labels">
-					<label>Confirm:&nbsp;</label></td>
-				<td width="30%" class="OEregister-form-inputs">
-					<input type="password" name="OEregister_form_pwdcon" 
-					value="<?php echo $_POST['OEregister_form_pwdcon']; ?>"></td>
-				<td width="40%" class="OEregister-form-errors">
-					<div id="OEregister_form_pwdcon_err">
-					<?php echo $_POST['OEregister_form_pwdcon_err']; ?></div></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td></td>
-				<td align="right">
-					<input type="submit" name="OEregister_submit" 
-						style="width: 80px; height: 20px;  margin: 0;  color: black;  font-size: 12px;" 
-						value="&nbsp;&nbsp;Register&nbsp;&nbsp;">&nbsp;&nbsp;
-				</td>
-			</tr>
-		</table>
-	</form>
-</div> 
-</div>
+	<div id="OEregister-form" class="OEregister-form">
+		<form name="OEregister" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+		 onsubmit="return validateRegistrationForm(this);" >
+			<table style="width: 100%;">
+				<tr>
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Registration</b><br></td>
+					<td align="right">
+						<button id="OEregister-close" class="OEclosebutton" type="button">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="30%" class="OEregister-form-labels">
+						<label>Your Name:&nbsp;</label></td>
+					<td width="30%" class="OEregister-form-inputs">
+						<input type="text" name="OEregister_form_name" 
+						value="<?php echo $_POST['OEregister_form_name']; ?>"></td>
+					<td width="40%" class="OEregister-form-errors">
+						<div id="OEregister_form_name_err">
+						<?php echo $_POST['OEregister_form_name_err']; ?></div></td>
+				</tr>
+				<tr>
+					<td width="30%" class="OEregister-form-labels">
+						<label>Email:&nbsp;</label></td>
+					<td width="30%" class="OEregister-form-inputs">
+						<input type="text" name="OEregister_form_email" 
+						value="<?php echo $_POST['OEregister_form_email']; ?>"></td>
+					<td width="40%" class="OEregister-form-errors">
+						<div id="OEregister_form_email_err">
+						<?php echo $_POST['OEregister_form_email_err']; ?></div></td>
+				</tr>
+				<tr>
+					<td width="30%" class="OEregister-form-labels">
+						<label>Password:&nbsp;</label></td>
+					<td width="30%" class="OEregister-form-inputs">
+						<input type="password" name="OEregister_form_pwdnew" 
+						value="<?php echo $_POST['OEregister_form_pwdnew']; ?>"></td>
+					<td width="40%" class="OEregister-form-errors">
+						<div id="OEregister_form_pwdnew_err">
+						<?php echo $_POST['OEregister_form_pwdnew_err']; ?></div></td>
+				</tr>
+				<tr>
+					<td width="30%" class="OEregister-form-labels">
+						<label>Confirm:&nbsp;</label></td>
+					<td width="30%" class="OEregister-form-inputs">
+						<input type="password" name="OEregister_form_pwdcon" 
+						value="<?php echo $_POST['OEregister_form_pwdcon']; ?>"></td>
+					<td width="40%" class="OEregister-form-errors">
+						<div id="OEregister_form_pwdcon_err">
+						<?php echo $_POST['OEregister_form_pwdcon_err']; ?></div></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td align="right">
+						<input type="submit" name="submit" class="OEsubmitbutton"							 
+							value="Register">&nbsp;&nbsp;
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+</div>  <!---- registration form ---->
+
+<!---- login form ---->
+<div id="OElogin-modal" class="OEmodal">
+	<div id="OElogin-form" class="OElogin-form">
+		<form name="OElogin" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+			onsubmit="return validateLoginForm(this);" >
+			<table style="width: 100%;">
+				<tr>
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Login</b><br></td>
+					<td align="right">
+						<button id="OElogin-close" class="OEclosebutton" type="button">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="30%" class="OElogin-form-labels">
+						<label>Email:&nbsp;</label></td>
+					<td width="30%" class="OElogin-form-inputs">
+						<input type="text" name="OElogin_form_email" 
+						value="<?php echo $_POST['OElogin_form_email']; ?>"></td>
+					<td width="40%" class="OElogin-form-errors">
+						<div id="OElogin_form_email_err">
+						<?php echo $_POST['OElogin_form_email_err']; ?></div></td>
+				</tr>
+				<tr>
+					<td width="30%" class="OElogin-form-labels">
+						<label>Password:&nbsp;</label></td>
+					<td width="30%" class="OElogin-form-inputs">
+						<input type="password" name="OElogin_form_pass" 
+						value="<?php echo $_POST['OElogin_form_pass']; ?>"></td>
+					<td width="40%" class="OElogin-form-errors">
+						<div id="OElogin_form_pass_err">
+						<?php echo $_POST['OElogin_form_pass_err']; ?></div></td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td colspan="3" align="center">
+						<input type="submit" name="submit" class="OEsubmitbutton" value="Login">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+</div> <!---- login form ---->
+
+<div id="OEmessage" class="OEmodal">
+	<div id="OEmessage-form" class="OEmessage-form">
+		<form name="OEmessage" method="post">
+			<table style="width: 100%;">
+				<tr>
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Message</b><br></td>
+					<td align="right">
+						<button id="OEmessage-close" class="OEclosebutton">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="10%"></td>
+					<td width="80%">
+						<div id="OEmessage-content" class="OEmessage-content">
+						</div>
+					</td>
+					<td width="10%"></td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center">
+						<input type="submit" name="submit" class="OEsubmitbutton" value="OK">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+</div>  <!---- message modal ---->
+
 
 <?php

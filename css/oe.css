@@ -104,6 +104,18 @@ h1 {  /*  should reflect the OEnarrative style below */
 .OEclosebutton:hover {
   font-weight: bold;
 }
+.OEsubmitbutton {
+  width: 80px;
+  height: 20px;
+  margin: 0;
+  border: 0px;
+  border-radius: 8px;
+  color: black;
+  font-size: 12px;
+}
+.OEsubmitbutton:hover {
+background: #BFBFBF;
+}
 #OEregister-open {
   height: 20px;
   width: 80px;
@@ -118,7 +130,15 @@ h1 {  /*  should reflect the OEnarrative style below */
   border: 0px;
 }
 #OEregister-open:hover{
+  cursor: pointer;
   background: #2F598C;
+}
+#OElogin-open {
+border: none;
+}
+#OElogin-open:hover{
+  cursor: pointer;
+  background: #BFBFBF;
 }
 
 /**/
