@@ -90,7 +90,6 @@
 						}
 						break;
 				case "Login":
-					echo "PROCESSING LOGIN REQUEST";
 				        /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OElogin_form_email']."';";
 					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
@@ -103,11 +102,13 @@
 						echo "<script>OEmessage_open('That email is not registered with Open Environments.')</script>";
 					} else { 
 						$member = pg_fetch_assoc($cursor);
-						if($member['member_password'] != $_POST['OElogin_form_pass']) 
+						if($member['member_password'] == $_POST['OElogin_form_pass']) 
 						{
-						echo "<script>OEmessage_open('Wrong password.');</script>";
+							/* LOGIN SUCCESS  */
+							echo "<script>OEloggedin();</script>";
 						} else {
-						echo "<script>OElogin_success();</script>";
+							/* LOGIN FAILURE  */
+							echo "<script>OEmessage_open('Wrong password.');</script>";
 						}
 					}
 					break;

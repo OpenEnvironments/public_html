@@ -14,12 +14,13 @@ OEloginbutton.onclick = function() {
 OEloginclose.onclick = function() {
   OEloginmodal.style.display = "none";
 }
-OElogin_success = function() {
+OEloggedin = function() {
   // after successful auth this should change the login icon to a profile icon
   OEloginbutton.style.display = "none";
   OEprofilebutton.style.display = "block";
+  // setCookie(cname, cvalue, exdays)
 }
-OElogout_success = function() {
+OEloggedout = function() {
   // after successful auth this should change the login icon to a profile icon
   OEloginbutton.style.display = "block";
   OEprofilebutton.style.display = "none";
@@ -34,10 +35,10 @@ window.onclick = function(event) {
 
 // Registration processing
 var OEregistermodal   = document.getElementById("OEregister-modal");
-var OEregisteropen    = document.getElementById("OEregister-open");
+var OEregisterbutton  = document.getElementById("OEregister-button");
 var OEregisterclose   = document.getElementById("OEregister-close");
 
-OEregisteropen.onclick = function() {
+OEregisterbutton.onclick = function() {
   OEregistermodal.style.display = "block";
 }
 
@@ -52,9 +53,6 @@ window.onclick = function(event) {
 }
 
 function validateRegistrationForm() {
-
-  OEmessage('validating');
-  return false;
 
   var successflag = true;
 

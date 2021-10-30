@@ -10,16 +10,7 @@ $cursor = pg_query($conn,$query);
 if (!$cursor) {  echo "An error occurred.\n";  exit;}
 $num_rows = pg_num_rows($cursor);
 if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
-} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
+} elseif ( $num_rows < 1 ) {    $title = "Open Environments - PAGE NOT FOUND";
 } else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
-
-/* functions reused across the website */
-
-function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
-  $data = htmlspecialchars($data);
-  return $data;
-}
 
 ?>

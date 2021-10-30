@@ -12,6 +12,22 @@
   background-color: rgba(0,0,0,0.5);
   display: none;
 }
+.OEregister-button {
+  height: 20px;
+  width: 80px;
+  line-height: 1px;
+  font-size: small;
+  border-radius: 8px;
+  background: #004EFF;
+  padding: 1px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  border: 0px;
+}
+.OEregister-button:hover{
+  background: #2F598C;
+}
 .OEregister-form {
   z-index: 3;  /*  OEmenu is 1,  modal is 2 */
   left: 50%;
