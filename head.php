@@ -154,7 +154,7 @@
 <div id="OEregister-modal" class="OEmodal">
 	<div id="OEregister-form" class="OEregister-form">
 		<form name="OEregister" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
-		 onsubmit="OEmessage_open('asds');" >
+		 onsubmit="return validateRegistrationForm(this);" >
 			<table style="width: 100%;">
 				<tr>
 					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Registration</b><br></td>
