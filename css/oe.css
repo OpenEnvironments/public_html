@@ -102,7 +102,7 @@ h1 {  /*  should reflect the OEnarrative style below */
   vertical-align: middle;
 }
 .OEclosebutton:hover {
-  font-weight: bold;
+  cursor: pointer;
 }
 .OEsubmitbutton {
   width: 80px;
@@ -153,72 +153,45 @@ border: none;
   background: #BFBFBF;
   font-size: 14px;
   padding: 4px 4px 4px 4px;
-  display: inline;
+  display: block;
+/* inline; */
 }
 .OEcookienotice_title {
+  width: 99%;
   float: left;
   font-weight: bold;
   height: 20px;
 }
 .OEcookienotice_msg {
-  text-align: left;
   width: 90%;
-  padding: 2px 0px 0px 8px;
+  text-align: left;
+  padding: 2px 0px 0px 60px;
   text-decoration: none!important;
 }
 .OEcookienotice_msg a:visited {  text-decoration: none !important;  color: white; font-weight:bold;} 
 .OEcookienotice_msg a:hover {  text-decoration: none !important;  color: white; } 
 .OEcookienotice_accept {
+  width: 50px;
   float: right;
   background-color: #2F598C;
   border: none;
   border-radius: 0px;
   color: white;
-  padding: 2px 8px 2px 8px;
+  padding: 2px 2px 2px 2px;
   text-align: center;
   text-decoration: none;
   font-size: 14px;
   display: inline-block;
 }
 .OEcookienotice_accept:hover {
-  float: right;
   background-color: white;
-  border: none;
-  border-radius: 0px;
   color: #2F598C;
-  padding: 2px 8px 2px 8px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 14px;
-  display: inline-block;
 }
-.OEcookienotice_close {
-  float: right;
-  border: none;
-  padding: 0px 2px 4px 2px;
-  background: black;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-.OEcookienotice_close:hover {
-  float: right;
-  padding: 0px 2px 4px 2px;
-  background: white;
-  color: black;
-  text-align: center;
-  font-weight: bold;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
+
+
 /**/
 /*  Search field  */
 /**/
-
 .OEsearch-form {
   width: 100%;
   display: flex;
@@ -280,20 +253,18 @@ border: none;
 /* Menu icon dropdown */
 /**/
 .OEmenu {
+  background: #F2F2F2;
   position: relative;
   align: center;
   text-align: right;
+  border: none;
 }
 .OEmenu:hover .OEmenu-content a {
   display: block;
-  align: center;
-  text-align: right;
 }
 .OEmenu-hamburger {
   margin: 0 auto;
-  border: none;
   color: white;
-  background: none;
   padding: 3px 3px;
   font-size: 18px;
   cursor: pointer;

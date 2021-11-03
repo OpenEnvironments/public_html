@@ -14,24 +14,25 @@ OEloginbutton.onclick = function() {
 OEloginclose.onclick = function() {
   OEloginmodal.style.display = "none";
 }
-OEloggedin = function() {
-  // after successful auth this should change the login icon to a profile icon
+OEloggedin = function(member, password, name) {
+  // after successful auth this should change the login icon to a profile icon and set the cookies for 1 day
   OEloginbutton.style.display = "none";
   OEprofilebutton.style.display = "block";
-  // setCookie(cname, cvalue, exdays)
+  setCookie('OEmember', member, 1);
+  setCookie('OEpassword', password, 1);
+  document.getElementById("OEregister-button").style.display = "none";
+  document.getElementById("OEprofile-button").innerHTML = "Z";
 }
 OEloggedout = function() {
   // after successful auth this should change the login icon to a profile icon
   OEloginbutton.style.display = "block";
   OEprofilebutton.style.display = "none";
 }
-
 window.onclick = function(event) {
   if (event.target == OEloginmodal) {
     OEloginmodal.style.display = "none";
   }
 }
-
 
 // Registration processing
 var OEregistermodal   = document.getElementById("OEregister-modal");
@@ -49,6 +50,25 @@ OEregisterclose.onclick = function() {
 window.onclick = function(event) {
   if (event.target == OEregistermodal) {
     OEregistermodal.style.display = "none";
+  }
+}
+
+// Profile processing
+var OEprofilemodal   = document.getElementById("OEprofile-modal");
+var OEprofilebutton  = document.getElementById("OEprofile-button");
+var OEprofileclose   = document.getElementById("OEprofile-close");
+
+OEprofilebutton.onclick = function() {
+  OEprofilemodal.style.display = "block";
+}
+
+OEprofileclose.onclick = function() {
+  OEprofilemodal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == OEprofilemodal) {
+    OEprofilemodal.style.display = "none";
   }
 }
 

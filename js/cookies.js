@@ -44,8 +44,3 @@ function acceptCookieConsent(){
     setCookie('OE_cookie_consent', 1, 365);
     document.getElementById("cookieNotice").style.display = "none";
 }
-function closeCookieConsent(){
-    deleteCookie('OE_cookie_consent');
-    setCookie('OE_cookie_consent', 1, 365);
-    document.getElementById("cookieNotice").style.display = "none";
-}

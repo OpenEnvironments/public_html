@@ -1,8 +1,5 @@
 <?php
-	/* echo "<pre>"; print_r($_POST); echo "</pre>"; */
-	echo "	<script type='text/javascript' src='js/cookies.js'></script>
-		<script type='text/javascript' src='js/googleanalytics.js'></script>
-		<script type='text/javascript' src='js/tools.js'></script>";
+echo "POST:<pre>"; print_r($_POST); echo "</pre>";
 
 	/* includes */
 
@@ -10,8 +7,10 @@
 
 	/* setup security status - is the person logged in already */
 
-	/* get the metadata for the current page */
+		/* setcookie("oemember", $Member_Row[Member_ID], "0", "/"); */
+		/* setcookie("oepass", $password, "0", "/"); */
 
+	/* get the metadata for the current page */
 
 		$page_id = $GLOBALS["page_id"];
 		$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."';";
@@ -25,33 +24,45 @@
 		} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
 
 ?>
-
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="css/oe.css" />
-		<link rel="stylesheet" href="css/modals.css" />
-		<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
-		<title><?= $title ?></title>
-		<!--Insert OG Markup for Social Media site previews -->
-			<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
-			<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Open Environments" />
-			<meta prefix="og: http://ogp.me/ns#" property="og:description" content="AI for the rest of us" />
-			<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://openenvironments.com/images/oesmall.png" />	
-			<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
-	</head>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
+	<title><?= $title ?></title>
+
+	<!--CSS -->
+	<link rel="stylesheet" href="css/oe.css" />
+	<link rel="stylesheet" href="css/modals.css" />
+
+	<!--Javascript -->
+	<script type='text/javascript' src='js/cookies.js'></script>
+	<script type='text/javascript' src='js/googleanalytics.js'></script>
+	<script type='text/javascript' src='js/tools.js'></script>
+
+	<!-- Open Graph for Social Media -->
+	<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Open Environments" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:description" content="AI for the rest of us" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://openenvironments.com/images/oesmall.png" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
+</head>
 <body>
-
-<!------------   Load the javascript functions that precede HTML objects   -------->
-
+<!------------   DIAGNOSTICS  SHOW COOKIES   -------->
+<script>
+var x = document.cookie; 
+window.alert(x);
+</script>
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
-<div w3-include-html="php	/cookienotice.html"></div> 
+<?php include "cookienotice.php" ?>
 <script>
 	let cookie_consent = getCookie("OE_cookie_consent");
-	if(cookie_consent != ""){document.getElementById("cookieNotice").style.display = "none";}
-	else{document.getElementById("cookieNotice").style.display = "block";}
+	if(cookie_consent != ""){ 
+		document.getElementById("cookieNotice").style.display = "none";
+	} else {
+		document.getElementById("cookieNotice").style.display = "block";
+	}
 </script>
 
 <!--------- Header Content ----------->
@@ -121,8 +132,8 @@
 					<td width="12%" align="center">
 						<button id="OElogin-button" class="OElogin-button">
 							<img src="images/login.png" class="OEicon"></button>
-						<button id="OEprofile-button" class="OEprofile-button">
-							<img src="images/profile.png" class="OEicon"></button>
+<!------						<button id="OEprofile-button" class="OEprofile-button">							<img src="images/profile.png" class="OEicon"></button> ------>
+						<div id="OEprofile-button" class="OEprofile-button"></div>
 					</td>
 					<td width="12%" align="center">
 						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
@@ -132,7 +143,7 @@
 					</td>
 					<td width="12%" align="center">
 						<div class="OEmenu">
-							<button style="border:none;">
+							<button class="OEmenu">
 							<img align="center" src="images/hamburger.png" class="OEicon"">
 							<div class="OEmenu-content">
 								<a href="about.php">About</a>

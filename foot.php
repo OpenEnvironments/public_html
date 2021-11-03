@@ -33,10 +33,11 @@
 		</td>
 	</tr>
 </table>
+<!------  FUNCTIONALLY THE END OF HTML CONTENT DEFINITION ------------------>
+<!------  FOLLOWED BY PROCESSING THAT CHANGES THAT CONTENT ----------------->
 
-<!------  Javascript includes should be last before closing the body tag  ------------------>
-
-	<script type="text/javascript" src="js/modals.js"></script>
+<!------  Javascript that gives action to the objects defined before this footer.  ------------------>
+<script type="text/javascript" src="js/modals.js"></script>
 
 <!------  PHP processing to field submit events that preceded this page  ------------------>
 
@@ -85,8 +86,7 @@
 						$cursor = pg_query($conn,$query);
 						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
 						$num_rows = pg_num_rows($cursor);
-						echo "what happens next";
-						echo "<script>OEmessage_open('Welcome to Open Environments!<br>You will receive an email shortly with a link to validate this registration.');</script>";
+						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
 						}
 						break;
 				case "Login":
@@ -105,7 +105,8 @@
 						if($member['member_password'] == $_POST['OElogin_form_pass']) 
 						{
 							/* LOGIN SUCCESS  */
-							echo "<script>OEloggedin();</script>";
+							echo "<script>OEloggedin('" . $_POST['OElogin_form_email'] . "','" . $_POST['OElogin_form_pass'] . "');</script>";
+
 						} else {
 							/* LOGIN FAILURE  */
 							echo "<script>OEmessage_open('Wrong password.');</script>";
