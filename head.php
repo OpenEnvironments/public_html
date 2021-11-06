@@ -1,14 +1,9 @@
 <?php
-echo "POST:<pre>"; print_r($_POST); echo "</pre>";
+/*echo "POST:<pre>"; print_r($_POST); echo "</pre>"; */ 
 
 	/* includes */
 
 		include "admin/settings.php";
-
-	/* setup security status - is the person logged in already */
-
-		/* setcookie("oemember", $Member_Row[Member_ID], "0", "/"); */
-		/* setcookie("oepass", $password, "0", "/"); */
 
 	/* get the metadata for the current page */
 
@@ -130,9 +125,7 @@ window.alert(x);
 						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
 					</td>
 					<td width="12%" align="center">
-						<button id="OElogin-button" class="OElogin-button">
-							<img src="images/login.png" class="OEicon"></button>
-<!------						<button id="OEprofile-button" class="OEprofile-button">							<img src="images/profile.png" class="OEicon"></button> ------>
+						<div id="OElogin-button"   class="OElogin-button"></div>
 						<div id="OEprofile-button" class="OEprofile-button"></div>
 					</td>
 					<td width="12%" align="center">

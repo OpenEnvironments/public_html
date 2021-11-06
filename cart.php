@@ -14,6 +14,9 @@ include "head.php";
 		<table><tr>
 			<td width="50%"><img src="images/cart.png" style="width=200px; height: 200px;"></td>
 			<td width="50%" style="font-size: 18px; text-align: center;">
+<?php
+echo "Im HERE";
+?>
 				<b>Your shopping cart is empty.</b><br><br> . . . but that's okay. We don't sell anything yet! <br>
 				<span style='font-size:100px;'>&#128521;</span><br><br><br><br>
 			</td>

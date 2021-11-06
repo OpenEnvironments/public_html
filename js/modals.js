@@ -15,12 +15,13 @@ OEloginclose.onclick = function() {
   OEloginmodal.style.display = "none";
 }
 OEloggedin = function(member, password, name) {
-  // after successful auth this should change the login icon to a profile icon and set the cookies for 1 day
-  OEloginbutton.style.display = "none";
-  OEprofilebutton.style.display = "block";
+  // after successful auth this should set the cookies for 1 day
   setCookie('OEmember', member, 1);
   setCookie('OEpassword', password, 1);
+  // now set the logged in state
+  OEloginbutton.style.display = "none";
   document.getElementById("OEregister-button").style.display = "none";
+  OEprofilebutton.style.display = "block";
   document.getElementById("OEprofile-button").innerHTML = "Z";
 }
 OEloggedout = function() {
@@ -76,14 +77,14 @@ function validateRegistrationForm() {
 
   var successflag = true;
 
-  var name = clean_input(document.OEregister.OEregister_form_name.value);
+  var name = document.OEregister.OEregister_form_name.value;
     document.getElementById("OEregister_form_name_err").innerHTML = "";
     if (name == "") {
       document.getElementById("OEregister_form_name_err").innerHTML = "Name is required.";
       successflag = false;
     }
 
-  var email = clean_input(document.OEregister.OEregister_form_email.value);
+  var email = document.OEregister.OEregister_form_email.value;
     document.getElementById("OEregister_form_email_err").innerHTML = "";
     var filter = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
     if (email == "") {
@@ -94,14 +95,14 @@ function validateRegistrationForm() {
       successflag = false;
     }
 
-  var pwdnew = clean_input(document.OEregister.OEregister_form_pwdnew.value);
+  var pwdnew = document.OEregister.OEregister_form_pwdnew.value;
     document.getElementById("OEregister_form_pwdnew_err").innerHTML = "";
     if (pwdnew == "") {
       document.getElementById("OEregister_form_pwdnew_err").innerHTML = "Password is required.";
       successflag = false;
     }
 
-  var pwdcon = clean_input(document.OEregister.OEregister_form_pwdcon.value);
+  var pwdcon = document.OEregister.OEregister_form_pwdcon.value;
     document.getElementById("OEregister_form_pwdcon_err").innerHTML = "";
     if (pwdcon == "") {
       document.getElementById("OEregister_form_pwdcon_err").innerHTML = "Confirmation is required.";

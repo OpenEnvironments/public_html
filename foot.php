@@ -36,6 +36,30 @@
 <!------  FUNCTIONALLY THE END OF HTML CONTENT DEFINITION ------------------>
 <!------  FOLLOWED BY PROCESSING THAT CHANGES THAT CONTENT ----------------->
 
+<!------  Set security condition, logged in or not, confirming cookies ----------------->
+<?php
+
+if (isset($_COOKIE['OEmember'])) {
+
+	/* confirm member and password are still the same $_COOKIE['OEpassword'] $_COOKIE['OEpassword'] */
+	$query = "SELECT * FROM core.member WHERE member_email = '".$_COOKIE['OEmember']."' AND member_password = '".$_COOKIE['OEpassword']."';";
+	$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+	if (!$conn) {  echo "Database connection error!\n";  exit;}
+	$cursor = pg_query($conn,$query);
+	if (!$cursor) {  echo "An error occurred.\n";  exit;}
+	$num_rows = pg_num_rows($cursor);
+	if ( $num_rows == 1 ) {
+		echo "<script>OEmessage_open('Member and Password found in cookies are confirmed.')</script>";
+		/* set state to be logged in */
+	} else {
+		echo "<script>OEmessage_open('Password found in cookies is no longer valid. Logging out.')</script>";
+		/* set state to be logged out */
+	};
+} else {
+/* set the current state to be logged out */ 
+};
+?>
+
 <!------  Javascript that gives action to the objects defined before this footer.  ------------------>
 <script type="text/javascript" src="js/modals.js"></script>
 
@@ -51,6 +75,7 @@
 					break;
 				case "Register":
 					/* does the email already exist */
+echo "<br>if already exists ".$_POST['OEregister_form_email']."<br>";
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
 					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
@@ -97,7 +122,6 @@
 					$cursor = pg_query($conn,$query);
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
-					echo $num_rows; 
 					if ( $num_rows < 1 ) {
 						echo "<script>OEmessage_open('That email is not registered with Open Environments.')</script>";
 					} else { 

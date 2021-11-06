@@ -34,7 +34,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   height: 154px;
-  width: 420px;
+  width: 480px;
   position: absolute;
   background: #2F598C;
   border: 2px solid #BFBFBF;
@@ -58,6 +58,7 @@
 .OElogin-button {
   border: none;
   display: block;
+  background-image: url("images/login.png");
 }
 .OElogin-button:hover {
   cursor: pointer;
