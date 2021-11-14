@@ -36,33 +36,12 @@
 <!------  FUNCTIONALLY THE END OF HTML CONTENT DEFINITION ------------------>
 <!------  FOLLOWED BY PROCESSING THAT CHANGES THAT CONTENT ----------------->
 
-<!------  Set security condition, logged in or not, confirming cookies ----------------->
-<?php
-
-if (isset($_COOKIE['OEmember'])) {
-
-	/* confirm member and password are still the same $_COOKIE['OEpassword'] $_COOKIE['OEpassword'] */
-	$query = "SELECT * FROM core.member WHERE member_email = '".$_COOKIE['OEmember']."' AND member_password = '".$_COOKIE['OEpassword']."';";
-	$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
-	if (!$conn) {  echo "Database connection error!\n";  exit;}
-	$cursor = pg_query($conn,$query);
-	if (!$cursor) {  echo "An error occurred.\n";  exit;}
-	$num_rows = pg_num_rows($cursor);
-	if ( $num_rows == 1 ) {
-		echo "<script>OEmessage_open('Member and Password found in cookies are confirmed.')</script>";
-		/* set state to be logged in */
-	} else {
-		echo "<script>OEmessage_open('Password found in cookies is no longer valid. Logging out.')</script>";
-		/* set state to be logged out */
-	};
-} else {
-/* set the current state to be logged out */ 
-};
-?>
-
 <!------  Javascript that gives action to the objects defined before this footer.  ------------------>
 <script type="text/javascript" src="js/modals.js"></script>
 
+<!------  Set security condition, logged in or not, confirming cookies ----------------->
+<?php
+?>
 <!------  PHP processing to field submit events that preceded this page  ------------------>
 
 <?php
@@ -71,13 +50,39 @@ if (isset($_COOKIE['OEmember'])) {
 		 	switch ($_POST['submit']) {
 				case "OK":
 					/* A message popup was closed, so close any all modals */
-					echo "<script>OEmessage_close()</script>";
 					break;
+				case "Change":
+					/* the email exists for a member id other than this one */
+					/*  
+					/* The member_id hasnt been changed - has the requested email address been used by another*/
+					$query = "SELECT * FROM core.member 
+							WHERE member_email = '".$_POST['OEchange_form_email']."'
+							AND member_id <> '".$_POST['OEchange_form_id']."' ;";
+					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
+					if (!$conn) {  echo "Database connection error!\n";  exit;}
+					$cursor = pg_query($conn,$query);
+					if (!$cursor) {  echo "An error occurred.\n";  exit;}
+					$num_rows = pg_num_rows($cursor);
+					if ( $num_rows > 0 ) {
+						echo "<script>OEmessage_open('The email <b>".$_POST['OEchange_form_email']."</b> is already registered to another Open Environments member.<br>Contact support@openenvironments.com if you have any concerns or need additional help.')</script>";
+					} else {
+						$query = "UPDATE core.member SET 
+								member_name = '".$_POST['OEchange_form_name']."',
+								member_email = '".$_POST['OEchange_form_email']."',
+								member_password = '".$_POST['OEchange_form_pwdnew']."'
+								WHERE member_id = '".$_POST['OEchange_form_id']."';";
+						$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
+						if (!$conn) {  echo "Database connection error!\n";  exit;}
+						$cursor = pg_query($conn,$query);
+						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
+						$num_rows = pg_num_rows($cursor);
+						echo "<script>OEmessage_open('<br>Your member information has been updated.');</script>";
+						}
+						break;
 				case "Register":
 					/* does the email already exist */
-echo "<br>if already exists ".$_POST['OEregister_form_email']."<br>";
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
-					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
 					$cursor = pg_query($conn,$query);
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
@@ -106,7 +111,7 @@ echo "<br>if already exists ".$_POST['OEregister_form_email']."<br>";
 									current_date,
 									'');
 									";
-						$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+						$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 						if (!$conn) {  echo "Database connection error!\n";  exit;}
 						$cursor = pg_query($conn,$query);
 						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
@@ -116,25 +121,24 @@ echo "<br>if already exists ".$_POST['OEregister_form_email']."<br>";
 						break;
 				case "Login":
 				        /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
-					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OElogin_form_email']."';";
-					$conn = pg_connect("host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass);
+					$query = "SELECT * FROM core.member 
+							WHERE member_email = '".$_POST['OElogin_form_email']."'
+							AND   member_password = '".$_POST['OElogin_form_pass']."'";
+					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
 					$cursor = pg_query($conn,$query);
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
-					if ( $num_rows < 1 ) {
-						echo "<script>OEmessage_open('That email is not registered with Open Environments.')</script>";
+ 					if ( $num_rows < 1 ) {
+						echo "<script>OEmessage_open('Invalid email/password combination.')</script>";
 					} else { 
-						$member = pg_fetch_assoc($cursor);
-						if($member['member_password'] == $_POST['OElogin_form_pass']) 
-						{
-							/* LOGIN SUCCESS  */
-							echo "<script>OEloggedin('" . $_POST['OElogin_form_email'] . "','" . $_POST['OElogin_form_pass'] . "');</script>";
-
-						} else {
-							/* LOGIN FAILURE  */
-							echo "<script>OEmessage_open('Wrong password.');</script>";
-						}
+						$member = pg_fetch_row($cursor);  
+						$_SESSION["member_id"] = $member[0];
+						$_SESSION["member_email"] = $member[1];
+						$_SESSION["member_name"] = $member[2];
+						$_SESSION["member_password"] = $member[3];
+						/* Now logged in, you want the buttons at in the head to reflect the new state */
+						echo "<script>window.location.reload();</script>";
 					}
 					break;
 				default:

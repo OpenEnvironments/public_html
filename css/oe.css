@@ -76,9 +76,15 @@ h1 {  /*  should reflect the OEnarrative style below */
   width: 20px;
   height: 20px;
 }
+.OEicon:hover {
+  cursor: pointer;
+}
 .OEsocial {
   width: 25px;
   height: 25px;
+}
+.OEsocial {
+  cursor: pointer;
 }
 .OEOKbutton {
   width: 42px; height: 20px;
@@ -132,13 +138,6 @@ background: #BFBFBF;
 #OEregister-open:hover{
   cursor: pointer;
   background: #2F598C;
-}
-#OElogin-open {
-border: none;
-}
-#OElogin-open:hover{
-  cursor: pointer;
-  background: #BFBFBF;
 }
 
 /**/

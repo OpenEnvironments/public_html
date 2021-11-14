@@ -40,7 +40,7 @@ function getCookie(cname) {
 
 // Set cookie consent
 function acceptCookieConsent(){
-    deleteCookie('OE_cookie_consent');
-    setCookie('OE_cookie_consent', 1, 365);
+    deleteCookie('OEcookie_consent');
+    setCookie('OEcookie_consent', 1, 365);
     document.getElementById("cookieNotice").style.display = "none";
 }

@@ -2,6 +2,8 @@
 
 $GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
 include "head.php";
+session_start;
+$_SESSION['profile'] = 'not so much';
 
 ?>
 

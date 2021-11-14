@@ -33,7 +33,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 154px;
+  height: 160px;
   width: 480px;
   position: absolute;
   background: #2F598C;
@@ -41,7 +41,7 @@
   display: block;
 }
 .OEregister-form-labels {
-  width: 120px;
+  width: 100px;
   text-align: right;
   font-size: 14px;
   color: white;
@@ -52,32 +52,35 @@
 }
 .OEregister-form-errors {
   font-size: 14px;
-  width: 160px;
+  width: 200px;
   color: orange;
 }
-.OElogin-button {
-  border: none;
+.OEchange-form {
+  z-index: 3;  /*  OEmenu is 1,  modal is 2 */
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 160px;
+  width: 480px;
+  position: absolute;
+  background: #2F598C;
+  border: 2px solid #BFBFBF;
   display: block;
-  background-image: url("images/login.png");
 }
-.OElogin-button:hover {
-  cursor: pointer;
+.OEchange-form-labels {
+  width: 100px;
+  text-align: right;
+  font-size: 14px;
+  color: white;
 }
-.OEprofile-button {
-  border: none;
-  display: none;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-  border-radius: 50%;
-  font-size: 12px;
-  font-weight: bold;
-  color: black;
-  text-align: center;
-  background: #F2F2F2;
+.OEchange-form-inputs {
+  width: 120px;
+  font-size: 14px;
 }
-.OEprofile-button:hover {
-  cursor: pointer;
+.OEchange-form-errors {
+  font-size: 14px;
+  width: 200px;
+  color: orange;
 }
 .OElogin-form {
   z-index: 3;  /*  OEmenu is 1,  modal is 2 */

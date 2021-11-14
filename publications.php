@@ -11,7 +11,7 @@ include "head.php";
 		<td width="10px"></td> <!-- left column -->
 		<td>
 			<?php
-			$connstr = "host=" . $OE_host . " port=" . $OE_port . " dbname=" . $OE_name . " user=" . $OE_user . " password=" . $OE_pass;
+			$connstr = "host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass;
 			$conn = pg_connect($connstr);
 			$cursor = pg_query($conn, "SELECT * FROM core.publication");
 			if (!$cursor) {    echo "A database error occurred.\n";    exit;}

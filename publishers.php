@@ -10,7 +10,7 @@ include "head.php";
 	<tr><td width="10px"></td>
 		<td>
 			<?php
-			$connstr = "host=" . $DB_Host . " port=" . $DB_Port . " dbname=" . $DB_Name . " user=" . $DB_User . " password=" . $DB_Pass;
+			$connstr = "host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass;
 			$conn = pg_connect($connstr);
 			$cursor = pg_query("select * from core.publisher");
 			while ($row = pg_fetch_assoc($cursor) ){

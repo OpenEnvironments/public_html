@@ -57,7 +57,7 @@ more information about cookies</b></span></p>
 <p class=OEnarrative>You can learn more about cookies and
 the following third-party websites:</p>
 <p class=OEnarrative>&#9679;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span>AllAboutCookies: <span class=Hyperlink1><a
+</span>All About Cookies: <span class=Hyperlink1><a
 href="http://www.allaboutcookies.org/"><span>http://www.allaboutcookies.org/</span></a></span></p>
 <p class=OEnarrative>&#9679;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span>Network Advertising Initiative: <span class=Hyperlink1><a
