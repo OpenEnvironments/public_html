@@ -13,18 +13,18 @@ include "head.php";
 			<?php
 			$connstr = "host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass;
 			$conn = pg_connect($connstr);
-			$cursor = pg_query($conn, "SELECT * FROM core.publication");
+			$cursor = pg_query($conn, "select * from core.publication child, core.publisher mom where child.publisher_publisher_id=mom.publisher_id");
 			if (!$cursor) {    echo "A database error occurred.\n";    exit;}
 			while ($row = pg_fetch_assoc($cursor) ){
-			echo "<div class=\"OEcard\">
+			echo "<a href=\"".$row['publication_url']."\" target=\"_blank\"><div class=\"OEcard\">
 				<div class=\"OEcard-container\">
+<div style=\"border:2px solid purple\">Hello</div>
 			 	  <div class=\"OEcard-publication\"
 					<div class=\"OEcard-publication-name\">
-						<h4>(".$row['publication_id'].") ".$row['publication_name']."</h4></div><br>
-					<div class=\"OEcard-publication-url\"><a href=\"".$row['publication_url']."\">".$row['publication_url']."</a></div>
+						<h4>(".$row['publication_id'].") ".$row['publication_name']."</h4><br></div>
 				  </div>
 				</div>
-			     </div>";
+			     </div></a>";
 			};
 			?>
 		</td>

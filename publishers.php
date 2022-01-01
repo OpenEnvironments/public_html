@@ -14,7 +14,7 @@ include "head.php";
 			$conn = pg_connect($connstr);
 			$cursor = pg_query("select * from core.publisher");
 			while ($row = pg_fetch_assoc($cursor) ){
-			echo  "<div class=\"OEcard\">
+			echo  "<a href=\"".$row['publisher_url']."\" target=\"_blank\"><div class=\"OEcard\">
 				 	<div class=\"OEcard-publisher\">
 						<div class=\"OEcard-publisher-image\">
 							<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-publisher-image\"></div>
@@ -22,7 +22,7 @@ include "head.php";
 						<div style=\"width:100%;border-bottom:1px solid black;\">&nbsp;</div>
 						<div class=\"OEcard-publisher-description\">".$row['publisher_description']."</div>
 					</div>
-			     	</div>";
+			     	</div></a>";
 			};
 			?>
 		</td>

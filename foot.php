@@ -118,7 +118,12 @@
 						$num_rows = pg_num_rows($cursor);
 						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
 						}
-						break;
+						/* break;  */
+						/**/
+						/* a successful registration should be followed by logging in that new registrant!*/
+						/* */
+						$_POST['OElogin_form_email'] = $_POST['OEregister_form_email'];
+						$_POST['OElogin_form_pass'] = $_POST['OEregister_form_pwdnew'];
 				case "Login":
 				        /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
 					$query = "SELECT * FROM core.member 
@@ -130,15 +135,15 @@
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
  					if ( $num_rows < 1 ) {
-						echo "<script>OEmessage_open('Invalid email/password combination.')</script>";
+						echo "<script>OEmessage_open('Invalid email/password combination:".$_POST['OElogin_form_email'].")</script>";
 					} else { 
 						$member = pg_fetch_row($cursor);  
 						$_SESSION["member_id"] = $member[0];
 						$_SESSION["member_email"] = $member[1];
 						$_SESSION["member_name"] = $member[2];
 						$_SESSION["member_password"] = $member[3];
-						/* Now logged in, you want the buttons at in the head to reflect the new state */
-						echo "<script>window.location.reload();</script>";
+						/* Now logged in, but need to reload the page to refresh the icons in the head */
+						echo "<script>window.location=window.location;</script>";
 					}
 					break;
 				default:

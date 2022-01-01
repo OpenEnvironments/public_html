@@ -16,13 +16,12 @@
   height: 20px;
   width: 80px;
   line-height: 1px;
-  font-size: small;
+  font-size: 12px;
   border-radius: 8px;
   background: #004EFF;
   padding: 1px;
   text-decoration: none;
   color: white;
-  font-weight: bold;
   border: 0px;
 }
 .OEregister-button:hover{

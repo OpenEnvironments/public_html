@@ -1,18 +1,12 @@
 <?php
+
+/* echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>";  */
+
 		session_start();
-
-echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>";
-
-echo "COOKIE:<pre>"; print_r($_COOKIE); echo "</pre>";
-
-echo "POST:<pre>"; print_r($_POST); echo "</pre>";
-
-	/* immediately get security configuration then establish server session */
-
 		include "admin/settings.php";
-		$session_timeout_seconds = 600;
+
 		if(isset($_SESSION['OElast_action'])){
-			if((time() - $_SESSION['OElast_action']) >= $session_timeout_seconds){
+			if((time() - $_SESSION['OElast_action']) >= $OEsession_timeout_seconds){
 				session_unset(); session_destroy(); }}
 		$_SESSION['OElast_action'] = time();
 
@@ -125,14 +119,36 @@ echo "POST:<pre>"; print_r($_POST); echo "</pre>";
 						<button id="OEregister-button" class="OEregister-button">Register!</button>
 					</td>
 					<td width="12%" align="center">
-						<a href="help.php"><img src="images/question.png" class="OEicon"></a>
+						<div class="OEprofile">
+							<a href="help.php"><img src="images/question.png" class="OEicon"></a>
+							<div class="OEprofilemenu-content">
+								<a href="subscriptions.php">Subscriptions</a>
+								<a href="settings.php">Settings</a>
+								<a href="logout.php">Logout</a>
+							</div>
+						</di>
 					</td>
 					<td width="12%" align="center">
 						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
 					</td>
 					<td width="12%" align="center">
 						<div id="OElogin-button" class="OEicon"><img src="images/login.png" class="OEicon"></div>
-						<div id="OEchange-button" class="OEicon"><img src="images/change.png" class="OEicon">Z</div>
+						<div id="OEprofile" class="OEprofile">
+						</div>
+						<?php
+							if (isset($_SESSION['member_name'])) {
+								echo "<script>
+									document.getElementById('OElogin-button').style.display = 'none';
+									document.getElementById('OEprofile').style.display = 'block';
+									document.getElementById('OEprofile').innerHTML = '"  . 
+										strtoupper(substr($_SESSION['member_name'],0,1)) . "';</script>";
+							} else {
+								echo "<script>
+									document.getElementById('OElogin-button').style.display = 'block';
+									document.getElementById('OEprofile').style.display = 'none';
+								</script>";
+							}
+						?>
 					</td>
 					<td width="12%" align="center">
 						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
@@ -141,10 +157,10 @@ echo "POST:<pre>"; print_r($_POST); echo "</pre>";
 						<a href="cart.php"><img src="images/cart.png" class="OEicon"></a>
 					</td>
 					<td width="12%" align="center">
-						<div class="OEmenu">
-							<button class="OEmenu">
+						<div class="OEhamburger">
+							<button class="OEhamburger">
 							<img align="center" src="images/hamburger.png" class="OEicon"">
-							<div class="OEmenu-content">
+							<div class="OEhamburger-content">
 								<a href="about.php">About</a>
 								<a href="privacy-policy.php">Privacy Policy</a>
 								<a href="cookies-policy.php">Cookies Policy</a>

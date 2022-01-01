@@ -57,25 +57,6 @@ window.onclick = function(event) {
   }
 }
 
-// Change processing
-var OEchangemodal   = document.getElementById("OEchange-modal");
-var OEchangebutton  = document.getElementById("OEchange-button");
-var OEchangeclose   = document.getElementById("OEchange-close");
-
-OEchangebutton.onclick = function() {
-  OEchangemodal.style.display = "block";
-}
-
-OEchangeclose.onclick = function() {
-  OEchangemodal.style.display = "none";
-}
-
-window.onclick = function(event) {
-  if (event.target == OEchangemodal) {
-    OEchangemodal.style.display = "none";
-  }
-}
-
 /////////////////////////////////////////////
 //              Form Validation
 /////////////////////////////////////////////
