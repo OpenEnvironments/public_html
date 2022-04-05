@@ -18,8 +18,8 @@ include "head.php";
 			while ($row = pg_fetch_assoc($cursor) ){
 			echo "<a href=\"".$row['publication_url']."\" target=\"_blank\"><div class=\"OEcard\">
 				<div class=\"OEcard-container\">
-<div style=\"border:2px solid purple\">Hello</div>
-			 	  <div class=\"OEcard-publication\"
+					<div class=\"OEcard-publisher-image\" style=\"width:40;\">
+						<img src=\"publishers/".$row['publisher_image']."\" class=\"OEcard-publisher-image\"></div>			 	  <div class=\"OEcard-publication\"
 					<div class=\"OEcard-publication-name\">
 						<h4>(".$row['publication_id'].") ".$row['publication_name']."</h4><br></div>
 				  </div>
