@@ -77,25 +77,27 @@
 			</table>
 		</td>
 		<td width="60%">
-			<table style="width: 100%; border-spacing: 0px 0px;">
-				<tr align="top">
-					<td colspan="6" class="OEquickfilter">Quick Filter</td>
+			<table width="100%">
+				<tr>
+					<td width="20%"></td>
+					<td colspan="4" class="OEquickfilter" style="font-size: small; border-bottom: 1px solid #BFBFBF;">Quick Filter</td>
+					<td width="20%"></td>
 				</tr>
 				<tr>
-					<td style="width: 20%;">&nbsp;</td>
-					<td width="15%" class="OEquickfilter-item">
+					<td width="20%"></td>
+					<td width="15%" class="OEquickfilter-item" style="font-size: small">
 						<a href="publishers.php">Publishers</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item">
+					<td width="15%" class="OEquickfilter-item" style="font-size: small">
 						<a href="publications.php">Publications</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item">
+					<td width="15%" class="OEquickfilter-item" style="font-size: small">
 						<a href="subjects.php">Subjects</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item">
+					<td width="15%" class="OEquickfilter-item" style="font-size: small">
 						<a href="models.php">Models</a>
 					</td>
-					<td style="width: 20%;">&nbsp;</td>
+					<td width="20%"></td>
 				</tr>
 			</table>
 		</td>
@@ -108,7 +110,7 @@
 							<form action="/" method="GET" class="OEsearch-form">
 							  <input type="search" class="OEsearch-field" size=30 >
 							  <button type="submit" class="OEsearch-button">
-								<img src="images/search.png">
+								<img src="images/search.png"></img>
 							  </button>
 							</form>
 						</div>
@@ -118,23 +120,15 @@
 					<td width="28%"> 
 						<button id="OEregister-button" class="OEregister-button">Register!</button>
 					</td>
-					<td width="12%" align="center">
-						<div class="OEprofile">
-							<a href="help.php"><img src="images/question.png" class="OEicon"></a>
-							<div class="OEprofilemenu-content">
-								<a href="subscriptions.php">Subscriptions</a>
-								<a href="settings.php">Settings</a>
-								<a href="logout.php">Logout</a>
-							</div>
-						</di>
+					<td width="12%">
+						<a href="help.php"><img src="images/question.png" class="OEicon"></a>
 					</td>
-					<td width="12%" align="center">
+					<td width="12%">
 						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
 					</td>
-					<td width="12%" align="center">
+					<td width="12%">
 						<div id="OElogin-button" class="OEicon"><img src="images/login.png" class="OEicon"></div>
-						<div id="OEprofile" class="OEprofile">
-						</div>
+						<div id="OEprofile" class="OEprofile"></div>
 						<?php
 							if (isset($_SESSION['member_name'])) {
 								echo "<script>
@@ -150,16 +144,16 @@
 							}
 						?>
 					</td>
-					<td width="12%" align="center">
+					<td width="12%">
 						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
 					</td>
-					<td width="12%" align="center">
+					<td width="12%">
 						<a href="cart.php"><img src="images/cart.png" class="OEicon"></a>
 					</td>
-					<td width="12%" align="center">
+					<td width="12%">
 						<div class="OEhamburger">
 							<button class="OEhamburger">
-							<img align="center" src="images/hamburger.png" class="OEicon"">
+							<img align="center" src="images/hamburger.png" class="OEicon""></img>
 							<div class="OEhamburger-content">
 								<a href="about.php">About</a>
 								<a href="privacy-policy.php">Privacy Policy</a>
