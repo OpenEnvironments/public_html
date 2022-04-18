@@ -2,7 +2,7 @@
 <table width="100%" class="OEfooter"> 
 	<tr>
 		<td width="100%" colspan="6">
-			<br><br>
+			<br>
 		</td>
 	</tr>
 	<tr style="font-size: large; vertical-align: middle;">
@@ -28,7 +28,7 @@
 		<td width="44%"></td>
 	</tr>	
 	<tr>
-		<td width="100%" colspan="6" style="text-align: center;">
+		<td width="100%" colspan="6" style="font-size: x-small; text-align: center;">
 			<strong>&#169;2004-2021 Open Environments - All Rights Reserved<br><br>
 		</td>
 	</tr>
@@ -41,6 +41,31 @@
 
 <!------  Set security condition, logged in or not, confirming cookies ----------------->
 <?php
+					if (isset($_SESSION['member_name'])) {
+						echo "<script>
+							document.getElementById('OElogin').style.display = 'none';
+							document.getElementById('OElogout').style.display = 'block';
+							document.getElementById('OEsettings').style.display = 'block';
+							document.getElementById('OEsettingsgrayed').style.display = 'none';
+							document.getElementById('OEprofilegrayed').style.display = 'block';
+							document.getElementById('OEprofile').style.display = 'none';
+							document.getElementById('OEprofile').innerHTML = '' ;
+							document.getElementById('OEnotifications').style.display = 'block';
+							document.getElementById('OEnotificationsgrayed').style.display = 'none';
+							</script>";
+					} else {
+						echo "<script>
+							document.getElementById('OElogin').style.display = 'block';
+							document.getElementById('OElogout').style.display = 'none';
+							document.getElementById('OEsettings').style.display = 'none';
+							document.getElementById('OEsettingsgrayed').style.display = 'block';
+							document.getElementById('OEprofilegrayed').style.display = 'none';
+							document.getElementById('OEprofile').style.display = 'block';
+							document.getElementById('OEprofile').innerHTML = '' ;
+							document.getElementById('OEnotifications').style.display = 'none';
+							document.getElementById('OEnotificationsgrayed').style.display = 'block';
+							</script>";
+					}
 ?>
 <!------  PHP processing to field submit events that preceded this page  ------------------>
 

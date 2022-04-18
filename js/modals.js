@@ -1,7 +1,6 @@
 // This code processes objects and events on the web page, so it must
 // be placed at the bottom, at the very end of the footer.
 
-// Login processing
 var OEregisterbutton  = document.getElementById("OEregister-button");
 var OEregistermodal   = document.getElementById("OEregister-modal");
 var OEregisterclose   = document.getElementById("OEregister-close");
@@ -10,33 +9,22 @@ var OEchangebutton  = document.getElementById("OEchange-button");
 var OEchangemodal   = document.getElementById("OEchange-modal");
 var OEchangeclose   = document.getElementById("OEchange-close");
 
-var OEloginbutton    = document.getElementById("OElogin-button");
+var OElogin          = document.getElementById("OElogin");
 var OEloginmodal     = document.getElementById("OElogin-modal");
 var OEloginclose     = document.getElementById("OElogin-close");
 
-OEloginbutton.onclick = function() {
+
+// Login processing button
+
+OElogin.onclick = function() {
   OEloginmodal.style.display = "block";
 }
 OEloginclose.onclick = function() {
   OEloginmodal.style.display = "none";
 }
 
-OEloggedin = function() {
-  OEmessage_open("hiding login button");
-  OEloginbutton.style.display = "none";
-  OEregisterbutton.style.display = "none";
-  OEchangebutton.style.display = "block";
-}
-
-OEloggedout = function() {
-  OEmessage_open("showing login button");
-  OEloginbutton.style.display = "block";
-  OEregisterbutton.style.display = "block";
-  OEchangebutton.style.display = "none";
-}
-
 window.onclick = function(event) {
-  if (event.target == OEloginmodal) {
+  if (event.target == OElogin) {
     OEloginmodal.style.display = "none";
   }
 }
@@ -99,7 +87,7 @@ function validateRegistrationForm() {
       document.getElementById("OEregister_form_pwdcon_err").innerHTML = "Confirmation is required.";
       successflag = false;
     } else if (pwdcon != pwdnew) {
-      document.getElementById("OEregister_form_pwdcon_err").innerHTML = "Confirmation does not match.";
+      document.getElementById("OEregister_form_pwdcon_err").innerHTML = "Confirmation doesnt match.";
       successflag = false;
     }
 

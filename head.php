@@ -1,7 +1,9 @@
 <?php
 
-/* echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>";  */
-
+	/* check the session timeout condition */
+	echo "PRINTING SESSION OBJECT\n";
+	echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>";  
+	
 		session_start();
 		include "admin/settings.php";
 
@@ -10,6 +12,10 @@
 				session_unset(); session_destroy(); }}
 		$_SESSION['OElast_action'] = time();
 
+	/* show the POST array */
+	echo "PRINTING POST OBJECT\n";
+	echo "POST:<pre>"; print_r($_POST); echo "</pre>";  
+	
 	/* get the metadata for the current page */
 
 		$page_id = $GLOBALS["page_id"];
@@ -80,21 +86,21 @@
 			<table width="100%">
 				<tr>
 					<td width="20%"></td>
-					<td colspan="4" class="OEquickfilter" style="font-size: small; border-bottom: 1px solid #BFBFBF;">Quick Filter</td>
+					<td width="60%" colspan="4" class="OEquickfilter" style="  border-bottom: 1px solid #BFBFBF;">Quick Filter</td>
 					<td width="20%"></td>
 				</tr>
 				<tr>
 					<td width="20%"></td>
-					<td width="15%" class="OEquickfilter-item" style="font-size: small">
+					<td width="15%" class="OEquickfilter-item">
 						<a href="publishers.php">Publishers</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item" style="font-size: small">
+					<td width="15%" class="OEquickfilter-item">
 						<a href="publications.php">Publications</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item" style="font-size: small">
+					<td width="15%" class="OEquickfilter-item">
 						<a href="subjects.php">Subjects</a>
 					</td>
-					<td width="15%" class="OEquickfilter-item" style="font-size: small">
+					<td width="15%" class="OEquickfilter-item">
 						<a href="models.php">Models</a>
 					</td>
 					<td width="20%"></td>
@@ -104,16 +110,20 @@
 		<td width="20%"> 
 			<table width="100%">
 				<tr>
-					<td></td>
-					<td width="100%" colspan="6">
-						<div>
+					<td width="28%"> 
+						<div id="OElogin" class="OElogin">Log In</div>
+						<div id="OElogout" class="OElogout">Log Out</div>
+					</td>
+					<td width="72%" colspan="5">
+						<!---
+						<div class="OEsearch">
 							<form action="/" method="GET" class="OEsearch-form">
 							  <input type="search" class="OEsearch-field" size=30 >
 							  <button type="submit" class="OEsearch-button">
 								<img src="images/search.png"></img>
 							  </button>
 							</form>
-						</div>
+						</div> --->
 					</td>
 				</tr>
 				<tr>
@@ -124,36 +134,27 @@
 						<a href="help.php"><img src="images/question.png" class="OEicon"></a>
 					</td>
 					<td width="12%">
-						<a href="settings.php"><img src="images/gear.png" class="OEicon"></a>
+						<div id="OEsettings">
+							<a href="settings.php"><img src="images/gear.png" class="OEicon"></a></div>
+						<div id="OEsettingsgrayed">
+							<img src="images/geargrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
-						<div id="OElogin-button" class="OEicon"><img src="images/login.png" class="OEicon"></div>
-						<div id="OEprofile" class="OEprofile"></div>
-						<?php
-							if (isset($_SESSION['member_name'])) {
-								echo "<script>
-									document.getElementById('OElogin-button').style.display = 'none';
-									document.getElementById('OEprofile').style.display = 'block';
-									document.getElementById('OEprofile').innerHTML = '"  . 
-										strtoupper(substr($_SESSION['member_name'],0,1)) . "';</script>";
-							} else {
-								echo "<script>
-									document.getElementById('OElogin-button').style.display = 'block';
-									document.getElementById('OEprofile').style.display = 'none';
-								</script>";
-							}
-						?>
+						<div id="OEprofile" class="OEprofile">
+							<a href="profile.php"><img src="images/profile.png" class="OEicon"></a></div>
+						<div id="OEprofilegrayed" class="OEprofilegrayed">
+							<img src="images/profilegrayed.png"></div>
 					</td>
 					<td width="12%">
-						<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a>
+						<div id="OEnotifications">
+							<a href="notifications.php"><img src="images/bell.png" class="OEicon"></a></div>
+						<div id="OEnotificationsgrayed">
+							<img src="images/bellgrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
-						<a href="cart.php"><img src="images/cart.png" class="OEicon"></a>
-					</td>
-					<td width="12%">
-						<div class="OEhamburger">
+						<div class="OEhamburger" class="OEicon">
 							<button class="OEhamburger">
-							<img align="center" src="images/hamburger.png" class="OEicon""></img>
+							<img src="images/hamburger.png" class="OEicon"></img>
 							<div class="OEhamburger-content">
 								<a href="about.php">About</a>
 								<a href="privacy-policy.php">Privacy Policy</a>
@@ -178,7 +179,7 @@
 			<table style="width: 100%;">
 				<tr>
 					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Registration</b><br></td>
-					<td align="right">
+					<td>
 						<button id="OEregister-close" class="OEclosebutton" type="button">&times;</button>
 					</td>
 				</tr>
@@ -225,7 +226,7 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td align="right">
+					<td>
 						<input type="submit" name="submit" class="OEsubmitbutton"							 
 							value="Register">&nbsp;&nbsp;
 					</td>
@@ -244,7 +245,7 @@
 				<input type="hidden" name="OEmember_id" value="<?php echo $OEchange_form_id; ?>">
 				<tr>
 					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Change</b><br></td>
-					<td align="right">
+					<td>
 						<button id="OEchange-close" class="OEclosebutton" type="button">&times;</button>
 					</td>
 				</tr>
@@ -291,7 +292,7 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td align="right">
+					<td>
 						<input type="submit" name="submit" class="OEsubmitbutton"							 
 							value="Change">&nbsp;&nbsp;
 					</td>
@@ -308,8 +309,8 @@
 			onsubmit="return validateLoginForm(this);" >
 			<table style="width: 100%;">
 				<tr>
-					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Login</b><br></td>
-					<td align="right">
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Log in</b><br></td>
+					<td>
 						<button id="OElogin-close" class="OEclosebutton" type="button">&times;</button>
 					</td>
 				</tr>
@@ -333,9 +334,9 @@
 						<div id="OElogin_form_pass_err">
 						<?php echo $_POST['OElogin_form_pass_err']; ?></div></td>
 				</tr>
-				<tr><td colspan="3">&nbsp;</td></tr>
 				<tr>
-					<td colspan="3" align="center">
+					<td colspan="2"></td>
+					<td>
 						<input type="submit" name="submit" class="OEsubmitbutton" value="Login">
 					</td>
 				</tr>
@@ -350,7 +351,7 @@
 			<table style="width: 100%;">
 				<tr>
 					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Message</b><br></td>
-					<td align="right">
+					<td>
 						<button id="OEmessage-close" class="OEclosebutton">&times;</button>
 					</td>
 				</tr>
@@ -363,7 +364,7 @@
 					<td width="10%"></td>
 				</tr>
 				<tr>
-					<td colspan="3" align="center">
+					<td colspan="3">
 						<input type="submit" name="submit" class="OEsubmitbutton" value="OK">
 					</td>
 				</tr>

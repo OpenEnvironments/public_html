@@ -38,7 +38,7 @@ But the digital era has given us a confluence of:<ul>
 <li>adoption of open sourced software,</li>
 <li>many (many) more interactions to collect</li>
 </ul>
-These have unleashed both the data storage (Big Data) and subsequently the compute abilities needed (GPU, Spark, etc) to unleash computational mathematics in practice. 
+These have unleashed both the data storage (Big Data) and subsequently the compute abilities needed (GPU, Spark, etc) to put computational mathematics into practice. 
 Initially, the work was called Data Science generally, then Machine Learning with the promise of the more advanced field of Artificial Intelligence.<br>
 <br>
 That is, if you have:<ul>
@@ -49,7 +49,7 @@ That is, if you have:<ul>
 Without operations at scale, some are being left behind in this revolution and risk becoming irrelevant altogether. 
 Small businesses, non-profits, academics and government agencies often serve focally fewer constituents without many properties captured on each. 
 They may have limited abilities for technology and staff spending needed to use data they do maintain. 
-<br>
+<br><br>
 Open Environments was founded to meet these disadvantages with services, data and models.
 
 <!-------------------------------------------------------------->

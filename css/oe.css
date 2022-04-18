@@ -73,10 +73,13 @@ h1 {  /*  should reflect the OEnarrative style below */
 /* Icons & Buttons */
 /* */
 .OEicon {
+  /* display: none; /* icons are hidden until the footer displays them */
   width: 20px;
   height: 20px;
 }
 .OEicon:hover {
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 }
 .OEbadge {
@@ -243,6 +246,7 @@ background: #BFBFBF;
   text-align: center;
   font-weight: bold;
   text-decoration: none;
+  font-size: small;
 }
 .OEquickfilter-item a {
   text-decoration: none;
@@ -299,30 +303,16 @@ background: #BFBFBF;
   text-align: center;
   background: #BFBFBF;
 }
-.OEprofile:hover .OEprofilemenu-content a {
-  display: block;
+.OEprofile:hover a {
+  cursor: pointer;
 }
-
-.OEprofilemenu-content {
-  z-index: 1;
-  min-width: 110px;
-  border: none;
-  display: none;
-  position: absolute;
-  right: 0px;
+.OEprofilegrayed {
+  width: 20px;
+  height: 20px;
+  background: #BFBFBF;
 }
-.OEprofilemenu-content a {
-  text-decoration: none;
-  text-align: left;
-  color: white;
-  background: green;
-  font-size: 12px;
-  padding: 4px 4px 4px 4px;
-  transition: 0.3s all;
-}
-.OEprofilemenu-content a:hover {
-  font-weight: bold;
-  opacity: 1.0;
+.OEprofilegrayed:hover a {
+  cursor: pointer;
 }
 
 
