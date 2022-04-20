@@ -301,20 +301,11 @@ background: #BFBFBF;
   font-weight: bold;
   color: black;
   text-align: center;
-  background: #BFBFBF;
+  background:green;
 }
 .OEprofile:hover a {
   cursor: pointer;
 }
-.OEprofilegrayed {
-  width: 20px;
-  height: 20px;
-  background: #BFBFBF;
-}
-.OEprofilegrayed:hover a {
-  cursor: pointer;
-}
-
 
 /**/
 /* Policies and Narrative Styles */

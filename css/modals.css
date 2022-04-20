@@ -19,26 +19,12 @@
   text-align: center;
   color: #2F598C;
 }
-.OElogin:hover{
-  width: 100%;
-  color: black;
-  cursor: pointer;
-}
 .OElogout {
-  display: none;
+  width: 100%;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
-  text-decoration: none;
   color: #2F598C;
-}
-.OElogout:hover{
-  display: none;
-  font-size: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  color: black;
-  cursor: pointer;
 }
 
 .OEregister-button {
@@ -82,8 +68,6 @@
   font-size: 14px;
   width: 200px;
   color: orange;
-  border: 1px solid red;
-
 }
 .OEchange-form {
   z-index: 3;  /*  OEmenu is 1,  modal is 2 */

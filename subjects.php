@@ -25,7 +25,7 @@ Examples of <b>Subjects</b> will include:
 </ul>
 </div><br><br><br><br><br><br><br><br>
 <center><b>Coming soon!</b><br><br>( if you need anything, mail us at <a href="mailto:support@openenvironments.com?subject=Settings Request">support@openenvironments.com )</a> <br>
-				<span style='font-size:100px;'>&#128527;</span><center><br><br><br><br>
+				<center><br><br><br><br>
 			</td>
 		</tr></table>
 		</td>

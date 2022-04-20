@@ -4,11 +4,17 @@
 // Message popups
 function OEmessage_close() {
 	document.getElementById('OEmessage').style.display = "none";
+   window.location.replace("index.php");
 	}
 function OEmessage_open(msg) {
 	document.getElementById('OEmessage').style.display = "block";
 	document.getElementById("OEmessage-content").innerHTML = msg;
 	}
+window.onclick = function(event) {
+   if (event.target == OEmessage) {
+      OEmessagemodal.style.display = "none";
+      }
+    }
 
 // handle input data characters
 function clean_input($data) {

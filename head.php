@@ -1,33 +1,32 @@
 <?php
 
+	session_start();
+	include "admin/settings.php";
+	include "php/OEfunctions.php";
+
 	/* check the session timeout condition */
-	echo "PRINTING SESSION OBJECT\n";
-	echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>";  
-	
-		session_start();
-		include "admin/settings.php";
 
-		if(isset($_SESSION['OElast_action'])){
-			if((time() - $_SESSION['OElast_action']) >= $OEsession_timeout_seconds){
-				session_unset(); session_destroy(); }}
-		$_SESSION['OElast_action'] = time();
+	if(isset($_SESSION['OElast_action'])){
+		if((time() - $_SESSION['OElast_action']) >= $OEsession_timeout_seconds){
+			session_unset(); session_destroy(); }}
+	$_SESSION['OElast_action'] = time();
 
-	/* show the POST array */
-	echo "PRINTING POST OBJECT\n";
-	echo "POST:<pre>"; print_r($_POST); echo "</pre>";  
+	/* echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; */
+	/* echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>";  */
 	
 	/* get the metadata for the current page */
 
-		$page_id = $GLOBALS["page_id"];
-		$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."'";
-		$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
-		if (!$conn) {  echo "Database connection error!\n";  exit;}
-		$cursor = pg_query($conn,$query);
-		if (!$cursor) {  echo "An error occurred.\n";  exit;}
-		$num_rows = pg_num_rows($cursor);
-		if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
-		} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
-		} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
+	$GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
+	$page_id = $GLOBALS["page_id"];
+	$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."'";
+	$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
+	if (!$conn) {  echo "Database connection error!\n";  exit;}
+	$cursor = pg_query($conn,$query);
+	if (!$cursor) {  echo "An error occurred.\n";  exit;}
+	$num_rows = pg_num_rows($cursor);
+	if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
+	} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
+	} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
 
 ?>
 <!DOCTYPE HTML>
@@ -56,7 +55,7 @@
 </head>
 <body>
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
-<?php include "cookienotice.php" ?>
+<?php include "php/OEcookienotice.php" ?>
 <script>
 	let cookie_consent = getCookie("OEcookie_consent");
 	if(cookie_consent != ""){ 
@@ -112,10 +111,9 @@
 				<tr>
 					<td width="28%"> 
 						<div id="OElogin" class="OElogin">Log In</div>
-						<div id="OElogout" class="OElogout">Log Out</div>
+						<div id="OElogout" class="OElogout"><a href="logout.php">Log Out</a></div>
 					</td>
-					<td width="72%" colspan="5">
-						<!---
+					<td width="72%" colspan="5">						
 						<div class="OEsearch">
 							<form action="/" method="GET" class="OEsearch-form">
 							  <input type="search" class="OEsearch-field" size=30 >
@@ -123,7 +121,7 @@
 								<img src="images/search.png"></img>
 							  </button>
 							</form>
-						</div> --->
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -140,10 +138,10 @@
 							<img src="images/geargrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
-						<div id="OEprofile" class="OEprofile">
+						<div id="OEprofile">
 							<a href="profile.php"><img src="images/profile.png" class="OEicon"></a></div>
-						<div id="OEprofilegrayed" class="OEprofilegrayed">
-							<img src="images/profilegrayed.png"></div>
+						<div id="OEprofilegrayed">
+							<img src="images/profilegrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
 						<div id="OEnotifications">
@@ -364,14 +362,13 @@
 					<td width="10%"></td>
 				</tr>
 				<tr>
-					<td colspan="3">
-						<input type="submit" name="submit" class="OEsubmitbutton" value="OK">
+					<td colspan="3" style="text-align: center;">
+						<input type="submit" name="submit" class="OEsubmitbutton" value="OK" onclick="window.location.href='/index.php'" data-dismiss="modal">
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div> 
 </div>  <!---- message modal ---->
-
 
 <?php

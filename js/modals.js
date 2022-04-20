@@ -13,7 +13,6 @@ var OElogin          = document.getElementById("OElogin");
 var OEloginmodal     = document.getElementById("OElogin-modal");
 var OEloginclose     = document.getElementById("OElogin-close");
 
-
 // Login processing button
 
 OElogin.onclick = function() {
@@ -22,9 +21,8 @@ OElogin.onclick = function() {
 OEloginclose.onclick = function() {
   OEloginmodal.style.display = "none";
 }
-
-window.onclick = function(event) {
-  if (event.target == OElogin) {
+  window.onclick = function(event) {
+  if (event.target == OEloginmodal) {
     OEloginmodal.style.display = "none";
   }
 }

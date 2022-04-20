@@ -41,15 +41,14 @@
 
 <!------  Set security condition, logged in or not, confirming cookies ----------------->
 <?php
-					if (isset($_SESSION['member_name'])) {
+					if (isset($_SESSION['OEmember_name'])) {
 						echo "<script>
 							document.getElementById('OElogin').style.display = 'none';
 							document.getElementById('OElogout').style.display = 'block';
 							document.getElementById('OEsettings').style.display = 'block';
 							document.getElementById('OEsettingsgrayed').style.display = 'none';
-							document.getElementById('OEprofilegrayed').style.display = 'block';
-							document.getElementById('OEprofile').style.display = 'none';
-							document.getElementById('OEprofile').innerHTML = '' ;
+							document.getElementById('OEprofile').style.display = 'block';
+							document.getElementById('OEprofilegrayed').style.display = 'none';
 							document.getElementById('OEnotifications').style.display = 'block';
 							document.getElementById('OEnotificationsgrayed').style.display = 'none';
 							</script>";
@@ -59,9 +58,8 @@
 							document.getElementById('OElogout').style.display = 'none';
 							document.getElementById('OEsettings').style.display = 'none';
 							document.getElementById('OEsettingsgrayed').style.display = 'block';
-							document.getElementById('OEprofilegrayed').style.display = 'none';
-							document.getElementById('OEprofile').style.display = 'block';
-							document.getElementById('OEprofile').innerHTML = '' ;
+							document.getElementById('OEprofile').style.display = 'none';
+							document.getElementById('OEprofilegrayed').style.display = 'block';
 							document.getElementById('OEnotifications').style.display = 'none';
 							document.getElementById('OEnotificationsgrayed').style.display = 'block';
 							</script>";
@@ -103,7 +101,8 @@
 						$num_rows = pg_num_rows($cursor);
 						echo "<script>OEmessage_open('<br>Your member information has been updated.');</script>";
 						}
-						break;
+					header("Location: ~/index.php");
+					break;
 				case "Register":
 					/* does the email already exist */
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
@@ -130,7 +129,7 @@
 									'".$_POST['OEregister_form_email']."',
 									'".$_POST['OEregister_form_name']."',
 									'".$_POST['OEregister_form_pwdnew']."',
-									'".strtoupper(base64_encode(openssl_random_pseudo_bytes(3*(16>>2))))."',
+									'".strtoupper(substr(md5(time()), 0, 16))."',
 									'N',
 									'N',
 									current_date,
@@ -142,15 +141,21 @@
 						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
 						$num_rows = pg_num_rows($cursor);
 						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
-						}
-						/* break;  */
-						/**/
-						/* a successful registration should be followed by logging in that new registrant!*/
-						/* */
-						$_POST['OElogin_form_email'] = $_POST['OEregister_form_email'];
-						$_POST['OElogin_form_pass'] = $_POST['OEregister_form_pwdnew'];
+						OEmail(
+							$_POST['OEregister_form_email'],  /* TO email */
+							$_POST['OEregister_form_name'],   /* TO name */
+							'support@openenvironments.com',   /* FROM email */
+							'Open Environments',              /* FROM name */
+							'Membership Verification',        /* SUBJECT */
+                            'Hello World'					
+							
+							/* message body */
+						);
+					}
+					header("Location: ~/index.php");
+					break;  
 				case "Login":
-				        /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
+				    /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
 					$query = "SELECT * FROM core.member 
 							WHERE member_email = '".$_POST['OElogin_form_email']."'
 							AND   member_password = '".$_POST['OElogin_form_pass']."'";
@@ -163,17 +168,25 @@
 						echo "<script>OEmessage_open('Invalid email/password combination:".$_POST['OElogin_form_email'].")</script>";
 					} else { 
 						$member = pg_fetch_row($cursor);  
-						$_SESSION["member_id"] = $member[0];
-						$_SESSION["member_email"] = $member[1];
-						$_SESSION["member_name"] = $member[2];
-						$_SESSION["member_password"] = $member[3];
+						session_start();
+						$_SESSION["OEmember_id"] = $member[0];
+						$_SESSION["OEmember_email"] = $member[1];
+						$_SESSION["OEmember_name"] = $member[2];
+						$_SESSION["OEmember_password"] = $member[3];
 						/* Now logged in, but need to reload the page to refresh the icons in the head */
-						echo "<script>window.location=window.location;</script>";
 					}
+					$query = "INSERT INTO core.session (session_id,	session_start, member_member_id) VALUES (
+								(SELECT MAX(session_id) + 1 FROM core.session),
+									'".$_SESSION['OEmember_id']."')";
+					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
+					if (!$conn) {  echo "Database connection error!\n";  exit;}
+					$cursor = pg_query($conn,$query);
+					header("Location: ~/index.php");
 					break;
 				default:
 		  			echo "<script>OEmessage_open('An error occurred. A form was submitted with an unknown value of: ".$_POST['submit'].")</script>";
-					break;
+					header("Location: ~/index.php");
+					exit;
 				}
 		}
 ?>  <!--- post processing submit events that may have preceeded the page --->
