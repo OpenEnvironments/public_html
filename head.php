@@ -11,8 +11,8 @@
 			session_unset(); session_destroy(); }}
 	$_SESSION['OElast_action'] = time();
 
-	/* echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; */
-	/* echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>";  */
+	echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; 
+	echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>";
 	
 	/* get the metadata for the current page */
 
@@ -34,7 +34,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" type="image/png" href="images/oeicon154.png" sizes="any">
+	<link rel="icon" type="image/png" href="images/oeicon32.png" sizes="any">
 	<title><?= $title ?></title>
 
 	<!--CSS -->
@@ -139,7 +139,7 @@
 					</td>
 					<td width="12%">
 						<div id="OEprofile">
-							<a href="profile.php"><img src="images/profile.png" class="OEicon"></a></div>
+							<img src="images/profile.png" class="OEicon"></div>
 						<div id="OEprofilegrayed">
 							<img src="images/profilegrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
@@ -221,79 +221,75 @@
 						<div id="OEregister_form_pwdcon_err">
 						<?php echo $_POST['OEregister_form_pwdcon_err']; ?></div></td>
 				</tr>
+				<tr><td colspan="3"> </td></tr>
 				<tr>
 					<td></td>
+					<td style="text-align: center; vertical-align: middle;"><input type="submit" name="submit" class="OEsubmitbutton" value="Register"></td>
 					<td></td>
-					<td>
-						<input type="submit" name="submit" class="OEsubmitbutton"							 
-							value="Register">&nbsp;&nbsp;
-					</td>
 				</tr>
 			</table>
 		</form>
 	</div> 
 </div>  <!---- registration form ---->
 
-<!---- change form ---->
-<div id="OEchange-modal" class="OEmodal">
-	<div id="OEchange-form" class="OEchange-form">
-		<form name="OEchange" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
-		 onsubmit="return validateChangeForm(this);" >
+<!---- profile form ---->
+
+<div id="OEprofile-modal" class="OEmodal">
+	<div id="OEprofile-form" class="OEprofile-form">
+		<form name="OEprofile" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+		 onsubmit="return validateProfileForm(this);" >
 			<table style="width: 100%;">
-				<input type="hidden" name="OEmember_id" value="<?php echo $OEchange_form_id; ?>">
 				<tr>
-					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Change</b><br></td>
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large"><b>&nbsp;Profile</b><br></td>
 					<td>
-						<button id="OEchange-close" class="OEclosebutton" type="button">&times;</button>
+						<button id="OEprofile-close" class="OEclosebutton" type="button">&times;</button>
 					</td>
 				</tr>
 				<tr>
-					<td width="20%" class="OEchange-form-labels">
+					<td width="20%" class="OEprofile-form-labels">
 						<label>Your Name:&nbsp;</label></td>
-					<td width="30%" class="OEchange-form-inputs">
-						<input type="text" name="OEchange_form_name" 
-						value="<?php echo $_POST['OEchange_form_name']; ?>"></td>
-					<td width="50%" class="OEchange-form-errors">
-						<div id="OEchange_form_name_err">
-						<?php echo $_POST['OEchange_form_name_err']; ?></div></td>
+					<td width="30%" class="OEprofile-form-inputs">
+						<input type="text" name="OEprofile_form_name" 
+						value="<?php echo $_POST['OEprofile_form_name']; ?>"></td>
+					<td width="50%" class="OEprofile-form-errors">
+						<div id="OEprofile_form_name_err">
+						<?php echo $_POST['OEprofile_form_name_err']; ?></div></td>
 				</tr>
 				<tr>
-					<td width="20%" class="OEchange-form-labels">
+					<td width="20%" class="OEprofile-form-labels">
 						<label>Email:&nbsp;</label></td>
-					<td width="30%" class="OEchange-form-inputs">
-						<input type="text" name="OEchange_form_email" 
-						value="<?php echo $_POST['OEchange_form_email']; ?>"></td>
-					<td width="50%" class="OEchange-form-errors">
-						<div id="OEchange_form_email_err">
-						<?php echo $_POST['OEchange_form_email_err']; ?></div></td>
+					<td width="30%" class="OEprofile-form-inputs">
+						<input type="text" name="OEprofile_form_email" 
+						value="<?php echo $_POST['OEprofile_form_email']; ?>"></td>
+					<td width="50%" class="OEprofile-form-errors">
+						<div id="OEprofile_form_email_err">
+						<?php echo $_POST['OEprofile_form_email_err']; ?></div></td>
 				</tr>
 				<tr>
-					<td width="20%" class="OEchange-form-labels">
+					<td width="20%" class="OEprofile-form-labels">
 						<label>Password:&nbsp;</label></td>
-					<td width="30%" class="OEchange-form-inputs">
-						<input type="password" name="OEchange_form_pwdnew" 
-						value="<?php echo $_POST['OEchange_form_pwdnew']; ?>"></td>
-					<td width="50%" class="OEchange-form-errors">
-						<div id="OEchange_form_pwdnew_err">
-						<?php echo $_POST['OEchange_form_pwdnew_err']; ?></div></td>
+					<td width="30%" class="OEprofile-form-inputs">
+						<input type="password" name="OEprofile_form_pwdnew" 
+						value="<?php echo $_POST['OEprofile_form_pwdnew']; ?>"></td>
+					<td width="50%" class="OEprofile-form-errors">
+						<div id="OEprofile_form_pwdnew_err">
+						<?php echo $_POST['OEprofile_form_pwdnew_err']; ?></div></td>
 				</tr>
 				<tr>
-					<td width="20%" class="OEchange-form-labels">
+					<td width="20%" class="OEprofile-form-labels">
 						<label>Confirm:&nbsp;</label></td>
-					<td width="30%" class="OEchange-form-inputs">
-						<input type="password" name="OEchange_form_pwdcon" 
-						value="<?php echo $_POST['OEchange_form_pwdcon']; ?>"></td>
-					<td width="50%" class="OEchange-form-errors">
-						<div id="OEchange_form_pwdcon_err">
-						<?php echo $_POST['OEchange_form_pwdcon_err']; ?></div></td>
+					<td width="30%" class="OEprofile-form-inputs">
+						<input type="password" name="OEprofile_form_pwdcon" 
+						value="<?php echo $_POST['OEprofile_form_pwdcon']; ?>"></td>
+					<td width="50%" class="OEprofile-form-errors">
+						<div id="OEprofile_form_pwdcon_err">
+						<?php echo $_POST['OEprofile_form_pwdcon_err']; ?></div></td>
 				</tr>
+				<tr><td colspan="3"> </td></tr>
 				<tr>
 					<td></td>
+					<td style="text-align: center; vertical-align: middle;"><input type="submit" name="submit" class="OEsubmitbutton" value="Profile"></td>
 					<td></td>
-					<td>
-						<input type="submit" name="submit" class="OEsubmitbutton"							 
-							value="Change">&nbsp;&nbsp;
-					</td>
 				</tr>
 			</table>
 		</form>
@@ -332,11 +328,11 @@
 						<div id="OElogin_form_pass_err">
 						<?php echo $_POST['OElogin_form_pass_err']; ?></div></td>
 				</tr>
+				<tr><td colspan="3"> </td></tr>
 				<tr>
-					<td colspan="2"></td>
-					<td>
-						<input type="submit" name="submit" class="OEsubmitbutton" value="Login">
-					</td>
+					<td></td>
+					<td style="text-align: center; vertical-align: middle;"><input type="submit" name="submit" class="OEsubmitbutton" value="Login"></td>
+					<td></td>
 				</tr>
 			</table>
 		</form>

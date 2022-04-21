@@ -35,8 +35,6 @@
 </table>
 <!------  FUNCTIONALLY THE END OF HTML CONTENT DEFINITION ------------------>
 <!------  FOLLOWED BY PROCESSING THAT CHANGES THAT CONTENT ----------------->
-
-<!------  Javascript that gives action to the objects defined before this footer.  ------------------>
 <script type="text/javascript" src="js/modals.js"></script>
 
 <!------  Set security condition, logged in or not, confirming cookies ----------------->
@@ -74,26 +72,27 @@
 				case "OK":
 					/* A message popup was closed, so close any all modals */
 					break;
-				case "Change":
+				case "Profile":
+					/* The profile change modal just completed */
 					/* the email exists for a member id other than this one */
-					/*  
 					/* The member_id hasnt been changed - has the requested email address been used by another*/
 					$query = "SELECT * FROM core.member 
-							WHERE member_email = '".$_POST['OEchange_form_email']."'
-							AND member_id <> '".$_POST['OEchange_form_id']."' ;";
+							WHERE member_email = '" . $_POST['OEprofile_form_email'] . "'
+							AND member_id <> '" . $_POST['OEprofile_form_id']."' ;";
 					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
 					$cursor = pg_query($conn,$query);
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
+					echo "num_rows=" . $num_rows . " email " . $_POST['OEprofile_form_email'];
 					if ( $num_rows > 0 ) {
-						echo "<script>OEmessage_open('The email <b>".$_POST['OEchange_form_email']."</b> is already registered to another Open Environments member.<br>Contact support@openenvironments.com if you have any concerns or need additional help.')</script>";
+						echo "<script>OEmessage_open('The email <b>".$_POST['OEprofile_form_email']."</b> is already registered to another Open Environments member.<br>Contact support@openenvironments.com if you have any concerns or need additional help.')</script>";
 					} else {
 						$query = "UPDATE core.member SET 
-								member_name = '".$_POST['OEchange_form_name']."',
-								member_email = '".$_POST['OEchange_form_email']."',
-								member_password = '".$_POST['OEchange_form_pwdnew']."'
-								WHERE member_id = '".$_POST['OEchange_form_id']."';";
+								member_name = '".$_POST['OEprofile_form_name']."',
+								member_email = '".$_POST['OEprofile_form_email']."',
+								member_password = '".$_POST['OEprofile_form_pwdnew']."'
+								WHERE member_id = '".$_POST['OEprofile_form_id']."';";
 						$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 						if (!$conn) {  echo "Database connection error!\n";  exit;}
 						$cursor = pg_query($conn,$query);
@@ -101,8 +100,7 @@
 						$num_rows = pg_num_rows($cursor);
 						echo "<script>OEmessage_open('<br>Your member information has been updated.');</script>";
 						}
-					header("Location: ~/index.php");
-					break;
+						break;
 				case "Register":
 					/* does the email already exist */
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
@@ -140,19 +138,17 @@
 						$cursor = pg_query($conn,$query);
 						if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
 						$num_rows = pg_num_rows($cursor);
-						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
 						OEmail(
 							$_POST['OEregister_form_email'],  /* TO email */
 							$_POST['OEregister_form_name'],   /* TO name */
 							'support@openenvironments.com',   /* FROM email */
 							'Open Environments',              /* FROM name */
 							'Membership Verification',        /* SUBJECT */
-                            'Hello World'					
-							
+                            'Hello World'												
 							/* message body */
 						);
+						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
 					}
-					header("Location: ~/index.php");
 					break;  
 				case "Login":
 				    /* fetch this email from the member table  1) unknown,  2) known wrong pass  3) known confirmed pass */
@@ -173,21 +169,18 @@
 						$_SESSION["OEmember_email"] = $member[1];
 						$_SESSION["OEmember_name"] = $member[2];
 						$_SESSION["OEmember_password"] = $member[3];
-						/* Now logged in, but need to reload the page to refresh the icons in the head */
+						/* The profile form's variables are initialized to the session values*/
+						$_POST['OEprofile_form_id'] = $_SESSION['OEmember_id'];
+						$_POST['OEprofile_form_name'] = $_SESSION['OEmember_name'];
+						$_POST['OEprofile_form_email'] = $_SESSION['OEmember_email'];
+						$_POST['OEprofile_form_pwdnew'] = $_SESSION['OEmember_password'];
+						$_POST['OEprofile_form_pwdcon'] = $_SESSION['OEmember_password'];
 					}
-					$query = "INSERT INTO core.session (session_id,	session_start, member_member_id) VALUES (
-								(SELECT MAX(session_id) + 1 FROM core.session),
-									'".$_SESSION['OEmember_id']."')";
-					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
-					if (!$conn) {  echo "Database connection error!\n";  exit;}
-					$cursor = pg_query($conn,$query);
-					header("Location: ~/index.php");
+					echo "<script>window.location.href = window.location.href</script>";	
 					break;
 				default:
-		  			echo "<script>OEmessage_open('An error occurred. A form was submitted with an unknown value of: ".$_POST['submit'].")</script>";
-					header("Location: ~/index.php");
-					exit;
-				}
+					break;
+				} /* switch statement */
 		}
 ?>  <!--- post processing submit events that may have preceeded the page --->
 </body>

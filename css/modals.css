@@ -19,12 +19,26 @@
   text-align: center;
   color: #2F598C;
 }
+.OElogin:hover{
+  cursor: pointer;
+  color: black;
+}
 .OElogout {
   width: 100%;
   font-size: 12px;
   font-weight: bold;
   text-align: center;
   color: #2F598C;
+  text-decoration: none!important; 
+}
+.OElogout:hover{
+  cursor: pointer;
+  color: black;
+  text-decoration: underline;
+}
+.OElogout a:visited{
+  color: #2F598C;
+  text-decoration: none!important;
 }
 
 .OEregister-button {
@@ -41,6 +55,7 @@
 }
 .OEregister-button:hover{
   background: #2F598C;
+  cursor: pointer;
 }
 .OEregister-form {
   z-index: 3;  /*  OEmenu is 1,  modal is 2 */
@@ -69,29 +84,29 @@
   width: 200px;
   color: orange;
 }
-.OEchange-form {
+.OEprofile-form {
   z-index: 3;  /*  OEmenu is 1,  modal is 2 */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 160px;
-  width: 480px;
+  height: 180px;
+  width: 460px;
   position: absolute;
   background: #2F598C;
   border: 2px solid #BFBFBF;
   display: block;
 }
-.OEchange-form-labels {
+.OEprofile-form-labels {
   width: 100px;
   text-align: right;
   font-size: 14px;
   color: white;
 }
-.OEchange-form-inputs {
+.OEprofile-form-inputs {
   width: 120px;
   font-size: 14px;
 }
-.OEchange-form-errors {
+.OEprofile-form-errors {
   font-size: 14px;
   width: 200px;
   color: orange;
@@ -101,7 +116,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  height: 120px;
+  height: 140px;
   width: 420px;
   position: absolute;
   background: #2F598C;
