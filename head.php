@@ -13,7 +13,17 @@
 
 	echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; 
 	echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>";
-	
+
+	/* If logged in, initialize profile form variables */
+	if (isset($_SESSION['OEmember_id'])) {
+		echo "\nUpdating profile form fields\n";
+		$member_id = $_SESSION['OEmember_id'];
+		$member_name = $_SESSION['OEmember_name'];
+		$member_email = $_SESSION['OEmember_email'];
+		$member_pwdnew = $_SESSION['OEmember_password'];
+		$member_pwdcon = $_SESSION['OEmember_psasword'];
+	}
+
 	/* get the metadata for the current page */
 
 	$GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
@@ -250,7 +260,8 @@
 						<label>Your Name:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="text" name="OEprofile_form_name" 
-						value="<?php echo $_POST['OEprofile_form_name']; ?>"></td>
+						value="<?php echo (isset($_POST['OEprofile_form_name'])) ? $_POST['OEprofile_form_name']:$member_name; ?>">
+						</td>
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_name_err">
 						<?php echo $_POST['OEprofile_form_name_err']; ?></div></td>
@@ -260,7 +271,7 @@
 						<label>Email:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="text" name="OEprofile_form_email" 
-						value="<?php echo $_POST['OEprofile_form_email']; ?>"></td>
+						value="<?php echo isset($_POST['OEprofile_form_email'])?$_POST['OEprofile_form_email']:$member_email; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_email_err">
 						<?php echo $_POST['OEprofile_form_email_err']; ?></div></td>
@@ -270,7 +281,7 @@
 						<label>Password:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="password" name="OEprofile_form_pwdnew" 
-						value="<?php echo $_POST['OEprofile_form_pwdnew']; ?>"></td>
+						value="<?php echo isset($_POST['OEprofile_form_pwdnew'])?$_POST['OEprofile_form_pwdnew']:$member_pwdnew; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdnew_err">
 						<?php echo $_POST['OEprofile_form_pwdnew_err']; ?></div></td>
@@ -280,7 +291,7 @@
 						<label>Confirm:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="password" name="OEprofile_form_pwdcon" 
-						value="<?php echo $_POST['OEprofile_form_pwdcon']; ?>"></td>
+						value="<?php echo isset($_POST['OEprofile_form_pwdcon'])?$_POST['OEprofile_form_pwdcon']:$member_pwdcon; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdcon_err">
 						<?php echo $_POST['OEprofile_form_pwdcon_err']; ?></div></td>

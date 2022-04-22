@@ -39,7 +39,7 @@
 
 <!------  Set security condition, logged in or not, confirming cookies ----------------->
 <?php
-					if (isset($_SESSION['OEmember_name'])) {
+					if (isset($_SESSION['OEmember_id'])) {
 						echo "<script>
 							document.getElementById('OElogin').style.display = 'none';
 							document.getElementById('OElogout').style.display = 'block';
@@ -100,9 +100,9 @@
 						$num_rows = pg_num_rows($cursor);
 						echo "<script>OEmessage_open('<br>Your member information has been updated.');</script>";
 						}
-						break;
+					break;
 				case "Register":
-					/* does the email already exist */
+					/* does the email already exist? */
 					$query = "SELECT * FROM core.member WHERE member_email = '".$_POST['OEregister_form_email']."';";
 					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
@@ -112,6 +112,7 @@
 					if ( $num_rows > 0 ) {
 						echo "<script>OEmessage_open('The member email <b>".$_POST['OEregister_form_email']."</b> is already registered.')</script>";
 					} else {
+						$valcode = strtoupper(substr(md5(time()), 0, 16));
 						$query = "INSERT INTO core.member (
 									member_id,
 									member_email,
@@ -127,7 +128,7 @@
 									'".$_POST['OEregister_form_email']."',
 									'".$_POST['OEregister_form_name']."',
 									'".$_POST['OEregister_form_pwdnew']."',
-									'".strtoupper(substr(md5(time()), 0, 16))."',
+									'".$valcode."',
 									'N',
 									'N',
 									current_date,
@@ -144,8 +145,31 @@
 							'support@openenvironments.com',   /* FROM email */
 							'Open Environments',              /* FROM name */
 							'Membership Verification',        /* SUBJECT */
-                            'Hello World'												
 							/* message body */
+							"<p class=MsoNormal>
+							<font size=medium face=Arial><span lang=EN-US><hr><center><b>Welcome to Open Environments!</b></center><br></span></font>
+							<font size=medium face=Arial><span lang=EN-US>
+							To complete your membership registration, please click through the link below. If you're unaware this email address had been registered, you may ignore this mail or contact support@openenvironments.com with any concerns.<br>
+							<center><b><a href='https://openenvironments.com/validation.php?v=" . $valcode . "'>Validate my registration!</a></b></center>
+							<br>
+							<hr>
+							<br>
+							<b><i>Open Environments</i></b> provides its members:<br>
+								<ul>
+									<li>simplified access to Open Sourced and Public Datasets</li>
+									<li>authoritative reference data with codes and descriptions</li>
+									<li>analytic services with models against these data resources</li>
+								</ul>
+							We welcome all:<br>
+								<ul>
+									<li>Subscribers with their subjects of interest.
+									<li>Addition or modification requests for our curators.
+									<li>Alerts to data quality issues or concerns
+								</ul>
+							If you have interest in speaking to a curator, feel free to contact us by email to 
+							<a href='mailto:support@openenvironments.com?subject=Curator Request'>support@openenvironments.com</a><br><br>
+							<hr>
+							</span></font></p>"
 						);
 						echo "<script>OEmessage_open('<br>Welcome to Open Environments!<br><br>You will receive an email shortly with a link to validate this registration.');</script>";
 					}
@@ -161,7 +185,8 @@
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
  					if ( $num_rows < 1 ) {
-						echo "<script>OEmessage_open('Invalid email/password combination:".$_POST['OElogin_form_email'].")</script>";
+						echo "No login = " . $num_rows . "\n";
+						echo "<script>OEmessage_open('Invalid email/password combination')</script>";
 					} else { 
 						$member = pg_fetch_row($cursor);  
 						session_start();
@@ -169,14 +194,10 @@
 						$_SESSION["OEmember_email"] = $member[1];
 						$_SESSION["OEmember_name"] = $member[2];
 						$_SESSION["OEmember_password"] = $member[3];
-						/* The profile form's variables are initialized to the session values*/
-						$_POST['OEprofile_form_id'] = $_SESSION['OEmember_id'];
-						$_POST['OEprofile_form_name'] = $_SESSION['OEmember_name'];
-						$_POST['OEprofile_form_email'] = $_SESSION['OEmember_email'];
-						$_POST['OEprofile_form_pwdnew'] = $_SESSION['OEmember_password'];
-						$_POST['OEprofile_form_pwdcon'] = $_SESSION['OEmember_password'];
+						echo "LOGIN SUCCESS!";
+						/* echo "<script>window.location.reload();</script>"; */
+						header('LOCATION index.php');
 					}
-					echo "<script>window.location.href = window.location.href</script>";	
 					break;
 				default:
 					break;

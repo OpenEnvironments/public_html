@@ -4,6 +4,12 @@
 
   function OEmail($toemail,$toname,$fromemail,$fromname,$subject,$message) {
     /* NOTE: toname is erquired but not used in the PHP function. */
+    /* write the mail to file rather than over smtp in development environ */
+    $welcomefile = fopen($toemail, "w") or die("Unable to open file!"); 
+    fwrite($welcomefile, $message); fclose($welcomefile); 
+    }
+
+    /*
     $headers =
         'Return-Path: ' . $fromemail . "\r\n" .
         'From: ' . $fromname . ' <' . $fromemail . '>' . "\r\n" .
@@ -16,7 +22,8 @@
     $params = '-f ' . $fromemail;
     $try = mail($toemail, $subject, $message, $headers, $params);
     if ( $try ) {echo "Succeeded";}  else  {echo "Failed";} ;
-    }
+    } 
+    */
     
   function OEalert($subject,$message) {
     $toemail = "admin@openenvironmets.com";
@@ -36,5 +43,4 @@
     $try = mail($toemail, $subject, $message, $headers, $params);
     if ( $try ) {echo "Succeeded";}  else  {echo "Failed";} ;
     }
-
 ?>
