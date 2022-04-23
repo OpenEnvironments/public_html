@@ -5,7 +5,7 @@ var OEregisterbutton  = document.getElementById("OEregister-button");
 var OEregistermodal   = document.getElementById("OEregister-modal");
 var OEregisterclose   = document.getElementById("OEregister-close");
 
-var OEprofile  = document.getElementById("OEprofile");
+var OEprofile        = document.getElementById("OEprofile");
 var OEprofilemodal   = document.getElementById("OEprofile-modal");
 var OEprofileclose   = document.getElementById("OEprofile-close");
 
@@ -21,12 +21,6 @@ OEregisterbutton.onclick = function() {
 
 OEregisterclose.onclick = function() {
   OEregistermodal.style.display = "none";
-}
-
-window.onclick = function(event) {
-  if (event.target == OEregistermodal) {
-    OEregistermodal.style.display = "none";
-  }
 }
 
 function validateRegistrationForm() {
@@ -71,46 +65,6 @@ function validateRegistrationForm() {
   return successflag;
 
 }
-
-// Login processing button
-
-OElogin.onclick = function() {
-  OEloginmodal.style.display = "block";
-}
-OEloginclose.onclick = function() {
-  OEloginmodal.style.display = "none";
-}
-  window.onclick = function(event) {
-  if (event.target == OEloginmodal) {
-    OEloginmodal.style.display = "none";
-  }
-}
-
-function validateLoginForm() {
-  
-  var successflag = true;
-
-  var email = document.OElogin.OElogin_form_email.value;
-    document.getElementById("OElogin_form_email_err").innerHTML = "";
-    var filter = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
-    if (email == "") {
-      document.getElementById("OElogin_form_email_err").innerHTML = "Email is required.";
-      successflag = false;
-    } else if(filter.test(email) === false){
-      document.getElementById("OElogin_form_email_err").innerHTML = "Email format is invalid.";
-      successflag = false;
-    }
-
-  var pwd = document.OElogin.OElogin_form_pass.value;
-    document.getElementById("OElogin_form_pass_err").innerHTML = "";
-    if (pwd == "") {
-      document.getElementById("OElogin_form_pass_err").innerHTML = "Password is required.";
-      successflag = false;
-    }
-
-  return successflag;
-
-}
 //  profile Processing
 
 OEprofile.onclick = function() {
@@ -119,11 +73,7 @@ OEprofile.onclick = function() {
 OEprofileclose.onclick = function() {
   OEprofilemodal.style.display = "none";
 }
-  window.onclick = function(event) {
-  if (event.target == OEprofilemodal) {
-    OEprofilemodal.style.display = "none";
-  }
-}
+
 function validateprofileForm() {
 
   var successflag = true;
@@ -160,6 +110,41 @@ function validateprofileForm() {
       successflag = false;
     } else if (pwdcon != pwdnew) {
       document.getElementById("OEprofile_form_pwdcon_err").innerHTML = "Confirmation does not match.";
+      successflag = false;
+    }
+
+  return successflag;
+
+}
+
+// Login processing button
+
+OElogin.onclick = function() {
+  OEloginmodal.style.display = "block";
+}
+OEloginclose.onclick = function() {
+  OEloginmodal.style.display = "none";
+}
+
+function validateLoginForm() {
+  
+  var successflag = true;
+
+  var email = document.OElogin.OElogin_form_email.value;
+    document.getElementById("OElogin_form_email_err").innerHTML = "";
+    var filter = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
+    if (email == "") {
+      document.getElementById("OElogin_form_email_err").innerHTML = "Email is required.";
+      successflag = false;
+    } else if(filter.test(email) === false){
+      document.getElementById("OElogin_form_email_err").innerHTML = "Email format is invalid.";
+      successflag = false;
+    }
+
+  var pwd = document.OElogin.OElogin_form_pass.value;
+    document.getElementById("OElogin_form_pass_err").innerHTML = "";
+    if (pwd == "") {
+      document.getElementById("OElogin_form_pass_err").innerHTML = "Password is required.";
       successflag = false;
     }
 

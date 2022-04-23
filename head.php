@@ -11,12 +11,12 @@
 			session_unset(); session_destroy(); }}
 	$_SESSION['OElast_action'] = time();
 
-	echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; 
-	echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>";
+	/* show the SESSION and POST arrays for diagnostics */
+	/* echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; */ 
+	/* echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>"; */
 
 	/* If logged in, initialize profile form variables */
 	if (isset($_SESSION['OEmember_id'])) {
-		echo "\nUpdating profile form fields\n";
 		$member_id = $_SESSION['OEmember_id'];
 		$member_name = $_SESSION['OEmember_name'];
 		$member_email = $_SESSION['OEmember_email'];
@@ -63,6 +63,7 @@
 	<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://openenvironments.com/images/oesmall.png" />
 	<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
 </head>
+
 <body>
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
 <?php include "php/OEcookienotice.php" ?>
