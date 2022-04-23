@@ -185,18 +185,17 @@
 					if (!$cursor) {  echo "An error occurred.\n";  exit;}
 					$num_rows = pg_num_rows($cursor);
  					if ( $num_rows < 1 ) {
-						echo "No login = " . $num_rows . "\n";
 						echo "<script>OEmessage_open('Invalid email/password combination')</script>";
 					} else { 
 						$member = pg_fetch_row($cursor);  
-						session_start();
+						/* session_start(); */
 						$_SESSION["OEmember_id"] = $member[0];
 						$_SESSION["OEmember_email"] = $member[1];
 						$_SESSION["OEmember_name"] = $member[2];
 						$_SESSION["OEmember_password"] = $member[3];
-						echo "LOGIN SUCCESS!";
+						$_POST = array(); /* clear the post array so the page refresh doesnt return here */
 						/* echo "<script>window.location.reload();</script>"; */
-						header('LOCATION index.php');
+						/* header('Location: models.php'); */
 					}
 					break;
 				default:

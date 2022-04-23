@@ -21,7 +21,7 @@
 		$member_name = $_SESSION['OEmember_name'];
 		$member_email = $_SESSION['OEmember_email'];
 		$member_pwdnew = $_SESSION['OEmember_password'];
-		$member_pwdcon = $_SESSION['OEmember_psasword'];
+		$member_pwdcon = $_SESSION['OEmember_password'];
 	}
 
 	/* get the metadata for the current page */
@@ -182,7 +182,7 @@
 <!---- registration form ---->
 <div id="OEregister-modal" class="OEmodal">
 	<div id="OEregister-form" class="OEregister-form">
-		<form name="OEregister" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+		<form name="OEregister" method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"
 		 onsubmit="return validateRegistrationForm(this);" >
 			<table style="width: 100%;">
 				<tr>
@@ -196,40 +196,40 @@
 						<label>Your Name:&nbsp;</label></td>
 					<td width="30%" class="OEregister-form-inputs">
 						<input type="text" name="OEregister_form_name" 
-						value="<?php echo $_POST['OEregister_form_name']; ?>"></td>
+						value="<?php echo isset($_POST['OEregister_form_name'])?$_POST['OEregister_form_name']:''; ?>"></td>
 					<td width="50%" class="OEregister-form-errors">
 						<div id="OEregister_form_name_err">
-						<?php echo $_POST['OEregister_form_name_err']; ?></div></td>
+						<?php echo isset($_POST['OEregister_form_name_err'])?$_POST['OEregister_form_name_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEregister-form-labels">
 						<label>Email:&nbsp;</label></td>
 					<td width="30%" class="OEregister-form-inputs">
 						<input type="text" name="OEregister_form_email" 
-						value="<?php echo $_POST['OEregister_form_email']; ?>"></td>
+						value="<?php echo isset($_POST['OEregister_form_email'])?$_POST['OEregister_form_email']:''; ?>"></td>
 					<td width="50%" class="OEregister-form-errors">
 						<div id="OEregister_form_email_err">
-						<?php echo $_POST['OEregister_form_email_err']; ?></div></td>
+						<?php echo isset($_POST['OEregister_form_email_err'])?$_POST['OEregister_form_email_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEregister-form-labels">
 						<label>Password:&nbsp;</label></td>
 					<td width="30%" class="OEregister-form-inputs">
 						<input type="password" name="OEregister_form_pwdnew" 
-						value="<?php echo $_POST['OEregister_form_pwdnew']; ?>"></td>
+						value="<?php echo isset($_POST['OEregister_form_pwdnew'])?$_POST['OEregister_form_pwdnew']:''; ?>"></td>
 					<td width="50%" class="OEregister-form-errors">
 						<div id="OEregister_form_pwdnew_err">
-						<?php echo $_POST['OEregister_form_pwdnew_err']; ?></div></td>
+						<?php echo isset($_POST['OEregister_form_pwdnew_err'])?$_POST['OEregister_form_pwdnew_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEregister-form-labels">
 						<label>Confirm:&nbsp;</label></td>
 					<td width="30%" class="OEregister-form-inputs">
 						<input type="password" name="OEregister_form_pwdcon" 
-						value="<?php echo $_POST['OEregister_form_pwdcon']; ?>"></td>
+						value="<?php echo isset($_POST['OEregister_form_pwdcon'])?$_POST['OEregister_form_pwdcon']:''; ?>"></td>
 					<td width="50%" class="OEregister-form-errors">
 						<div id="OEregister_form_pwdcon_err">
-						<?php echo $_POST['OEregister_form_pwdcon_err']; ?></div></td>
+						<?php echo isset($_POST['OEregister_form_pwdcon_err'])?$_POST['OEregister_form_pwdcon_err']:''; ?></div></td>
 				</tr>
 				<tr><td colspan="3"> </td></tr>
 				<tr>
@@ -246,7 +246,7 @@
 
 <div id="OEprofile-modal" class="OEmodal">
 	<div id="OEprofile-form" class="OEprofile-form">
-		<form name="OEprofile" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+		<form name="OEprofile" method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"
 		 onsubmit="return validateProfileForm(this);" >
 			<table style="width: 100%;">
 				<tr>
@@ -260,11 +260,11 @@
 						<label>Your Name:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="text" name="OEprofile_form_name" 
-						value="<?php echo (isset($_POST['OEprofile_form_name'])) ? $_POST['OEprofile_form_name']:$member_name; ?>">
+						value="<?php echo isset($_POST['OEprofile_form_name']) ? $_POST['OEprofile_form_name']:$member_name; ?>">
 						</td>
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_name_err">
-						<?php echo $_POST['OEprofile_form_name_err']; ?></div></td>
+						<?php echo isset($_POST['OEprofile_form_name_err']) ? $_POST['OEprofile_form_name_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEprofile-form-labels">
@@ -274,7 +274,7 @@
 						value="<?php echo isset($_POST['OEprofile_form_email'])?$_POST['OEprofile_form_email']:$member_email; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_email_err">
-						<?php echo $_POST['OEprofile_form_email_err']; ?></div></td>
+						<?php echo isset($_POST['OEprofile_form_email_err']) ? $_POST['OEprofile_form_email_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEprofile-form-labels">
@@ -284,7 +284,7 @@
 						value="<?php echo isset($_POST['OEprofile_form_pwdnew'])?$_POST['OEprofile_form_pwdnew']:$member_pwdnew; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdnew_err">
-						<?php echo $_POST['OEprofile_form_pwdnew_err']; ?></div></td>
+						<?php echo isset($_POST['OEprofile_form_pwdnew_err']) ? $_POST['OEprofile_form_pwdnew_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="20%" class="OEprofile-form-labels">
@@ -294,7 +294,7 @@
 						value="<?php echo isset($_POST['OEprofile_form_pwdcon'])?$_POST['OEprofile_form_pwdcon']:$member_pwdcon; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdcon_err">
-						<?php echo $_POST['OEprofile_form_pwdcon_err']; ?></div></td>
+						<?php isset($_POST['OEprofile_form_pwdcon_err']) ? $_POST['OEprofile_form_pwdcon_err']:''; ?></div></td>
 				</tr>
 				<tr><td colspan="3"> </td></tr>
 				<tr>
@@ -310,7 +310,7 @@
 <!---- login form ---->
 <div id="OElogin-modal" class="OEmodal">
 	<div id="OElogin-form" class="OElogin-form">
-		<form name="OElogin" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"
+		<form name="OElogin" method="post" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"
 			onsubmit="return validateLoginForm(this);" >
 			<table style="width: 100%;">
 				<tr>
@@ -324,20 +324,20 @@
 						<label>Email:&nbsp;</label></td>
 					<td width="30%" class="OElogin-form-inputs">
 						<input type="text" name="OElogin_form_email" 
-						value="<?php echo $_POST['OElogin_form_email']; ?>"></td>
+						value="<?php echo (isset($_POST['OElogin_form_email'])?$_POST['OElogin_form_email']:''); ?>"></td>
 					<td width="40%" class="OElogin-form-errors">
 						<div id="OElogin_form_email_err">
-						<?php echo $_POST['OElogin_form_email_err']; ?></div></td>
+						<?php echo isset($_POST['OElogin_form_email_err'])?$_POST['OElogin_form_email_err']:''; ?></div></td>
 				</tr>
 				<tr>
 					<td width="30%" class="OElogin-form-labels">
 						<label>Password:&nbsp;</label></td>
 					<td width="30%" class="OElogin-form-inputs">
 						<input type="password" name="OElogin_form_pass" 
-						value="<?php echo $_POST['OElogin_form_pass']; ?>"></td>
+						value="<?php echo (isset($_POST['OElogin_form_pass'])?$_POST['OElogin_form_pass']:''); ?>"></td>
 					<td width="40%" class="OElogin-form-errors">
 						<div id="OElogin_form_pass_err">
-						<?php echo $_POST['OElogin_form_pass_err']; ?></div></td>
+						<?php echo isset($_POST['OElogin_form_pass_err'])?$_POST['OElogin_form_pass_err']:''; ?></div></td>
 				</tr>
 				<tr><td colspan="3"> </td></tr>
 				<tr>
