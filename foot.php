@@ -81,13 +81,12 @@ if(isset($_POST['submit']))
 				/* The member_id hasnt been changed - has the requested email address been used by another*/
 				$query = "SELECT * FROM core.member 
 						WHERE member_email = '" . $_POST['OEprofile_form_email'] . "'
-						AND member_id <> '" . $_POST['OEprofile_form_id']."' ;";
+						AND member_id <> '" . $member_id ."' ;";
 				$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 				if (!$conn) {  echo "Database connection error!\n";  exit;}
 				$cursor = pg_query($conn,$query);
 				if (!$cursor) {  echo "An error occurred.\n";  exit;}
 				$num_rows = pg_num_rows($cursor);
-				echo "num_rows=" . $num_rows . " email " . $_POST['OEprofile_form_email'];
 				if ( $num_rows > 0 ) {
 					echo "<script>OEmessage_open('The email <b>".$_POST['OEprofile_form_email']."</b> is already registered to another Open Environments member.<br>Contact support@openenvironments.com if you have any concerns or need additional help.')</script>";
 				} else {
@@ -95,12 +94,18 @@ if(isset($_POST['submit']))
 							member_name = '".$_POST['OEprofile_form_name']."',
 							member_email = '".$_POST['OEprofile_form_email']."',
 							member_password = '".$_POST['OEprofile_form_pwdnew']."'
-							WHERE member_id = '".$_POST['OEprofile_form_id']."';";
+							WHERE member_id = '". $member_id ."';";
 					$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
 					if (!$conn) {  echo "Database connection error!\n";  exit;}
 					$cursor = pg_query($conn,$query);
 					if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
 					$num_rows = pg_num_rows($cursor);
+					/* session_start(); */
+					$_SESSION["OEmember_id"] = $member_id;
+					$_SESSION["OEmember_email"] = $_POST['OEprofile_form_email'];
+					$_SESSION["OEmember_name"]  = $_POST['OEprofile_form_name'];
+					$_SESSION["OEmember_password"] = $_POST['OEprofile_form_pwdnew'];
+					$_POST = array();
 					echo "<script>OEmessage_open('<br>Your member information has been updated.');</script>";
 					}
 				break;
