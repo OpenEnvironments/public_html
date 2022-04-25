@@ -74,8 +74,7 @@ OEprofileclose.onclick = function() {
   OEprofilemodal.style.display = "none";
 }
 
-function validateprofileForm() {
-
+function validateProfileForm() {
   var successflag = true;
 
   var name = document.OEprofile.OEprofile_form_name.value;

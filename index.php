@@ -19,14 +19,19 @@ include "head.php";
 		<br><br>
 		<img src="images/flames.png" style="width: 840px; height: 480px;"></img>
 	</div>
-	<div style="position: absolute; top: 80px; right: 440px; font-size: 24px; color: darkred">
-		<p style="font-size: 24px;">With little data,</p></div>
-	<div style="position: absolute; top: 140px; right: 100px; font-size: 26px; color: darkred">
-		<p style="font-size: 28px; font-weight: bold;">is AI leaving you behind?</p></div>
-	<div style="position: absolute; bottom: 190px; right: 20px; font-size: 24px; color: #2F598C;">
+	<div>
+		<p  style="position: absolute; top: 40px; right: 440px; font-family: Helvetica; font-size: 24px; color: darkred">
+		With little data,</p>
+	</div>
+	<div>
+		<p  style="position: absolute; top: 120px; right: 100px; font-family: Helvetica; font-size: 24px; color: darkred">
+		is AI leaving you behind?</p>
+	</div>
+	<div>
 		<a href="about.php" style="text-decoration: none !important;">
-			<img src="images/oeicon64.png" style="width: 30px; height: 30px;"></img>
-			<b>we're here to help&nbsp;&nbsp;&nbsp;>>>></b>
+			<p style="position: absolute; top: 150px; right: 20px;  font-family: Helvetica; font-size: 24px; color: #2F598C;">
+				<img src="images/oeicon64.png" style="width: 30px; height: 30px;"></img>
+				we're here to help&nbsp;&nbsp;&nbsp;>>>></p>
 		</a>
 	</div>
 </div>
