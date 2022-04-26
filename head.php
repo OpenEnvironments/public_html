@@ -27,7 +27,7 @@
                 /* The member_id hasnt been changed - has the requested email address been used by another*/
                 $query = "SELECT * FROM core.member 
                         WHERE member_email = '" . $_POST['OEprofile_form_email'] . "'
-                        AND member_id <> '" . $member_id ."' ;";
+                        AND member_id <> " . $_SESSION["OEmember_id"] ." ;";
                 $conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
                 if (!$conn) {  echo "Database connection error!\n";  exit;}
                 $cursor = pg_query($conn,$query);
@@ -40,14 +40,13 @@
                             member_name = '".$_POST['OEprofile_form_name']."',
                             member_email = '".$_POST['OEprofile_form_email']."',
                             member_password = '".$_POST['OEprofile_form_pwdnew']."'
-                            WHERE member_id = '". $member_id ."';";
+                            WHERE member_id = ". $_SESSION["OEmember_id"] .";";
                     $conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
                     if (!$conn) {  echo "Database connection error!\n";  exit;}
                     $cursor = pg_query($conn,$query);
                     if (!$cursor) {  echo "An error occurred.\n";  echo pg_last_error($conn);  exit;}
                     $num_rows = pg_num_rows($cursor);
                     /* session_start(); */
-                    $_SESSION["OEmember_id"] = $member_id;
                     $_SESSION["OEmember_email"] = $_POST['OEprofile_form_email'];
                     $_SESSION["OEmember_name"]  = $_POST['OEprofile_form_name'];
                     $_SESSION["OEmember_password"] = $_POST['OEprofile_form_pwdnew'];
@@ -156,16 +155,6 @@
                 break;
         } /* switch statement */
     }
-    /* post processing submit events that may have preceeded the page */
-
-	/* If logged in, initialize profile form variables */
-	if (isset($_SESSION['OEmember_id'])) {
-		$member_id = $_SESSION['OEmember_id'];
-		$member_name = $_SESSION['OEmember_name'];
-		$member_email = $_SESSION['OEmember_email'];
-		$member_pwdnew = $_SESSION['OEmember_password'];
-		$member_pwdcon = $_SESSION['OEmember_password'];
-	}
 
 	/* get the metadata for the current page */
 
@@ -404,7 +393,7 @@
 						<label>Your Name:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="text" name="OEprofile_form_name" 
-						value="<?php echo isset($_POST['OEprofile_form_name']) ? $_POST['OEprofile_form_name']:$member_name; ?>">
+						value="<?php echo isset($_POST['OEprofile_form_name']) ? $_POST['OEprofile_form_name']:$_SESSION["OEmember_name"]; ?>">
 						</td>
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_name_err">
@@ -415,7 +404,7 @@
 						<label>Email:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="text" name="OEprofile_form_email" 
-						value="<?php echo isset($_POST['OEprofile_form_email'])?$_POST['OEprofile_form_email']:$member_email; ?>">
+						value="<?php echo isset($_POST['OEprofile_form_email'])?$_POST['OEprofile_form_email']:$_SESSION["OEmember_email"]; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_email_err">
 						<?php echo isset($_POST['OEprofile_form_email_err']) ? $_POST['OEprofile_form_email_err']:''; ?></div></td>
@@ -425,7 +414,7 @@
 						<label>Password:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="password" name="OEprofile_form_pwdnew" 
-						value="<?php echo isset($_POST['OEprofile_form_pwdnew'])?$_POST['OEprofile_form_pwdnew']:$member_pwdnew; ?>">
+						value="<?php echo isset($_POST['OEprofile_form_pwdnew'])?$_POST['OEprofile_form_pwdnew']:$_SESSION["OEmember_password"]; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdnew_err">
 						<?php echo isset($_POST['OEprofile_form_pwdnew_err']) ? $_POST['OEprofile_form_pwdnew_err']:''; ?></div></td>
@@ -435,7 +424,7 @@
 						<label>Confirm:&nbsp;</label></td>
 					<td width="30%" class="OEprofile-form-inputs">
 						<input type="password" name="OEprofile_form_pwdcon" 
-						value="<?php echo isset($_POST['OEprofile_form_pwdcon'])?$_POST['OEprofile_form_pwdcon']:$member_pwdcon; ?>">
+						value="<?php echo isset($_POST['OEprofile_form_pwdcon'])?$_POST['OEprofile_form_pwdcon']:$_SESSION["OEmember_password"]; ?>">
 					<td width="50%" class="OEprofile-form-errors">
 						<div id="OEprofile_form_pwdcon_err">
 						<?php isset($_POST['OEprofile_form_pwdcon_err']) ? $_POST['OEprofile_form_pwdcon_err']:''; ?></div></td>
