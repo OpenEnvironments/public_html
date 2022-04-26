@@ -14,14 +14,83 @@
 	/* echo "PRINTING SESSION OBJECT\n"; echo "SESSION:<pre>"; print_r($_SESSION); echo "</pre>"; */ 
 	/* echo "PRINTING POST OBJECT\n"; echo "POST:<pre>"; print_r($_POST); echo "</pre>"; */
 
-    /* process any form posts */
+	/* get the metadata for the current page */
 
+	$GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
+	$page_id = $GLOBALS["page_id"];
+	$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."'";
+	$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
+	if (!$conn) {  echo "Database connection error!\n";  exit;}
+	$cursor = pg_query($conn,$query);
+	if (!$cursor) {  echo "An error occurred.\n";  exit;}
+	$num_rows = pg_num_rows($cursor);
+	if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
+	} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
+	} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
+
+?>
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" type="image/png" href="images/oeicon32.png" sizes="any">
+	<title><?= $title ?></title>
+
+	<!--CSS -->
+	<link rel="stylesheet" href="css/oe.css" />
+	<link rel="stylesheet" href="css/modals.css" />
+
+	<!--Javascript -->
+	<script type='text/javascript' src='js/cookies.js'></script>
+	<script type='text/javascript' src='js/googleanalytics.js'></script>
+	<script type='text/javascript' src='js/tools.js'></script>
+
+	<!-- Open Graph for Social Media -->
+	<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Open Environments" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:description" content="AI for the rest of us" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://openenvironments.com/images/oesmall.png" />
+	<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
+</head>
+<body>
+<!----  Message modal is needed by form submit processing --->
+<div id="OEmessage" class="OEmodal">
+	<div id="OEmessage-form" class="OEmessage-form">
+		<form name="OEmessage" method="post">
+			<table style="width: 100%;">
+				<tr>
+					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Message</b><br></td>
+					<td>
+						<button id="OEmessage-close" class="OEclosebutton">&times;</button>
+					</td>
+				</tr>
+				<tr>
+					<td width="10%"></td>
+					<td width="80%">
+						<div id="OEmessage-content" class="OEmessage-content">
+						</div>
+					</td>
+					<td width="10%"></td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center;">
+						<input type="submit" name="submit" class="OEsubmitbutton" value="OK" onclick="window.location.href='/index.php'" data-dismiss="modal">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div> 
+</div>  <!---- message modal ---->
+
+<?php
+    /* Process any form posts from previous page */
     if(isset($_POST['submit'])) {
         switch ($_POST['submit']) {
             case "OK":
                 /* A message popup was closed, so close any all modals */
                 break;
-            case "Profile":
+            case "Update":
                 /* The profile change modal just completed */
                 /* the email exists for a member id other than this one */
                 /* The member_id hasnt been changed - has the requested email address been used by another*/
@@ -155,48 +224,7 @@
                 break;
         } /* switch statement */
     }
-
-	/* get the metadata for the current page */
-
-	$GLOBALS["page_id"] = basename($_SERVER['PHP_SELF']);
-	$page_id = $GLOBALS["page_id"];
-	$query = "SELECT * FROM core.page WHERE page_id = '".$page_id."'";
-	$conn = pg_connect("host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass);
-	if (!$conn) {  echo "Database connection error!\n";  exit;}
-	$cursor = pg_query($conn,$query);
-	if (!$cursor) {  echo "An error occurred.\n";  exit;}
-	$num_rows = pg_num_rows($cursor);
-	if ( $num_rows > 1 ) {    $title = "Open Environments - MULTIPLE PAGES FOUND";
-	} elseif ( $num_rows < 1 ) {    $title = "Open Environments - NO PAGES FOUND";
-	} else {    $row = pg_fetch_array($cursor);    $title = $row[1];};
-
 ?>
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="icon" type="image/png" href="images/oeicon32.png" sizes="any">
-	<title><?= $title ?></title>
-
-	<!--CSS -->
-	<link rel="stylesheet" href="css/oe.css" />
-	<link rel="stylesheet" href="css/modals.css" />
-
-	<!--Javascript -->
-	<script type='text/javascript' src='js/cookies.js'></script>
-	<script type='text/javascript' src='js/googleanalytics.js'></script>
-	<script type='text/javascript' src='js/tools.js'></script>
-
-	<!-- Open Graph for Social Media -->
-	<meta prefix="og: http://ogp.me/ns#" property="og:type" content="website" />
-	<meta prefix="og: http://ogp.me/ns#" property="og:title" content="Open Environments" />
-	<meta prefix="og: http://ogp.me/ns#" property="og:description" content="AI for the rest of us" />
-	<meta prefix="og: http://ogp.me/ns#" property="og:image" content="https://openenvironments.com/images/oesmall.png" />
-	<meta prefix="og: http://ogp.me/ns#" property="og:url" content="https://openenvironments.com" />
-</head>
-
-<body>
 <!------------   Cookies Policy consent needs to be established at page opening   -------->
 <?php include "php/OEcookienotice.php" ?>
 <script>
@@ -432,7 +460,7 @@
 				<tr><td colspan="3"> </td></tr>
 				<tr>
 					<td></td>
-					<td style="text-align: center; vertical-align: middle;"><input type="submit" name="submit" class="OEsubmitbutton" value="Profile"></td>
+					<td style="text-align: center; vertical-align: middle;"><input type="submit" name="submit" class="OEsubmitbutton" value="Update"></td>
 					<td></td>
 				</tr>
 			</table>
@@ -483,32 +511,5 @@
 	</div> 
 </div> <!---- login form ---->
 
-<div id="OEmessage" class="OEmodal">
-	<div id="OEmessage-form" class="OEmessage-form">
-		<form name="OEmessage" method="post">
-			<table style="width: 100%;">
-				<tr>
-					<td colspan="2" style="color: white; font-weight: bold; font-size: large;"><b>&nbsp;Message</b><br></td>
-					<td>
-						<button id="OEmessage-close" class="OEclosebutton">&times;</button>
-					</td>
-				</tr>
-				<tr>
-					<td width="10%"></td>
-					<td width="80%">
-						<div id="OEmessage-content" class="OEmessage-content">
-						</div>
-					</td>
-					<td width="10%"></td>
-				</tr>
-				<tr>
-					<td colspan="3" style="text-align: center;">
-						<input type="submit" name="submit" class="OEsubmitbutton" value="OK" onclick="window.location.href='/index.php'" data-dismiss="modal">
-					</td>
-				</tr>
-			</table>
-		</form>
-	</div> 
-</div>  <!---- message modal ---->
 
 <?php
