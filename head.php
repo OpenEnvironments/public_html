@@ -43,7 +43,7 @@
 
 	<!--Javascript -->
 	<script type='text/javascript' src='js/cookies.js'></script>
-	<script type='text/javascript' src='js/googleanalytics.js'></script>
+	<script type='text/javascript' src='js/gtag.js'></script>
 	<script type='text/javascript' src='js/tools.js'></script>
 
 	<!-- Open Graph for Social Media -->
