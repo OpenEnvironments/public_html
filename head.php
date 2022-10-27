@@ -43,11 +43,7 @@
 
 	<!--Javascript -->
 	<script type='text/javascript' src='js/cookies.js'></script>
-<<<<<<< HEAD
-	<script type='text/javascript' src='js/googleanalytics.js'></script>
-=======
 	<script type='text/javascript' src='js/gtag.js'></script>
->>>>>>> 9e50c72657bbd4ce48d9e85ffa66c83a496e12e7
 	<script type='text/javascript' src='js/tools.js'></script>
 
 	<!-- Open Graph for Social Media -->
@@ -325,11 +321,7 @@
 							<img src="images/bellgrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
-<<<<<<< HEAD
-						<div class="OEhamburger" class="OEicon" >
-=======
 						<div class="OEhamburger" class="OEicon">
->>>>>>> 9e50c72657bbd4ce48d9e85ffa66c83a496e12e7
 							<button class="OEhamburger">
 							<img src="images/hamburger.png" class="OEicon"></img>
 							<div class="OEhamburger-content">
