@@ -5,11 +5,10 @@
   function OEmail($toemail,$toname,$fromemail,$fromname,$subject,$message) {
     /* NOTE: toname is erquired but not used in the PHP function. */
     /* write the mail to file rather than over smtp in development environ */
-    $welcomefile = fopen($toemail, "w") or die("Unable to open file!"); 
+    /* $welcomefile = fopen($toemail, "w") or die("Unable to open file!"); 
     fwrite($welcomefile, $message); fclose($welcomefile); 
-    }
+    } */
 
-    /*
     $headers =
         'Return-Path: ' . $fromemail . "\r\n" .
         'From: ' . $fromname . ' <' . $fromemail . '>' . "\r\n" .
@@ -18,12 +17,11 @@
         'Reply-To: ' . $fromname . ' <' . $fromemail . '>' . "\r\n" .
         'MIME-Version: 1.0' . "\r\n" .
         'Content-Transfer-Encoding: 8bit' . "\r\n" .
-        'Content-Type: text/plain; charset=UTF-8' . "\r\n";
+	'Content-type: text/html; charset=iso-8859-1' . "\r\n";
     $params = '-f ' . $fromemail;
     $try = mail($toemail, $subject, $message, $headers, $params);
-    if ( $try ) {echo "Succeeded";}  else  {echo "Failed";} ;
+    if ( $try ) {echo "";}  else  {echo "Failed";} ;
     } 
-    */
     
   function OEalert($subject,$message) {
     $toemail = "admin@openenvironmets.com";

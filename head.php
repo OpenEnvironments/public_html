@@ -321,7 +321,7 @@
 							<img src="images/bellgrayed.png" class="OEicon" style="cursor: unset;"></div>
 					</td>
 					<td width="12%">
-						<div class="OEhamburger" class="OEicon">
+						<div class="OEhamburger" class="OEicon" >
 							<button class="OEhamburger">
 							<img src="images/hamburger.png" class="OEicon"></img>
 							<div class="OEhamburger-content">
