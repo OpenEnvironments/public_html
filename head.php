@@ -297,7 +297,8 @@
 				</tr>
 				<tr>
 					<td width="28%"> 
-						<button id="OEregister-button" class="OEregister-button">Register!</button>
+						<!----   <button id="OEregister-button" class="OEregister-button">Register!</button>    ---->
+						<!----   <button id="OEregister-button" class="OEregister-button" onclick="window.location.href='model.php';">Register!</button>    ---->
 					</td>
 					<td width="12%">
 						<a href="help.php"><img src="images/question.png" class="OEicon"></a>

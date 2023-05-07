@@ -4,7 +4,7 @@ include "head.php";
 
 ?>
 <!--------- Content Area (a 3x3 table using outer cells for spacing) ----------->
-<br><br><br><br><br><br><br><br><br><br>
+<br><br>
 <div class="OEsplash">
 	<div style="position: absolute; top: 100px; left: 40px; font-family: Monospace; font-weight: bold; font-size: 14px;">
 		"AI is fuelling a Fourth Industrial Revolution."<br style="margin: 0px 0px;">

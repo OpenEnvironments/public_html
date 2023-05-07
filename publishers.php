@@ -11,7 +11,7 @@ include "head.php";
 			<?php
 			$connstr = "host=" . $OEhost . " port=" . $OEport . " dbname=" . $OEname . " user=" . $OEuser . " password=" . $OEpass;
 			$conn = pg_connect($connstr);
-			$cursor = pg_query("select * from core.publisher");
+			$cursor = pg_query($conn, "select * from core.publisher");
 			while ($row = pg_fetch_assoc($cursor) ){
 			echo  "<a href=\"".$row['publisher_url']."\" target=\"_blank\">
 					<div class=\"OEcard\">
